@@ -42,6 +42,9 @@ const tripSlice = createSlice({
   }
 });
 
-// export stuff
-
-export default tripSlice.reducer;
+// Extract the action creators object and the reducer
+const { actions, reducer } = tripSlice;
+// Extract and export each action creator by name
+export const { updateDestination, updateStartDate, updateEndDate, updateActivities, updateBudget, updateTravelers, updateGroupDescription } = actions;
+// Export the reducer as the default export
+export default reducer;
