@@ -16,7 +16,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "vite": "^5.2.8"
   },
   "devDependencies": {
     "@babel/core": "^7.24.3",
