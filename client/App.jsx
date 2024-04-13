@@ -1,10 +1,15 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
+import Header from './components/Header';
+import Main from './components/Main';
 
 export default function App() {
   return (
     <div>
-      <h1>Travelotl</h1>
-      <p>Let us plan the trip of your dreams...</p>
+      <Header />
+      <Main >
+        <Outlet />
+      </Main>
     </div>
   );
 }
