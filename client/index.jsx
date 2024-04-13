@@ -5,6 +5,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import tripReducer from './reducers/tripReducer';
 import App from './App';
+import About from './components/About';
+import Login from './components/Login';
+import '../styles.css';
 
 const store = configureStore({
   reducer: {
@@ -20,6 +23,8 @@ createRoot(root).render(
       <Router>
         <Routes>
           <Route path="/" element={<App />} />
+          <Route path='/about' element={<About />} />
+          <Route path='login' element={<Login />} />
           // Add more routes as needed
         </Routes>
       </Router>
