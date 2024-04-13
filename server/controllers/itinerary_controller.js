@@ -1,0 +1,1 @@
+//Controller to call the Open AI API for information on destinations for the itinerary
