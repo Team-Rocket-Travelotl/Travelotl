@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite & nodemon ./server/server.js",
     "build": "vite build",
     "serve": "vite preview"
   },
