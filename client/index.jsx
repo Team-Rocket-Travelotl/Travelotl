@@ -10,7 +10,7 @@ import Login from './components/Login';
 import Form from './components/Form';
 import '../styles.css';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     trip: tripReducer,
   }
