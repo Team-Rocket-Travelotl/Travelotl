@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from './Header';
+import Itinerary from './Itinerary';
 
 const Form = () => {
     const [formData, setFormData] = useState({
@@ -10,7 +11,9 @@ const Form = () => {
         budget: 0,
         travelers: 0,
         groupDescription: ''
-    })
+    });
+
+    const [itineraryData, setItineraryData] = useState(null);
     
     const handleInputChange = e => {
         const { name, value } = e.target;
@@ -62,6 +65,7 @@ const Form = () => {
             const parsedData = await response.json();
             if (response.ok) {
               console.log(parsedData);
+              setItineraryData(parsedData.itinerary)
             } else {
               throw new Error('failed to retreive data');
             }
@@ -227,6 +231,12 @@ const Form = () => {
                     <button type="submit">Submit</button>
                 </form>
             </div>
+            {itineraryData && (
+            <div>
+                <h2>Your Itinerary</h2>
+                <Itinerary itinerary={itineraryData} />
+            </div>
+            )}
         </div>
     </>
   )
