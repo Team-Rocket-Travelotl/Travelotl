@@ -49,20 +49,19 @@ const Form = () => {
     const handleSubmit = async e => {
         e.preventDefault();
         console.log(JSON.stringify(formData))
-
-        /////////////// To send formData to back end to make API request ///////////////
         
         try {
-            const response = await fetch('/api/itinerary', {
+            console.log('data sent to back end server to make API request')
+            const response = await fetch('/api/trip', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify(formData)
             });
-            console.log('data sent to back end server to make API request')
+            const parsedData = await response.json();
             if (response.ok) {
-              console.log(response)
+              console.log(parsedData);
             } else {
               throw new Error('failed to retreive data');
             }
