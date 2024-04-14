@@ -7,6 +7,7 @@ import tripReducer from './reducers/tripReducer';
 import App from './App';
 import About from './components/About';
 import Login from './components/Login';
+import Form from './components/Form';
 import '../styles.css';
 
 const store = configureStore({
@@ -24,7 +25,8 @@ createRoot(root).render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path='/about' element={<About />} />
-          <Route path='login' element={<Login />} />
+          <Route path='/login' element={<Login />} />
+          <Route path="/form" element={<Form />} />
           // Add more routes as needed
         </Routes>
       </Router>

@@ -1,6 +1,11 @@
+import Header from "./Header"
+
 const About = () => {
   return (
-    <div>About</div>
+    <div>
+      <Header />
+      <h1>About</h1>
+    </div>
   )
 }
 
