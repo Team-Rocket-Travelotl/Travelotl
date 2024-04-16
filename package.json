@@ -8,9 +8,10 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "dev": "vite & node ./server/server.js",
+    "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "server": "nodemon"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.2",
