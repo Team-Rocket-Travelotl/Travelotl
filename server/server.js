@@ -1,5 +1,5 @@
 const express = require ('express');
-const path = require ('path');
+const path = require('path');
 
 // TEST CODE - CAN DELETE WHEN FINISHED
 const tripController = require('./controllers/itinerary_controller');
