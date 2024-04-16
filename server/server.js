@@ -15,7 +15,7 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname,'../index.html'))
 })
 
-app.post('/api/trip', tripController.buildTrip, (req, res) => {
+app.post('/api/trip', tripController.buildTrip, tripController.saveTrip, (req, res) => {
   res.status(200).send(res.locals.itinerary);
 })
 

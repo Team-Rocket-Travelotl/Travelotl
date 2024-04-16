@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './config.env'});
 const express = require('express');
 const app = express();
+const Itinerary = require('../ItineraryModel');
 
 const openai = new OpenAI({ apiKey: process.env.OPEN_AI_API_KEY });
 
@@ -23,7 +24,9 @@ const openai = new OpenAI({ apiKey: process.env.OPEN_AI_API_KEY });
 // ========= end of TEST DATA ============
 
 const tripController = {
+  // buildTrip - To fetch itinerary from API request to Open AI
   async buildTrip(req, res, next) {
+    console.log("buildTrip invoked");
     const { destination, startDate, endDate, activities, budget, travelers, groupDescription } = req.body;
     // Update prompt below to reflect req.body information - DONE (J.H.)
     const prompt = `Make an itinerary for a trip for ${travelers} to ${destination} from ${startDate} until ${endDate}. I have a budget of ${budget}. Include the following types of attractions: ${activities.join(', ')} for a ${groupDescription}. Organize the itinerary by the following times of day: morning, afternoon, and evening. Recommend specific places of interest with their address. Limit cross-city commutes by grouping places of interest by geography for each day. Output the response in json format following this schema:
@@ -52,13 +55,44 @@ const tripController = {
         response_format: { type: "json_object" },
       });
     
-      console.log(JSON.parse(completion.choices[0].message.content));
+      // console.log(JSON.parse(completion.choices[0].message.content));
       res.locals.itinerary = JSON.parse(completion.choices[0].message.content);
       return next();
     } catch (err) {
       console.log(err);
     }
-  }
+  },
+
+  // saveTrip - To save the contents of the generated itinerary into the database
+  saveTrip(req, res, next) {
+    const newItinerary = {
+      itinerary: [],
+    }
+
+    console.log("saveTrip console -->", res.locals.itinerary.itinerary)
+
+    for (const [date, dailyActivity] of Object.entries(res.locals.itinerary.itinerary)) {
+      const dailyActivity = [];
+
+      for (const [timeOfDay, event] of Object.entries()) {
+        dailyActivity.push({
+          timeOfDay: timeOfDay,
+          event: event,
+        })
+      }
+
+      newItinerary.itinerary.push({
+        date: date,
+        dailyActivity: dailyActivity,
+      })
+      
+    }
+    // Itinerary.create({
+
+    // });
+
+    return next();
+  },
 }
 
 module.exports = tripController;
