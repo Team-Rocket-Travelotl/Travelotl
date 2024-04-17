@@ -43,7 +43,7 @@ const tripController = {
     // }
     // Thank you.`;
 
-    console.log(prompt);
+    // console.log(prompt);
     try {
       const completion = await openai.chat.completions.create({
         messages: [{"role": "system", "content": "You are a helpful travel planning assistant."},
@@ -66,20 +66,38 @@ const tripController = {
   // saveTrip - To save the contents of the generated itinerary into the database
   saveTrip(req, res, next) {
     const { email } = req.body;
-    const newItinerary = {
+
+    Itinerary.create({
       email,
       itinerary: JSON.stringify(res.locals.itinerary),
-    }
-
-    console.log("saveTrip console -->", res.locals.itinerary.itinerary)
-
-    Itinerary.create(newItinerary)
+    })
       .then (result => {
+        console.log("itinerary successfully saved in database");
         return next();
       })
       .catch (err => {
         console.log("could not add itinerary to database - saveTrip middleware");
-        console.error("saveTrip ERROR >", err);
+        console.error("saveTrip ERROR =>", err);
+      })
+  },
+  
+  deleteTrip(req, res, next) {
+    
+  },
+
+  // retrieveAll - To retrieve all trips saved for a specific user
+  retrieveAll(req, res, next) {
+    Itinerary.find({
+      email: req.body.email,
+    })
+      .then (result => {
+        console.log(result);
+        console.log("All trips retrieved - retrieveAllTrips middleware");
+        return next();
+      })
+      .catch (err => {
+        console.log("could not retrieve all trips - retrieveAllTrips middleware");
+        console.log("retrieveAllTrips ERROR =>", err);
       })
   },
 }

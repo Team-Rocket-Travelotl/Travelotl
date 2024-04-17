@@ -1,9 +1,12 @@
 const express = require ('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+dotenv.config({ path: './config.env'});
+
 
 console.log("DATABASE URI =====>", process.env.DATABASE_URI)
-mongoose.connect(`${process.env.DATABASE_URI}`);
+mongoose.connect(process.env.DATABASE_URI);
 mongoose.connection.once('open', () => {
   console.log('Connected to Database');
 });
@@ -22,8 +25,8 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname,'../index.html'))
 })
 
-app.post('/api/trip', tripController.buildTrip, tripController.saveTrip, (req, res) => {
-  res.status(200).send(res.locals.itinerary);
+app.post('/api/trip', tripController.buildTrip, tripController.saveTrip, /*tripController.retrieveAll,*/ (req, res) => {
+  res.status(201).send(res.locals.itinerary);
 })
 
 
