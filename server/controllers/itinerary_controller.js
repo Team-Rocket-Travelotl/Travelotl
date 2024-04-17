@@ -5,11 +5,11 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './config.env'});
 const express = require('express');
 const app = express();
-const Itinerary = require('../ItineraryModel');
+const Itinerary = require('../models/ItineraryModel');
 
 const openai = new OpenAI({ apiKey: process.env.OPEN_AI_API_KEY });
 
-// TEST DATA - DELETE WHEN FINISHED
+// TEST DATA - DELETE WHEN FINISHEDßß
 // const travelPlans = {
 //   destination: 'Los Angeles, CA',
 //   startDate: 'June 2, 2024',
@@ -65,33 +65,22 @@ const tripController = {
 
   // saveTrip - To save the contents of the generated itinerary into the database
   saveTrip(req, res, next) {
+    const { email } = req.body;
     const newItinerary = {
-      itinerary: [],
+      email,
+      itinerary: JSON.stringify(res.locals.itinerary),
     }
 
     console.log("saveTrip console -->", res.locals.itinerary.itinerary)
 
-    for (const [date, dailyActivity] of Object.entries(res.locals.itinerary.itinerary)) {
-      const dailyActivity = [];
-
-      for (const [timeOfDay, event] of Object.entries()) {
-        dailyActivity.push({
-          timeOfDay: timeOfDay,
-          event: event,
-        })
-      }
-
-      newItinerary.itinerary.push({
-        date: date,
-        dailyActivity: dailyActivity,
+    Itinerary.create(newItinerary)
+      .then (result => {
+        return next();
       })
-      
-    }
-    // Itinerary.create({
-
-    // });
-
-    return next();
+      .catch (err => {
+        console.log("could not add itinerary to database - saveTrip middleware");
+        console.error("saveTrip ERROR >", err);
+      })
   },
 }
 

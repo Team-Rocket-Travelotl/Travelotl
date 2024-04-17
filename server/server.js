@@ -1,5 +1,12 @@
 const express = require ('express');
 const path = require ('path');
+const mongoose = require('mongoose');
+
+console.log("DATABASE URI =====>", process.env.DATABASE_URI)
+mongoose.connect(`${process.env.DATABASE_URI}`);
+mongoose.connection.once('open', () => {
+  console.log('Connected to Database');
+});
 
 // TEST CODE - CAN DELETE WHEN FINISHED
 const tripController = require('./controllers/itinerary_controller');
