@@ -2,23 +2,33 @@ import Header from "./Header";
 
 import React, { useState } from 'react';
 
-const Login = ({ handleLogin }) => {
-  const [username, setUsername] = useState('');
+const Login = () => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    handleLogin(username, password);
+    const res = await fetch ('/api/users/login', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email, password}),
+    })
+
+    if(res.ok){
+      const user = await res.json();
+      console.log(user)
+    }
   };
 
   return (
     <div>
+      <Header />
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <label>
-          Username:
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+          Email:
+          <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
         </label>
         <br />
         <label>
