@@ -1,11 +1,9 @@
 //Controller to call the Open AI API for information on destinations for the itinerary
 // import { Configuration, OpenAI } from "openai";
 const OpenAI = require('openai');
-const dotenv = require('dotenv');
-dotenv.config({ path: './config.env'});
 const express = require('express');
 const app = express();
-const Itinerary = require('../models/ItineraryModel');
+const Itinerary = require('../models/Itinerary');
 
 const openai = new OpenAI({ apiKey: process.env.OPEN_AI_API_KEY });
 
@@ -54,8 +52,8 @@ const tripController = {
         model: "gpt-3.5-turbo",
         response_format: { type: "json_object" },
       });
-    
-      // console.log(JSON.parse(completion.choices[0].message.content));
+      
+      // console.log(completion.choices[0]);
       res.locals.itinerary = JSON.parse(completion.choices[0].message.content);
       return next();
     } catch (err) {
@@ -65,11 +63,11 @@ const tripController = {
 
   // saveTrip - To save the contents of the generated itinerary into the database
   saveTrip(req, res, next) {
-    const { email } = req.body;
+    // const { email } = req.body;
 
     Itinerary.create({
-      email,
-      itinerary: JSON.stringify(res.locals.itinerary),
+      email: req.body.email,
+      trip: JSON.stringify(res.locals.itinerary),
     })
       .then (result => {
         console.log("itinerary successfully saved in database");
@@ -81,23 +79,37 @@ const tripController = {
       })
   },
   
+  // deleteTrip - To delete the itinerary from the database based on the ObjectId
   deleteTrip(req, res, next) {
-    
+    Itinerary.findOneAndDelete({ "_id" : `${req.body.tripId}` })
+      .then( result => {
+        if(result) {
+          console.log("Itinerary deleted from the database - deleteTrip");
+        } else {
+          console.log("ObjectId not found. Nothing deleted");
+        }
+        return next();
+      })
+      .catch (err => {
+        console.log("could not locate itinerary based on id passed in - deleteTrip middleware");
+        console.error("deleteTrip ERROR =>", err);
+      })
   },
 
   // retrieveAll - To retrieve all trips saved for a specific user
   retrieveAll(req, res, next) {
     Itinerary.find({
-      email: req.body.email,
+      "email": req.body.email,
     })
       .then (result => {
-        console.log(result);
+        // console.log(result);
+        res.locals.allTrips = result;
         console.log("All trips retrieved - retrieveAllTrips middleware");
         return next();
       })
       .catch (err => {
         console.log("could not retrieve all trips - retrieveAllTrips middleware");
-        console.log("retrieveAllTrips ERROR =>", err);
+        console.error("retrieveAllTrips ERROR =>", err);
       })
   },
 }
