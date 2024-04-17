@@ -1,9 +1,7 @@
-import React from "react";
-
 const Itinerary = ({ itinerary }) => {
-  return (
+  if (itinerary.itinerary) return (
     <div>
-      {Object.entries(itinerary).map(([date, timesOfDay]) => (
+      {Object.entries(itinerary.itinerary).map(([date, timesOfDay]) => (
         <div key={date}>
           <h2>{date}</h2>
           <div>
