@@ -2,20 +2,28 @@ import Header from "./Header";
 
 import React, { useState } from 'react';
 
-const Login = ({ handleLogin }) => {
+const Register = ({ handleRegister }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    handleLogin(username, password);
+    const res = await fetch ('/register', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({username, password}),
+    })
+    if(res.ok){
+        const user = res.json()
+        console.log("Test!!!")
+    }
   };
 
   return (
     <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+        <Header />
+      <h2>Register</h2>
+      <form onSubmit={handleSubmit} method='post' action='submit' id='registerForm'>
         <label>
           Username:
           <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -26,10 +34,10 @@ const Login = ({ handleLogin }) => {
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
         <br />
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;
