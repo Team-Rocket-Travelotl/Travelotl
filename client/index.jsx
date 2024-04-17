@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import tripReducer from './reducers/tripReducer';
+import itineraryReducer from './reducers/itineraryReducer';
 import App from './App';
 import About from './components/About';
 import Login from './components/Login';
@@ -13,6 +14,7 @@ import '../styles.css';
 export const store = configureStore({
   reducer: {
     trip: tripReducer,
+    itinerary: itineraryReducer,
   }
 });
 

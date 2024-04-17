@@ -6,9 +6,9 @@ endDate.setDate(startDate.getDate() + 3);
 
 const initialState = {
   destination: 'Las Vegas, NV',
-  startDate: startDate.toLocaleDateString(),
-  endDate: endDate.toLocaleDateString(),
-  activities: [],
+  startDate: startDate.toISOString().slice(0, 10),
+  endDate: endDate.toISOString().slice(0, 10),
+  activities: new Set(),
   budget: 500,
   travelers: 1,
   groupDescription: 'Solo traveler',
@@ -39,12 +39,9 @@ const tripSlice = createSlice({
     updateGroupDescription(state, action) {
       state.groupDescription = action.payload;
     },
-  }
+  },
 });
 
-// Extract the action creators object and the reducer
-const { actions, reducer } = tripSlice;
-// Extract and export each action creator by name
+export const { actions, reducer } = tripSlice;
 export const { updateDestination, updateStartDate, updateEndDate, updateActivities, updateBudget, updateTravelers, updateGroupDescription } = actions;
-// Export the reducer as the default export
 export default reducer;
