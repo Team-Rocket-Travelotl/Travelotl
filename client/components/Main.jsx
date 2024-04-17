@@ -8,7 +8,7 @@ const Main = () => {
       <p>Let us plan the trip of your dreams...</p>
       <Link to='/form'>Click here to get started... </Link>
     </div>
-  )
-}
+  );
+};
 
 export default Main;
