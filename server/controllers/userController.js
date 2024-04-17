@@ -3,9 +3,10 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 
 const registerUser = async (req, res) => {
+  console.log('request to register user', req.body);
   try {
     const { firstName, lastName, email, password } = req.body;
-    console.log(`firstName: ${firstName}, lastName: ${lastName}, email: ${email}, password: ${password}`)
+
     // check that all fields have been provided
     if (!firstName || !lastName || !email || !password) {
       res.status(400).json({ error: 'Please add all required fields' })
@@ -14,7 +15,7 @@ const registerUser = async (req, res) => {
 
     // check if user already exists
     const userExists = await User.findOne({email});
-    
+
     // console.log(userExists);
     if (userExists) {
       res.status(400).json({ error: 'User already exists'});
@@ -41,36 +42,43 @@ const registerUser = async (req, res) => {
 }
 
 const loginUser = async (req, res) => {
+  console.log('request to login user', req.body);
   const { email, password } = req.body;
 
-  // check to see if a user with the provided email exists
-  const user = await User.findOne({email});
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ error: 'User not found' });
+    }
 
-  if (user && (await bcrypt.compare(password, user.password))) {
-    res.json({
-      _id: user.id,
+    const isValid = await bcrypt.compare(password, user.password);
+    if (!isValid) {
+      return res.status(400).json({ error: 'Invalid credentials' });
+    }
+
+    return res.status(200).json({
+      _id: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      token: generateToken(user._id)
-    })
-  } else {
-    res.status(400).json({ error: 'Invalid credentials' })
+      token: generateToken(user._id),
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
   }
-}
+};
 
 const getUser = async (req, res) => {
-  const { _id, firstName, lastName, email } = await User.findById(req.user.id);
+  const user = await User.findById(req.user.id);
   try {
-    res.status(200).json({ id: _id, firstName: firstName, lastName: lastName, email: email})
+    res.status(200).json({ id: user.id, firstName: user.firstName, lastName: user.lastName, email: user.email})
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error'});
   }
   
 }
-
-//process.env.JWT_SECRET to replace the 2nd argument
 
 // generate json web token
 const generateToken = (id) => {
