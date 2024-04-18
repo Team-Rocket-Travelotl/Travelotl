@@ -10,7 +10,8 @@
   "scripts": {
     "dev": "vite & nodemon ./server/server.js",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "server": "nodemon"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.2",

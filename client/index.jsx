@@ -9,6 +9,7 @@ import App from './App';
 import About from './components/About';
 import Login from './components/Login';
 import Form from './components/Form';
+import Register from './components/Register';
 import '../styles.css';
 
 export const store = configureStore({
@@ -28,6 +29,7 @@ createRoot(root).render(
           <Route path="/" element={<App />} />
           <Route path='/about' element={<About />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
           <Route path="/form" element={<Form />} />
           // Add more routes as needed
         </Routes>
