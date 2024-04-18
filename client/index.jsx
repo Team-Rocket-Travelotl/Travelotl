@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import tripReducer from './reducers/tripReducer';
 import itineraryReducer from './reducers/itineraryReducer';
 import App from './App';
+import Manager from './components/Manager';
 import About from './components/About';
 import Login from './components/Login';
 import Form from './components/Form';
@@ -27,6 +28,7 @@ createRoot(root).render(
       <Router>
         <Routes>
           <Route path="/" element={<App />} />
+          <Route path='/manager' element={<Manager />} />
           <Route path='/about' element={<About />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />

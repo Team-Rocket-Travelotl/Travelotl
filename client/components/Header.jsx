@@ -8,6 +8,9 @@ const Header = () => {
         <h1>Travelotl</h1>
       </div>
       <div>
+        <Link to='/manager'>Manager</Link>
+      </div>
+      <div>
         <Link to='/about'>About</Link>
       </div>
       <div>

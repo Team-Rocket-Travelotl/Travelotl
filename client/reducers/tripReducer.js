@@ -8,7 +8,7 @@ const initialState = {
   destination: 'Las Vegas, NV',
   startDate: startDate.toISOString().slice(0, 10),
   endDate: endDate.toISOString().slice(0, 10),
-  activities: new Set(),
+  activities: [],
   budget: 500,
   travelers: 1,
   groupDescription: 'Solo traveler',
