@@ -2,20 +2,23 @@ import Header from "./Header";
 
 import React, { useState } from 'react';
 
-const Register = ({ handleRegister }) => {
-  const [username, setUsername] = useState('');
+const Register = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch ('/register', {
+    const res = await fetch ('/api/users/', {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({username, password}),
+        body: JSON.stringify({firstName, lastName, email, password}),
     })
+
     if(res.ok){
-        const user = res.json()
-        console.log("Test!!!")
+        const user = await res.json();
+        console.log(user)
     }
   };
 
@@ -25,8 +28,18 @@ const Register = ({ handleRegister }) => {
       <h2>Register</h2>
       <form onSubmit={handleSubmit} method='post' action='submit' id='registerForm'>
         <label>
-          Username:
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+          First Name:
+          <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+        </label>
+        <br />
+        <label>
+          Last Name:
+          <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+        </label>
+        <br />
+        <label>
+          Email:
+          <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
         </label>
         <br />
         <label>
