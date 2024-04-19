@@ -66,8 +66,6 @@ const tripController = {
   // saveTrip - To save the contents of the generated itinerary into the database
   saveTrip(req, res, next) {
     // const { email } = req.body;
-
-
     Itinerary.create({
       // email: req.body.email,
       user: req.user._id,
@@ -89,6 +87,8 @@ const tripController = {
   
   // deleteTrip - To delete the itinerary from the database based on the ObjectId
   deleteTrip(req, res, next) {
+    console.log(req.body);
+    console.log("deleteTrip Middleware - tripId:", req.body.tripId);
     Itinerary.findOneAndDelete({ "_id" : `${req.body.tripId}` })
       .then( result => {
         if(result) {
