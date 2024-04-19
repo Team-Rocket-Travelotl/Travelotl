@@ -6,6 +6,8 @@ import { updateGroupDescription } from '../../reducers/tripReducer';
 const Page6 = () => {
   const { groupDescription } = useSelector(state => state.trip);
 
+  const formData = useSelector(state => state.trip);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -16,13 +18,35 @@ const Page6 = () => {
     }
   };
 
+  const handleClick = async () => {
+    try {
+      console.log('data sent to back end server to make API request');
+      const response = await fetch('/api/trip', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      const parsedData = await response.json();
+      if (response.ok) {
+        dispatch(updateItinerary(parsedData.itinerary));
+      } else {
+        throw new Error('failed to retrieve data');
+      }
+    } catch (error) {
+      console.error('Error with request:', error);
+    }
+  }
+
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
+      handleClick();
       navigate('/itinerary');
     }
   };
 
-  return (
+return (
     <div className="group-description-container">
       <p>What best describes your travel group...</p>
       <ul className="group-description">
@@ -97,7 +121,7 @@ const Page6 = () => {
           <button type='button'>Back</button>
         </Link>
         <Link to='/itinerary'>
-          <button type='submit'>Submit</button>
+          <button type='submit' onClick={handleClick}>Submit</button>
         </Link>
       </div>
     </div>
