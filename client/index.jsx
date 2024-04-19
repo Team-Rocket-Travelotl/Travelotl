@@ -8,7 +8,9 @@ import tripReducer from './reducers/tripReducer';
 import itineraryReducer from './reducers/itineraryReducer';
 
 import App from './App';
+import Manager from './components/Manager';
 import Main from './components/Main';
+
 import About from './components/About';
 import Login from './components/Login';
 import Form from './components/Form';
@@ -38,6 +40,7 @@ createRoot(root).render(
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<Main />} />
+            <Route path='/manager' element={<Manager />} />
             <Route path='/about' element={<About />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
