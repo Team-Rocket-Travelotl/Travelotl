@@ -2,8 +2,31 @@
     background-color: lightblue;
 } */
 
+h2 {
+    margin-left: 20px;
+}
+
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-left: 20px;
+    margin-right: 50px;
+}
+
+#itinerary-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.trip-tile {
+    border: 0.75px solid black;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    min-width: 300px;
+    margin: 10px;
+
+    /* display: flex;
+    flex-direction: column; */
 }

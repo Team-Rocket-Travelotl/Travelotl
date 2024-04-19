@@ -92,10 +92,11 @@ const Manager = () => {
 
   const itineraryList = [...itineraries];
   const renderList = itineraryList.map((itinerary) => {
-    return (<div key={itinerary._id} id={itinerary._id}>
-      <h4>{itinerary.destination}</h4>
+    return (<div className='trip-tile' key={itinerary._id} id={itinerary._id}>
+      <h3>{itinerary.destination}</h3>
       <p>From: <b>{itinerary.startDate}</b></p>
       <p>To: <b>{itinerary.endDate}</b></p>
+      <p>Created on: <b>{new Date(itinerary.createdAt).toLocaleString()}</b></p>
       <div><button onClick={ seeDetails }>See Details</button>   <button onClick={ deleteItinerary }>Delete</button></div>
     </div>)
   })
@@ -106,7 +107,7 @@ const Manager = () => {
   return (<div>
     <Header />
     <h2>Itinerary Manager</h2>
-    {renderList}
+    <div id='itinerary-grid'>{renderList}</div>
   </div>)
 }
 
