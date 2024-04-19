@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { updateGroupDescription } from '../../reducers/tripReducer';
+import { updateItinerary } from '../../reducers/itineraryReducer';
 
 const Page6 = () => {
   const { groupDescription } = useSelector(state => state.trip);
