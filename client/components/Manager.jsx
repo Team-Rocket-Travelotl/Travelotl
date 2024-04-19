@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { updateItinerary } from "../reducers/itineraryReducer";
 import { Link } from 'react-router-dom';
+import Header from "./Header";
 
 const Manager = () => {
   const [itineraries, setItineraries] = useState([]);
@@ -96,6 +97,7 @@ const Manager = () => {
   
 
   return (<div>
+    <Header />
     <h2>Itinerary Manager</h2>
     {renderList}
   </div>)
