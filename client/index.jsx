@@ -19,7 +19,7 @@ import Page4 from './components/formPages/Page4';
 import Page5 from './components/formPages/Page5';
 import Page6 from './components/formPages/Page6';
 import ItineraryPage from './components/ItineraryPage';
-
+import Register from './components/Register';
 import '../styles.css';
 
 export const store = configureStore({
@@ -40,6 +40,7 @@ createRoot(root).render(
             <Route index element={<Main />} />
             <Route path='/about' element={<About />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
             <Route path="/form" element={<Form />}>
               <Route index element={<Page1 />} />
               <Route path="/form/page2" element={<Page2 />} />
