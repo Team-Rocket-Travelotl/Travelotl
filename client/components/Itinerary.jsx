@@ -1,7 +1,7 @@
 const Itinerary = ({ itinerary }) => {
   if (itinerary) return (
     <div>
-      {Object.entries(itinerary.itinerary).map(([date, timesOfDay]) => (
+      {Object.entries(itinerary).map(([date, timesOfDay]) => (
         <div key={date}>
           <h2>{date}</h2>
           <div>

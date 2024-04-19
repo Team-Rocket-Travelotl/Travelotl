@@ -52,7 +52,7 @@ const Page2 = () => {
         />
       </div>
       <div>
-        <Link to='/form'>
+        <Link to='/form/page1'>
           <button type='button'>Back</button>
         </Link>
         <Link to='/form/page3'>

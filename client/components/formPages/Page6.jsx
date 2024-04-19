@@ -21,10 +21,11 @@ const Page6 = () => {
   const handleClick = async () => {
     try {
       console.log('data sent to back end server to make API request');
-      const response = await fetch('/api/trip', {
+      const response = await fetch('/api/trip/build', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('userToken')}`
         },
         body: JSON.stringify(formData)
       });
