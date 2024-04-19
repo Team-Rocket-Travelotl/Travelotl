@@ -1,9 +1,5 @@
-const Itinerary = ({ itinerary, location }) => {
-  // const { state } = itinerary;
-  // const { itinerary } = state;
-  // console.log(location);
-  // console.log("Itinerary Component prop:", itinerary);
-  if (itinerary.itinerary) return (
+const Itinerary = ({ itinerary }) => {
+  if (itinerary) return (
     <div>
       {Object.entries(itinerary.itinerary).map(([date, timesOfDay]) => (
         <div key={date}>
