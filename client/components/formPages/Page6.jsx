@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { updateItinerary } from '../../reducers/itineraryReducer';
 
 import { updateGroupDescription } from '../../reducers/tripReducer';
 
@@ -21,16 +22,18 @@ const Page6 = () => {
   const handleClick = async () => {
     try {
       console.log('data sent to back end server to make API request');
-      const response = await fetch('/api/trip', {
+      const response = await fetch('/api/trip/build', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
         },
         body: JSON.stringify(formData)
       });
       const parsedData = await response.json();
       if (response.ok) {
         dispatch(updateItinerary(parsedData.itinerary));
+        navigate('/itinerary');
       } else {
         throw new Error('failed to retrieve data');
       }
@@ -39,10 +42,9 @@ const Page6 = () => {
     }
   }
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = async (event) => {
     if (event.key === 'Enter') {
-      handleClick();
-      navigate('/itinerary');
+      await handleClick();
     }
   };
 
@@ -120,9 +122,7 @@ return (
         <Link to='/form/page5'>
           <button type='button'>Back</button>
         </Link>
-        <Link to='/itinerary'>
-          <button type='submit' onClick={handleClick}>Submit</button>
-        </Link>
+        <button type='submit' onClick={handleClick}>Submit</button>
       </div>
     </div>
   );

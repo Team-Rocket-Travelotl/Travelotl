@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { updateItinerary } from "../reducers/itineraryReducer";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from "./Header";
 
 const Manager = () => {
   const [itineraries, setItineraries] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Retrieve all itineraries associated with the user and update state
   useEffect(() => {
@@ -54,7 +55,7 @@ const Manager = () => {
     
   }
 
-  const seeDetails = async () => {
+  const seeDetails = async (e) => {
     const tripId = e.target.parentNode.parentNode.id;
 
     try {
@@ -67,16 +68,22 @@ const Manager = () => {
 
       itineraryList = await itineraryList.json();
 
+      // console.log(itineraryList);
+
       let foundTrip;
       for (const trip of itineraryList) {
-        if (trip.tripId === tripId) {
-          foundTrip = trip.trip;
+        // console.log(trip);
+        // console.log("Parse ID:", trip.tripId, "| Target ID:", tripId)
+        if (trip._id === tripId) {
+          foundTrip = JSON.parse(trip.trip);
           break;
         }
       }
-
-      if (foundTrip) dispatch(updateItinerary(foundTrip));
-      // Route to adam's itinerary page HEREEEEE
+      console.log("See Details of:", foundTrip);
+      if (foundTrip) {
+        dispatch(updateItinerary(foundTrip.itinerary));
+        navigate('/itinerary');
+      }
       
     } catch (error) {
       console.error('Error with request:', error);
