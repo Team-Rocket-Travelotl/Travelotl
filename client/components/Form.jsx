@@ -9,7 +9,7 @@ const Form = () => {
       <Header />
       <div className="form-container">
         <div>
-          <h2>Enter in your travel details...</h2>
+          <h2 className='text-2xl text-center font-bold'>Enter in your travel details...</h2>
         </div>
         <div>
           <Outlet />
