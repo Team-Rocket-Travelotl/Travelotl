@@ -97,7 +97,7 @@ const Manager = () => {
       <p>From: <b>{itinerary.startDate}</b></p>
       <p>To: <b>{itinerary.endDate}</b></p>
       <p>Created on: <b>{new Date(itinerary.createdAt).toLocaleString()}</b></p>
-      <div><button onClick={ seeDetails }>See Details</button>   <button onClick={ deleteItinerary }>Delete</button></div>
+      <div className="tile-buttons"><button onClick={ seeDetails }>See Details</button><button onClick={ deleteItinerary }>Delete</button></div>
     </div>)
   })
   // state: { itinerary: { itinerary: itinerary.trip }}

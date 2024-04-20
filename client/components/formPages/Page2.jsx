@@ -27,12 +27,13 @@ const Page2 = () => {
   };
 
   return (
-    <>
+    <div className="bg-gray-300 rounded border-4 border-black">
       <div>
-        <label htmlFor="startDate">
+        <label className='text-2xl' htmlFor="startDate">
           Start Date:
         </label>
-        <input type="date"
+        <input className='typed-input' 
+          type="date"
           name="startDate"
           value={startDate}
           onChange={handleInputChange}
@@ -40,10 +41,10 @@ const Page2 = () => {
         />
       </div>
       <div>
-        <label htmlFor="endDate">
+        <label className='text-2xl' htmlFor="endDate">
           End Date:
         </label>
-        <input
+        <input className='typed-input'
           type="date"
           name="endDate"
           value={endDate}
@@ -51,15 +52,15 @@ const Page2 = () => {
           onKeyDown={handleKeyDown}
         />
       </div>
-      <div>
+      <div >
         <Link to='/form'>
-          <button type='button'>Back</button>
+          <button className='m-4 underline text-blue-600' type='button'>Back</button>
         </Link>
         <Link to='/form/page3'>
-          <button type='button'>Next</button>
+          <button className='m-4 underline text-blue-600' type='button'>Next</button>
         </Link>
       </div>
-    </>
+    </div>
   );
 };
 
