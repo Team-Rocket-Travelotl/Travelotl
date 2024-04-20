@@ -1,5 +1,6 @@
 const Itinerary = ({ itinerary }) => {
-  if (itinerary.itinerary) return (
+  // console.log("Itinerary Component:", itinerary.itinerary.itinerary);
+  if (itinerary) return (
     <div>
       {Object.entries(itinerary.itinerary).map(([date, timesOfDay]) => (
         <div key={date}>
