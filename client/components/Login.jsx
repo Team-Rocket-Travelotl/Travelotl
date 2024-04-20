@@ -1,8 +1,10 @@
 import Header from "./Header";
+import { useNavigate } from 'react-router-dom';
 
 import React, { useState } from 'react';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -19,6 +21,7 @@ const Login = () => {
       const user = await res.json();
       localStorage.setItem('userToken', user.token);
       console.log(user)
+      navigate('/');
     }
   };
 

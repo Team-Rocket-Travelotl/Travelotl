@@ -55,7 +55,7 @@ const tripController = {
         response_format: { type: "json_object" },
       });
       
-      // console.log(completion.choices[0]);
+      console.log(completion.choices[0]);
       res.locals.itinerary = JSON.parse(completion.choices[0].message.content);
       return next();
     } catch (err) {

@@ -68,3 +68,70 @@
     position: relative;
 }
 
+#itinerary-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.trip-tile {
+    border: 0.75px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    /* padding-left: 20px;
+    padding-bottom: 20px; */
+    min-width: 400px;
+    margin: 10px;
+
+    /* display: flex;
+    flex-direction: column; */
+}
+
+.tile-buttons {
+    color: blue;
+    max-width: 150px;
+    display: flex;
+    justify-content: space-between;
+
+    :hover {
+        text-decoration: underline;
+    }
+}
+
+#loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#start {
+    color: blue;
+    text-decoration: underline;
+}
+
+#itinerary-details {
+    margin-left: 20px;
+}
+
+.date {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.day-entry {
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+.day-details {
+    margin-left: 10px;
+}
+
+.time-of-day {
+    font-weight: bold;
+}
+
+.activity-details {
+    margin-left: 10px;
+}
+
