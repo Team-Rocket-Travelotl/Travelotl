@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* body {
     background-color: lightblue;
 } */
@@ -6,4 +10,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.activities{
+    column-count:3;
+}
+
+.activity-card{
+    border-radius: 25px;
+    background: #73AD21;
+    padding: 24px;
+    width: 200px;
+    height: 85px;
+    text-align: center;
+    text-justify: center;
+    font-weight: bold;
+    font-size: 150%;
+    margin: 5px;
 }

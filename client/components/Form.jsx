@@ -108,10 +108,12 @@ const Form = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="activities-container">
-              <p>Select activities you are interested in...</p>
+            <div className="text-center bg-yellow-200">
+              <p className='text-3xl font-semibold underline m-3'>
+                Select activities you are interested in...
+                </p>
               <ul className="activities">
-                <li>
+                <li className="activity-card">
                   <label>
                     <input
                       type="checkbox"
@@ -121,7 +123,7 @@ const Form = () => {
                     Hiking
                   </label>
                 </li>
-                <li>
+                <li className="activity-card flex items-center justify-center">
                   <label>
                     <input
                       type="checkbox"
@@ -131,7 +133,7 @@ const Form = () => {
                     Local Events
                   </label>
                 </li>
-                <li>
+                <li className="activity-card">
                   <label>
                     <input
                       type="checkbox"
@@ -141,7 +143,7 @@ const Form = () => {
                     Restaurants
                   </label>
                 </li>
-                <li>
+                <li className="activity-card">
                   <label>
                     <input
                       type="checkbox"
@@ -151,7 +153,7 @@ const Form = () => {
                     Danger
                   </label>
                 </li>
-                <li>
+                <li className="activity-card">
                   <label>
                     <input
                       type="checkbox"
@@ -161,7 +163,7 @@ const Form = () => {
                     Safety
                   </label>
                 </li>
-                <li>
+                <li className="activity-card">
                   <label>
                     <input
                       type="checkbox"
