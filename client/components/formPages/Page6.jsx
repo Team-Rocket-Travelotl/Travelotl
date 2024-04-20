@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { updateItinerary } from '../../reducers/itineraryReducer';
 
 import { updateGroupDescription } from '../../reducers/tripReducer';
 import { updateItinerary } from '../../reducers/itineraryReducer';
