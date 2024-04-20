@@ -554,16 +554,3 @@ video {
   --tw-contain-style:  ;
 }
 
-/* body {
-    background-color: lightblue;
-} */
-
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.activities-container{
-  background-color: green;
-}
