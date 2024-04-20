@@ -57,7 +57,7 @@ const Page6 = () => {
 return (
     <div className="bg-gray-300 rounded border-4 border-black ">
       <div>{
-        loading ? <Loader/> :
+        loading ? <div id='loader'><Loader/></div> :
         <>
           <p>What best describes your travel group...</p>
           <ul className="groups">

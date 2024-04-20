@@ -96,3 +96,41 @@
         text-decoration: underline;
     }
 }
+
+#loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#start {
+    color: blue;
+    text-decoration: underline;
+}
+
+#itinerary-details {
+    margin-left: 20px;
+}
+
+.date {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.day-entry {
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+.day-details {
+    margin-left: 10px;
+}
+
+.time-of-day {
+    font-weight: bold;
+}
+
+.activity-details {
+    margin-left: 10px;
+}
