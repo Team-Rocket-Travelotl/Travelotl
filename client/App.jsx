@@ -1,10 +1,9 @@
-import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 export default function App() {
   return (
     <div>
-      <h1>Travelotl</h1>
-      <p>Let us plan the trip of your dreams...</p>
+      <Outlet />
     </div>
   );
-}
+};
