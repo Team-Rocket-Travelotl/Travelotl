@@ -1,39 +1,22 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import App from './components/app/App';
+import Manager from './components/manager';
+import Main from './components/main';
+import About from './components/about';
+import Login from './components/login';
+import Form from './components/form';
+import { Page1, Page2, Page3, Page4, Page5, Page6 } from './components/pages';
+import ItineraryContainer from './components/itinerary-container';
+import Register from './components/register';
+import store from './store';
+import './styles.css';
 
-import tripReducer from './reducers/tripReducer';
-import itineraryReducer from './reducers/itineraryReducer';
+const root = createRoot(document.getElementById('root'));
 
-import App from './App';
-import Manager from './components/manager/Manager';
-import Main from './components/main/Main';
-
-import About from './components/about/About';
-import Login from './components/login/Login';
-import Form from './components/form/Form';
-import Page1 from './components/pages/Page1';
-import Page2 from './components/pages/Page2';
-import Page3 from './components/pages/Page3';
-import Page4 from './components/pages/Page4';
-import Page5 from './components/pages/Page5';
-import Page6 from './components/pages/Page6';
-import ItineraryContainer from './components/itinerary-container/ItineraryContainer';
-import Register from './components/register/Register';
-import '../styles.css';
-
-export const store = configureStore({
-  reducer: {
-    trip: tripReducer,
-    itinerary: itineraryReducer,
-  }
-});
-
-const root = document.getElementById('root');
-
-createRoot(root).render(
+root.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
