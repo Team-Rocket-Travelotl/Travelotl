@@ -49,11 +49,11 @@ const Page6 = () => {
   };
 
 return (
-    <div className="group-description-container">
+    <div className="bg-gray-300 rounded border-4 border-black ">
       <p>What best describes your travel group...</p>
-      <ul className="group-description">
+      <ul className="groups">
         <li>
-          <label>
+          <label className='group-card'>
             <input
               type="radio"
               name="groupDescription"
@@ -66,7 +66,7 @@ return (
           </label>
         </li>
         <li>
-          <label>
+          <label className='group-card'>
             <input
               type="radio"
               name="groupDescription"
@@ -79,7 +79,7 @@ return (
           </label>
         </li>
         <li>
-          <label>
+          <label className='group-card'> 
             <input
               type="radio"
               name="groupDescription"
@@ -92,7 +92,7 @@ return (
           </label>
         </li>
         <li>
-          <label>
+          <label className='group-card'>
             <input
               type="radio"
               name="groupDescription"
@@ -105,7 +105,7 @@ return (
           </label>
         </li>
         <li>
-          <label>
+          <label className='group-card'>
             <input
               type="radio"
               name="groupDescription"
@@ -120,9 +120,9 @@ return (
       </ul>
       <div>
         <Link to='/form/page5'>
-          <button type='button'>Back</button>
+          <button className='m-4 underline text-blue-600' type='button'>Back</button>
         </Link>
-        <button type='submit' onClick={handleClick}>Submit</button>
+        <button className='m-4 underline text-blue-600' type='submit' onClick={handleClick}>Submit</button>
       </div>
     </div>
   );

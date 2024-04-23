@@ -5,18 +5,18 @@ const Header = () => {
   return (
     <div className="header-container">
       <div>
-        <h1>Travelotl</h1>
+        <h1 className='text-blue-600 text-3xl font-bold font-serif text-center'>Travelotl</h1>
       </div>
-      <div>
+      <div className='text-right m-2'>
         <Link to='/manager'>Manager</Link>
       </div>
-      <div>
+      <div className='text-right m-2'>
         <Link to='/about'>About</Link>
       </div>
-      <div>
+      <div className='text-center m-2'>
         <Link to='/register'>Register</Link>
       </div>
-      <div>
+      <div className='text-center m-2'>
         <Link to='/login'>Login</Link>
       </div>
     </div>

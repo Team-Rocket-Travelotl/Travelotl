@@ -22,11 +22,11 @@ const Page5 = () => {
   };
 
   return (
-    <div>
-      <label htmlFor="travelers">
+    <div className="bg-gray-300 rounded border-4 border-black">
+      <label className='text-2xl' htmlFor="travelers">
         No. of Travelers:
       </label>
-      <input
+      <input className="typed-input"
         type="number"
         name="travelers"
         value={travelers}
@@ -35,10 +35,10 @@ const Page5 = () => {
       />
       <div>
         <Link to='/form/page4'>
-          <button type='button'>Back</button>
+          <button className='m-4 underline text-blue-600' type='button'>Back</button>
         </Link>
         <Link to='/form/page6'>
-          <button type='button'>Next</button>
+          <button className='m-4 underline text-blue-600' type='button'>Next</button>
         </Link>
       </div>
     </div>

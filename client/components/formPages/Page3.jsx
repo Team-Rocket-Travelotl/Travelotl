@@ -31,10 +31,10 @@ const Page3 = () => {
   };
 
   return (
-    <div className="activities-container">
-      <p>Select activities you are interested in...</p>
+    <div className="bg-gray-300 rounded border-4 border-black ">
+      <p className='text-2xl text-center'>Select activities you are interested in...</p>
       <ul className="activities">
-        <li>
+        <li className='activity-card'>
           <label>
             <input
               type="checkbox"
@@ -46,7 +46,7 @@ const Page3 = () => {
             Hiking
           </label>
         </li>
-        <li>
+        <li className='activity-card'>
           <label>
             <input
               type="checkbox"
@@ -58,7 +58,7 @@ const Page3 = () => {
             Local Events
           </label>
         </li>
-        <li>
+        <li className='activity-card'>
           <label>
             <input
               type="checkbox"
@@ -70,7 +70,7 @@ const Page3 = () => {
             Restaurants
           </label>
         </li>
-        <li>
+        <li className='activity-card'>
           <label>
             <input
               type="checkbox"
@@ -82,7 +82,7 @@ const Page3 = () => {
             Danger
           </label>
         </li>
-        <li>
+        <li className='activity-card'>
           <label>
             <input
               type="checkbox"
@@ -94,7 +94,7 @@ const Page3 = () => {
             Safety
           </label>
         </li>
-        <li>
+        <li className='activity-card'>
           <label>
             <input
               type="checkbox"
@@ -109,10 +109,10 @@ const Page3 = () => {
       </ul>
       <div>
         <Link to='/form/page2'>
-          <button type='button'>Back</button>
+          <button className='m-4 underline text-blue-600' type='button'>Back</button>
         </Link>
         <Link to='/form/page4'>
-          <button type='button'>Next</button>
+          <button className='m-4 underline text-blue-600' type='button'>Next</button>
         </Link>
       </div>
     </div>
