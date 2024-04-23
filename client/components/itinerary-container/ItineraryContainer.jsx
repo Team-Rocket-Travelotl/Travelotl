@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 
-import Header from "./Header";
-import Itinerary from "./Itinerary"
+import Header from "../header";
+import Itinerary from "../itinerary/Itinerary"
 
 
-const ItineraryPage = () => {
+const ItineraryContainer = () => {
   const itinerary = useSelector(state => state.itinerary);
   return (
     <div>
@@ -15,4 +15,4 @@ const ItineraryPage = () => {
   );
 };
 
-export default ItineraryPage;
+export default ItineraryContainer;

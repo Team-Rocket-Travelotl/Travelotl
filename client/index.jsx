@@ -8,20 +8,20 @@ import tripReducer from './reducers/tripReducer';
 import itineraryReducer from './reducers/itineraryReducer';
 
 import App from './App';
-import Manager from './components/Manager';
-import Main from './components/Main';
+import Manager from './components/manager/Manager';
+import Main from './components/main/Main';
 
-import About from './components/About';
-import Login from './components/Login';
-import Form from './components/Form';
-import Page1 from './components/formPages/Page1';
-import Page2 from './components/formPages/Page2';
-import Page3 from './components/formPages/Page3';
-import Page4 from './components/formPages/Page4';
-import Page5 from './components/formPages/Page5';
-import Page6 from './components/formPages/Page6';
-import ItineraryPage from './components/ItineraryPage';
-import Register from './components/Register';
+import About from './components/about/About';
+import Login from './components/login/Login';
+import Form from './components/form/Form';
+import Page1 from './components/pages/Page1';
+import Page2 from './components/pages/Page2';
+import Page3 from './components/pages/Page3';
+import Page4 from './components/pages/Page4';
+import Page5 from './components/pages/Page5';
+import Page6 from './components/pages/Page6';
+import ItineraryContainer from './components/itinerary-container/ItineraryContainer';
+import Register from './components/register/Register';
 import '../styles.css';
 
 export const store = configureStore({
@@ -53,7 +53,7 @@ createRoot(root).render(
               <Route path="/form/page6" element={<Page6 />} />
             </Route>
           </Route>
-          <Route path="/itinerary" element={<ItineraryPage />} />
+          <Route path="/itinerary" element={<ItineraryContainer />} />
         </Routes>
       </Router>
     </Provider>

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { updateItinerary } from "../reducers/itineraryReducer";
+import { updateItinerary } from "../../reducers/itineraryReducer";
 import { Link, useNavigate } from 'react-router-dom';
-import Header from "./Header";
+import Header from "../header/Header";
 
 const Manager = () => {
   const [itineraries, setItineraries] = useState([]);

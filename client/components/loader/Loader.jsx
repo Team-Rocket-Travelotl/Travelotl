@@ -1,4 +1,4 @@
-import video from "../assets/loader.mp4"
+import video from "../../assets/loader.mp4"
 
 
 const Loader = () => {
