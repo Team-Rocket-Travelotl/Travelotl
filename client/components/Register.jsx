@@ -1,5 +1,5 @@
 import Header from "./Header";
-
+import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 
 const Register = () => {
@@ -7,6 +7,7 @@ const Register = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,6 +20,7 @@ const Register = () => {
     if(res.ok){
         const user = await res.json();
         console.log(user)
+        navigate('/login');
     }
   };
 

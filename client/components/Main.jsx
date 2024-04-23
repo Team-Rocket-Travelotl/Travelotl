@@ -6,7 +6,7 @@ const Main = () => {
     <div>
       <Header />
       <p>Let us plan the trip of your dreams...</p>
-      <Link to='/form'>Click here to get started... </Link>
+      <Link to='/form' id='start'>Click here to get started... </Link>
     </div>
   );
 };
