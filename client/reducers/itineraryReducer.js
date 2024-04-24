@@ -5,7 +5,7 @@ const initialState = {};
 const itinerarySlice = createSlice({
   name: 'itinerary',
   initialState,
-  reducer: {
+  reducers: {
     updateItinerary(state, action) {
       state.itinerary = action.payload;
     },

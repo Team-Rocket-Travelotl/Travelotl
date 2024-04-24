@@ -14,8 +14,6 @@ import Register from './components/register';
 import store from './store.js';
 import './styles.css';
 
-console.log('store: ', store);
-
 const root = createRoot(document.getElementById('root'));
 
 root.render(

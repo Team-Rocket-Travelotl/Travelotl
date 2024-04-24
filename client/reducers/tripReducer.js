@@ -17,7 +17,7 @@ const initialState = {
 const tripSlice = createSlice({
   name: 'trip',
   initialState,
-  reducer: {
+  reducers: {
     updateDestination(state, action) {
       state.destination = action.payload;
     },
