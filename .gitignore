@@ -3,5 +3,5 @@ node_modules
 .vscode
 gitpush.zsh
 dist
-.env
+config.env
 package-lock.json
