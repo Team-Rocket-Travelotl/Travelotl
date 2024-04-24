@@ -11,8 +11,10 @@ import Form from './components/form';
 import { Page1, Page2, Page3, Page4, Page5, Page6 } from './components/pages';
 import ItineraryContainer from './components/itinerary-dates-container';
 import Register from './components/register';
-import store from './store';
+import store from './store.js';
 import './styles.css';
+
+console.log('store: ', store);
 
 const root = createRoot(document.getElementById('root'));
 
