@@ -9,7 +9,7 @@ import About from './components/about';
 import Login from './components/login';
 import Form from './components/form';
 import { Page1, Page2, Page3, Page4, Page5, Page6 } from './components/pages';
-import ItineraryContainer from './components/itinerary-container';
+import ItineraryContainer from './components/itinerary-dates-container';
 import Register from './components/register';
 import store from './store';
 import './styles.css';
