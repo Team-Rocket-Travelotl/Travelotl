@@ -8,8 +8,8 @@ import Main from './components/main';
 import About from './components/about';
 import Login from './components/login';
 import Form from './components/form';
-import { Page1, Page2, Page3, Page4, Page5, Page6 } from './components/pages';
-import ItineraryContainer from './components/itinerary-dates-container';
+import { DestinationPage, DatesPage, ActivitiesPage, BudgetPage, TravelerNumberPage, TravelerTypeSubmitPage } from './components/user-options-pages/index.js';
+import CompleteItinerary from './components/complete-itinerary';
 import Register from './components/register';
 import store from './store.js';
 import './styles.css';
@@ -28,15 +28,15 @@ root.render(
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path="/form" element={<Form />}>
-              <Route index element={<Page1 />} />
-              <Route path="/form/page2" element={<Page2 />} />
-              <Route path="/form/page3" element={<Page3 />} />
-              <Route path="/form/page4" element={<Page4 />} />
-              <Route path="/form/page5" element={<Page5 />} />
-              <Route path="/form/page6" element={<Page6 />} />
+              <Route index element={<DestinationPage />} />
+              <Route path="/form/page2" element={<DatesPage/>} />
+              <Route path="/form/page3" element={<ActivitiesPage />} />
+              <Route path="/form/page4" element={<BudgetPage />} />
+              <Route path="/form/page5" element={<TravelerNumberPage />} />
+              <Route path="/form/page6" element={<TravelerTypeSubmitPage />} />
             </Route>
           </Route>
-          <Route path="/itinerary" element={<ItineraryContainer />} />
+          <Route path="/itinerary" element={<CompleteItinerary />} />
         </Routes>
       </Router>
     </Provider>

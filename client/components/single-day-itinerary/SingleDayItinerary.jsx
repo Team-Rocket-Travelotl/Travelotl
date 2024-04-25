@@ -1,9 +1,9 @@
 import React from 'react';
 
-const ItineraryTimesContainer = ({ date }) => {
-  const times = Object.keys(date);
-  const timeSlotComponents = times.map(time => {
-    const { activity, description, address } = time.suggestion;
+const SingleDayItinerary = ({ dateObj }) => {
+  const timeSlots = Object.keys(dateObj);
+  const timeSlotComponents = timeSlots.map(time => {
+    const { activity, description, address } = dateObj[time];
     return (
       <div className='activity-details' key={time}>
         <h3 className="time-of-day">{time}</h3>
@@ -17,4 +17,4 @@ const ItineraryTimesContainer = ({ date }) => {
   return <div>{timeSlotComponents}</div>
 };
 
-export default ItineraryTimesContainer;
+export default SingleDayItinerary;
