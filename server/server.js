@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 //use environmental variables
-dotenv.config();
+dotenv.config({ path: './.env' });
 
 // connect to MongoDB cluster
 const connectDB = async () => {

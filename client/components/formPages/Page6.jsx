@@ -7,16 +7,16 @@ import { updateGroupDescription } from '../../reducers/tripReducer';
 import { useState } from 'react';
 
 const Page6 = () => {
-  const { groupDescription } = useSelector(state => state.trip);
+  const { groupDescription } = useSelector((state) => state.trip);
 
   const [loading, setLoading] = useState(false);
 
-  const formData = useSelector(state => state.trip);
+  const formData = useSelector((state) => state.trip);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleDescriptionChange = e => {
+  const handleDescriptionChange = (e) => {
     const { value, checked } = e.target;
     if (checked) {
       dispatch(updateGroupDescription(value));
@@ -31,12 +31,13 @@ const Page6 = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
       const parsedData = await response.json();
       if (response.ok) {
+        // this sets the editable state that is not housed in the itineraryReducer
         dispatch(updateItinerary(parsedData.itinerary));
         navigate('/itinerary');
         setLoading(false);
@@ -46,7 +47,7 @@ const Page6 = () => {
     } catch (error) {
       console.error('Error with request:', error);
     }
-  }
+  };
 
   const handleKeyDown = async (event) => {
     if (event.key === 'Enter') {
@@ -54,87 +55,100 @@ const Page6 = () => {
     }
   };
 
-return (
+  return (
     <div className="bg-gray-300 rounded border-4 border-black ">
-      <div>{
-        loading ? <div id='loader'><Loader/></div> :
-        <>
-          <p>What best describes your travel group...</p>
-          <ul className="groups">
-            <li>
-              <label className='group-card'>
-                <input
-                  type="radio"
-                  name="groupDescription"
-                  value="Solo traveler"
-                  onChange={handleDescriptionChange}
-                  checked={groupDescription === 'Solo traveler'}
-                  onKeyDown={handleKeyDown}
-                />
-                Solo traveler
-              </label>
-            </li>
-            <li>
-              <label className='group-card'>
-                <input
-                  type="radio"
-                  name="groupDescription"
-                  value="Family with young kids"
-                  onChange={handleDescriptionChange}
-                  checked={groupDescription === 'Family with young kids'}
-                  onKeyDown={handleKeyDown}
-                />
-                Family (young kids)
-              </label>
-            </li>
-            <li>
-              <label className='group-card'> 
-                <input
-                  type="radio"
-                  name="groupDescription"
-                  value="Family of all ages"
-                  onChange={handleDescriptionChange}
-                  checked={groupDescription === 'Family of all ages'}
-                  onKeyDown={handleKeyDown}
-                />
-                Family (all ages)
-              </label>
-            </li>
-            <li>
-              <label className='group-card'>
-                <input
-                  type="radio"
-                  name="groupDescription"
-                  value="Family of adults"
-                  onChange={handleDescriptionChange}
-                  checked={groupDescription === 'Family of adults'}
-                  onKeyDown={handleKeyDown}
-                />
-                Family (adults)
-              </label>
-            </li>
-            <li>
-              <label className='group-card'>
-                <input
-                  type="radio"
-                  name="groupDescription"
-                  value="Friends"
-                  onChange={handleDescriptionChange}
-                  checked={groupDescription === 'Friends'}
-                  onKeyDown={handleKeyDown}
-                />
-                Friends
-              </label>
-            </li>
-          </ul>
-          <div>
-            <Link to='/form/page5'>
-              <button className='m-4 underline text-blue-600' type='button'>Back</button>
-            </Link>
-            <button className='m-4 underline text-blue-600' type='submit' onClick={handleClick}>Submit</button>
+      <div>
+        {loading ? (
+          <div id="loader">
+            <Loader />
           </div>
-        </>  
-      }</div>
+        ) : (
+          <>
+            <p>What best describes your travel group...</p>
+            <ul className="groups">
+              <li>
+                <label className="group-card">
+                  <input
+                    type="radio"
+                    name="groupDescription"
+                    value="Solo traveler"
+                    onChange={handleDescriptionChange}
+                    checked={groupDescription === 'Solo traveler'}
+                    onKeyDown={handleKeyDown}
+                  />
+                  Solo traveler
+                </label>
+              </li>
+              <li>
+                <label className="group-card">
+                  <input
+                    type="radio"
+                    name="groupDescription"
+                    value="Family with young kids"
+                    onChange={handleDescriptionChange}
+                    checked={groupDescription === 'Family with young kids'}
+                    onKeyDown={handleKeyDown}
+                  />
+                  Family (young kids)
+                </label>
+              </li>
+              <li>
+                <label className="group-card">
+                  <input
+                    type="radio"
+                    name="groupDescription"
+                    value="Family of all ages"
+                    onChange={handleDescriptionChange}
+                    checked={groupDescription === 'Family of all ages'}
+                    onKeyDown={handleKeyDown}
+                  />
+                  Family (all ages)
+                </label>
+              </li>
+              <li>
+                <label className="group-card">
+                  <input
+                    type="radio"
+                    name="groupDescription"
+                    value="Family of adults"
+                    onChange={handleDescriptionChange}
+                    checked={groupDescription === 'Family of adults'}
+                    onKeyDown={handleKeyDown}
+                  />
+                  Family (adults)
+                </label>
+              </li>
+              <li>
+                <label className="group-card">
+                  <input
+                    type="radio"
+                    name="groupDescription"
+                    value="Friends"
+                    onChange={handleDescriptionChange}
+                    checked={groupDescription === 'Friends'}
+                    onKeyDown={handleKeyDown}
+                  />
+                  Friends
+                </label>
+              </li>
+            </ul>
+            <div>
+              <Link to="/form/page5">
+                <button className="m-4 underline text-blue-600" type="button">
+                  Back
+                </button>
+              </Link>
+              <button
+                className="m-4 underline text-blue-600"
+                type="submit"
+                onClick={handleClick}
+              >
+                Submit
+              </button>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
