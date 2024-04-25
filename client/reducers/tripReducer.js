@@ -32,6 +32,7 @@ const tripSlice = createSlice({
     },
     updateBudget(state, action) {
       state.budget = action.payload;
+      console.log(state.budget)
     },
     updateTravelers(state, action) {
       state.travelers = action.payload;

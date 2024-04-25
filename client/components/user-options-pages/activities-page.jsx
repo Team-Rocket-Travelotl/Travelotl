@@ -7,114 +7,51 @@ const ActivitiesPage = () => {
   // page 3
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { activities } = useSelector(state => state.trip);
 
-  const dispatch = useDispatch();
-
-  const selected = new Array(...activities);
-
-  const handleActivitiesChange = e => {
-    const { value, checked } = e.target;
-    if (checked) {
-      selected.push(value);
-    } else {
-      const index = selected.indexOf(value);
-      selected.splice(index, 1);
-    }
-    dispatch(updateActivities(selected));
+  const updateSelectedActivities = () => {
+    const inputFields = new Array(...document.getElementsByTagName('input'));
+    const newSelectedActivities = inputFields.filter(box => box.checked).map(field => field.value);
+    dispatch(updateActivities(newSelectedActivities));
   }
 
-  const handleKeyDown = (event) => {
+  const saveAndContinue = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
+      updateSelectedActivities();
       navigate('/form/page4');
     }
   };
+
+  const activitiesList = ['Hiking', 'Local Events', 'Restaurants', 'Danger', 'Safety', 'Museums'];
+  const listItems = activitiesList.map(act => {
+    return <li className='activity-card'>
+      <label>
+        <input
+          type='checkbox'
+          defaultChecked={activities.includes(act)}
+          value={act}
+          onKeyDown={saveAndContinue}
+        />
+        {act}
+      </label>
+    </li>
+  });
 
   return (
     <div className="bg-gray-300 rounded border-4 border-black ">
       <p className='text-2xl text-center'>Select activities you are interested in...</p>
       <ul className="activities">
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="Hiking"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('Hiking')}
-              onKeyDown={handleKeyDown}
-            />
-            Hiking
-          </label>
-        </li>
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="local events"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('local events')}
-              onKeyDown={handleKeyDown}
-            />
-            Local Events
-          </label>
-        </li>
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="restaurants"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('restaurants')}
-              onKeyDown={handleKeyDown}
-            />
-            Restaurants
-          </label>
-        </li>
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="danger"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('danger')}
-              onKeyDown={handleKeyDown}
-            />
-            Danger
-          </label>
-        </li>
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="safety"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('safety')}
-              onKeyDown={handleKeyDown}
-            />
-            Safety
-          </label>
-        </li>
-        <li className='activity-card'>
-          <label>
-            <input
-              type="checkbox"
-              value="museums"
-              onChange={handleActivitiesChange}
-              checked={activities.includes('museums')}
-              onKeyDown={handleKeyDown}
-            />
-            Museums
-          </label>
-        </li>
+        {listItems}
       </ul>
       <div>
         <Link to='/form/page2'>
           <button className='m-4 underline text-blue-600' type='button'>Back</button>
         </Link>
         <Link to='/form/page4'>
-          <button className='m-4 underline text-blue-600' type='button'>Next</button>
+          <button className='m-4 underline text-blue-600' type='button' onClick={updateSelectedActivities}>Next</button>
         </Link>
       </div>
     </div>

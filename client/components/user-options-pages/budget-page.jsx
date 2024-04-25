@@ -7,19 +7,19 @@ const BudgetPage = () => {
   // page 4
 
   const navigate = useNavigate();
-
-  const { budget } = useSelector(state => state.trip);
-  
   const dispatch = useDispatch();
 
-  const handleInputChange = e => {
-    const { value } = e.target;
-    dispatch(updateBudget(value));
+  const { budget } = useSelector(state => state.trip);
+
+  const updateSelectedBudget = () => {
+    const budgetInput = document.getElementById('budget-input').value;
+    dispatch(updateBudget(budgetInput));
   }
 
-  const handleKeyDown = (event) => {
+  const saveAndContinue = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
+      updateSelectedBudget();
       navigate('/form/page5');
     }
   };
@@ -30,18 +30,18 @@ const BudgetPage = () => {
         Budget:
       </label>
       <input className='typed-input'
+        id='budget-input'
         type="number"
         name="budget"
-        value={budget}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
+        defaultValue={budget}
+        onKeyDown={saveAndContinue}
       />
       <div>
         <Link to='/form/page3'>
           <button className='m-4 underline text-blue-600' type='button'>Back</button>
         </Link>
         <Link to='/form/page5'>
-          <button className='m-4 underline text-blue-600' type='button'>Next</button>
+          <button className='m-4 underline text-blue-600' type='button' onClick={updateSelectedBudget}>Next</button>
         </Link>
       </div>
     </div>
