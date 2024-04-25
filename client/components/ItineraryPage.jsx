@@ -1,11 +1,11 @@
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
-import Header from "./Header";
-import Itinerary from "./Itinerary"
-
+import Header from './Header';
+import Itinerary from './Itinerary';
 
 const ItineraryPage = () => {
-  const itinerary = useSelector(state => state.itinerary);
+  // this state is set on page 6 after the fetch from the back end
+  const itinerary = useSelector((state) => state.itinerary);
   return (
     <div>
       <Header />
