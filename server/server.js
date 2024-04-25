@@ -1,10 +1,10 @@
-const express = require ('express');
-const path = require ('path');
+const express = require('express');
+const path = require('path');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
 
 //use environmental variables
-dotenv.config({ path: './config.env' });
+dotenv.config();
 
 // connect to MongoDB cluster
 const connectDB = async () => {
@@ -15,7 +15,7 @@ const connectDB = async () => {
     console.error(err);
     process.exit(1);
   }
-}
+};
 
 connectDB();
 
@@ -33,8 +33,7 @@ app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/trip', require('./routes/itineraryRoutes'));
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname,'../index.html'))
-})
-
+  res.sendFile(path.join(__dirname, '../index.html'));
+});
 
 app.listen(port, () => console.log(`Server is running on ${port}`));
