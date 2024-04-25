@@ -56,7 +56,7 @@ const tripController = {
       });
       
       console.log(completion.choices[0]);
-      res.locals.itinerary = JSON.parse(completion.choices[0].message.content);
+      res.locals.itinerary = JSON.parse(completion.choices[0].message.content).itinerary;
       return next();
     } catch (err) {
       console.log(err);

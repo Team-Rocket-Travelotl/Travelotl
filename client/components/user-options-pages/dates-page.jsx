@@ -3,7 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { updateStartDate, updateEndDate } from '../../reducers/tripReducer';
 
-const Page2 = () => {
+const DatesPage = () => {
+  // page 2
+
   const navigate = useNavigate();
 
   const { startDate, endDate } = useSelector(state => state.trip);
@@ -64,4 +66,4 @@ const Page2 = () => {
   );
 };
 
-export default Page2;
+export default DatesPage;

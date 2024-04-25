@@ -33,7 +33,7 @@ app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/trip', require('./routes/itineraryRoutes'));
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname,'../index.html'))
+  res.sendFile(path.join(__dirname,'../client/index.html'))
 })
 
 

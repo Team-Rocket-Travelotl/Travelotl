@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { updateItinerary } from '../../reducers/itineraryReducer';
-import Loader from '../Loader';
+import Loader from '../loader/Loader';
 
 import { updateGroupDescription } from '../../reducers/tripReducer';
 import { useState } from 'react';
 
-const Page6 = () => {
+const TravelerTypeSubmitPage = () => {
+  // page 6
+
   const { groupDescription } = useSelector(state => state.trip);
 
   const [loading, setLoading] = useState(false);
@@ -36,8 +38,10 @@ const Page6 = () => {
         body: JSON.stringify(formData)
       });
       const parsedData = await response.json();
+      console.log(parsedData);
       if (response.ok) {
-        dispatch(updateItinerary(parsedData.itinerary));
+        console.log('ok')
+        dispatch(updateItinerary(parsedData));
         navigate('/itinerary');
         setLoading(false);
       } else {
@@ -139,4 +143,4 @@ return (
   );
 };
 
-export default Page6;
+export default TravelerTypeSubmitPage;
