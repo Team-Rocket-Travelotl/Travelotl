@@ -1,17 +1,18 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import { updateStartDate, updateEndDate } from '../../reducers/tripReducer';
 
 const DatesPage = () => {
   // page 2
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const prevPage = '/form';
+  const nextPage = '/form/activities-select';
 
   const { startDate, endDate } = useSelector(state => state.trip);
   
-  const dispatch = useDispatch();
-
   const updateSelectedDates = () => {
     const startDate = document.getElementById('start-date').value;
     const endDate = document.getElementById('end-date').value;
@@ -23,11 +24,11 @@ const DatesPage = () => {
     if (event.type == 'keydown' && event.key !== 'Enter') return;
     else if (event) event.preventDefault();
     updateSelectedDates();
-    navigate('/form/activities-select');
+    navigate(event.target.value === 'back' ? prevPage : nextPage);
   };
 
   return (
-    <div className="bg-gray-300 rounded border-4 border-black">
+    <div className="bg-gray-300 rounded border-4 border-black" onKeyDown={saveAndContinue}>
       <div>
         <label className='text-2xl' htmlFor="startDate">
           Start Date:
@@ -36,7 +37,6 @@ const DatesPage = () => {
           type="date"
           id="start-date"
           defaultValue={startDate}
-          onKeyDown={saveAndContinue}
         />
       </div>
       <div>
@@ -47,14 +47,11 @@ const DatesPage = () => {
           type="date"
           id="end-date"
           defaultValue={endDate}
-          onKeyDown={saveAndContinue}
         />
       </div>
       <div >
-        <Link to='/form'>
-          <button className='m-4 underline text-blue-600' type='button'>Back</button>
-        </Link>
-        <button className='m-4 underline text-blue-600' type='button' onClick={saveAndContinue}>Next</button>
+        <button className='m-4 underline text-blue-600' type='button' value='back' onClick={saveAndContinue}>Back</button>
+        <button className='m-4 underline text-blue-600' type='button' value='next' onClick={saveAndContinue}>Next</button>
       </div>
     </div>
   );

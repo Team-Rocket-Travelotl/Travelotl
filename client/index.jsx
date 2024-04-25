@@ -32,8 +32,8 @@ root.render(
               <Route path="/form/dates-select" element={<DatesPage/>} />
               <Route path="/form/activities-select" element={<ActivitiesPage />} />
               <Route path="/form/budget-select" element={<BudgetPage />} />
-              <Route path="/form/number-travelers-select" element={<TravelerNumberPage />} />
-              <Route path="/form/submit" element={<TravelerTypeSubmitPage />} />
+              <Route path="/form/number-traveler-select" element={<TravelerNumberPage />} />
+              <Route path="/form/type-traveler-select" element={<TravelerTypeSubmitPage />} />
             </Route>
           </Route>
           <Route path="/itinerary" element={<CompleteItinerary />} />

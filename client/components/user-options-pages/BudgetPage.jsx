@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import { updateBudget } from '../../reducers/tripReducer';
 
 const BudgetPage = () => {
@@ -9,18 +8,25 @@ const BudgetPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const prevPage = '/form/activities-select';
+  const nextPage = '/form/number-traveler-select';
+
   const { budget } = useSelector(state => state.trip);
 
-  const updateSelectedBudget = () => {
+  const updateSelectedBudget = (navDirection) => {
     const budgetInput = document.getElementById('budget-input').value;
+    if (budgetInput === '' && navDirection !== 'back') {
+      alert('Must enter value for Budget');
+      throw new Error;
+    }
     dispatch(updateBudget(budgetInput));
   }
 
   const saveAndContinue = (event) => {
     if (event.type == 'keydown' && event.key !== 'Enter') return;
     else if (event) event.preventDefault();
-    updateSelectedBudget();
-    navigate('/form/number-travelers-select');
+    updateSelectedBudget(event.target.value);
+    navigate(event.target.value === 'back' ? prevPage : nextPage);
   };
 
   return (
@@ -28,18 +34,16 @@ const BudgetPage = () => {
       <label className='text-2xl' htmlFor="budget">
         Budget:
       </label>
-      <input className='typed-input'
+      <input required className='typed-input'
         id='budget-input'
-        type="number"
-        name="budget"
+        type='number'
+        placeholder='Enter desired budget'
         defaultValue={budget}
         onKeyDown={saveAndContinue}
       />
       <div>
-        <Link to='/form/activities-select'>
-          <button className='m-4 underline text-blue-600' type='button'>Back</button>
-        </Link>
-        <button className='m-4 underline text-blue-600' type='button' onClick={saveAndContinue}>Next</button>
+        <button className='m-4 underline text-blue-600' type='button' value='back' onClick={saveAndContinue}>Back</button>
+        <button className='m-4 underline text-blue-600' type='button' value='next' onClick={saveAndContinue}>Next</button>
       </div>
     </div>
   );
