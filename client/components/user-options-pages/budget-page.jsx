@@ -17,11 +17,10 @@ const BudgetPage = () => {
   }
 
   const saveAndContinue = (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      updateSelectedBudget();
-      navigate('/form/page5');
-    }
+    if (event.type == 'keydown' && event.key !== 'Enter') return;
+    else if (event) event.preventDefault();
+    updateSelectedBudget();
+    navigate('/form/number-travelers-select');
   };
 
   return (
@@ -37,12 +36,10 @@ const BudgetPage = () => {
         onKeyDown={saveAndContinue}
       />
       <div>
-        <Link to='/form/page3'>
+        <Link to='/form/activities-select'>
           <button className='m-4 underline text-blue-600' type='button'>Back</button>
         </Link>
-        <Link to='/form/page5'>
-          <button className='m-4 underline text-blue-600' type='button' onClick={updateSelectedBudget}>Next</button>
-        </Link>
+        <button className='m-4 underline text-blue-600' type='button' onClick={saveAndContinue}>Next</button>
       </div>
     </div>
   );

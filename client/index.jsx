@@ -29,11 +29,11 @@ root.render(
             <Route path='/register' element={<Register />} />
             <Route path="/form" element={<Form />}>
               <Route index element={<DestinationPage />} />
-              <Route path="/form/page2" element={<DatesPage/>} />
-              <Route path="/form/page3" element={<ActivitiesPage />} />
-              <Route path="/form/page4" element={<BudgetPage />} />
-              <Route path="/form/page5" element={<TravelerNumberPage />} />
-              <Route path="/form/page6" element={<TravelerTypeSubmitPage />} />
+              <Route path="/form/dates-select" element={<DatesPage/>} />
+              <Route path="/form/activities-select" element={<ActivitiesPage />} />
+              <Route path="/form/budget-select" element={<BudgetPage />} />
+              <Route path="/form/number-travelers-select" element={<TravelerNumberPage />} />
+              <Route path="/form/submit" element={<TravelerTypeSubmitPage />} />
             </Route>
           </Route>
           <Route path="/itinerary" element={<CompleteItinerary />} />

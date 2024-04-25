@@ -11,16 +11,16 @@ const DestinationPage = () => {
   const { destination } = useSelector(state => state.trip);
   const dispatch = useDispatch();
 
-  const handleInputChange = e => {
-    const { value } = e.target;
-    dispatch(updateDestination(value));
+  const updateSelectedDestination = () => {
+    const selectedDestination = document.getElementById('destination').value;
+    dispatch(updateDestination(selectedDestination));
   }
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      navigate('/form/page2');
-    }
+  const saveAndContinue = (event) => {
+    if (event.type == 'keydown' && event.key !== 'Enter') return;
+    else if (event) event.preventDefault();
+    updateSelectedDestination();
+    navigate('/form/dates-select');
   };
 
   return (
@@ -30,15 +30,12 @@ const DestinationPage = () => {
       </label>
       <input className='typed-input'
         type="text"
-        name="destination"
-        value={destination}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
+        id="destination"
+        defaultValue={destination}
+        onKeyDown={saveAndContinue}
       />
       <div>
-        <Link to='/form/page2'>
-          <button className='m-4 text-blue-600 underline' type='button'>Next</button>
-        </Link>
+        <button className='m-4 text-blue-600 underline' type='button' onClick={saveAndContinue}>Next</button>
       </div>
     </div>
   )

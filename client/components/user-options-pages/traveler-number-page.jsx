@@ -11,16 +11,16 @@ const TravelerNumberPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleInputChange = e => {
-    const { value } = e.target;
-    dispatch(updateTravelers(value));
+  const updateSelectedTravelerNumber = () => {
+    const numTravelers = document.getElementById('travelers').value;
+    dispatch(updateTravelers(numTravelers));
   }
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      navigate('/form/page6');
-    }
+  const saveAndContinue = (event) => {
+    if (event.type == 'keydown' && event.key !== 'Enter') return;
+    else if (event) event.preventDefault();
+    updateSelectedTravelerNumber();
+    navigate('/form/submit');
   };
 
   return (
@@ -30,18 +30,15 @@ const TravelerNumberPage = () => {
       </label>
       <input className="typed-input"
         type="number"
-        name="travelers"
-        value={travelers}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
+        id="travelers"
+        defaultValue={travelers}
+        onKeyDown={saveAndContinue}
       />
       <div>
-        <Link to='/form/page4'>
+        <Link to='/form/budget-select'>
           <button className='m-4 underline text-blue-600' type='button'>Back</button>
         </Link>
-        <Link to='/form/page6'>
-          <button className='m-4 underline text-blue-600' type='button'>Next</button>
-        </Link>
+        <button className='m-4 underline text-blue-600' type='button' onClick={saveAndContinue}>Next</button>
       </div>
     </div>
   );

@@ -132,7 +132,7 @@ return (
             </li>
           </ul>
           <div>
-            <Link to='/form/page5'>
+            <Link to='/form/number-travelers-select'>
               <button className='m-4 underline text-blue-600' type='button'>Back</button>
             </Link>
             <button className='m-4 underline text-blue-600' type='submit' onClick={handleClick}>Submit</button>

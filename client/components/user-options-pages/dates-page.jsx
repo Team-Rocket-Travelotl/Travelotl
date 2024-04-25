@@ -12,20 +12,18 @@ const DatesPage = () => {
   
   const dispatch = useDispatch();
 
-  const handleInputChange = e => {
-    const { name, value } = e.target;
-    if (name === 'startDate') {
-      dispatch(updateStartDate(value));
-    } else {
-      dispatch(updateEndDate(value));
-    }
+  const updateSelectedDates = () => {
+    const startDate = document.getElementById('start-date').value;
+    const endDate = document.getElementById('end-date').value;
+    dispatch(updateStartDate(startDate));
+    dispatch(updateEndDate(endDate));
   }
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      navigate('/form/page3');
-    }
+  const saveAndContinue = (event) => {
+    if (event.type == 'keydown' && event.key !== 'Enter') return;
+    else if (event) event.preventDefault();
+    updateSelectedDates();
+    navigate('/form/activities-select');
   };
 
   return (
@@ -36,10 +34,9 @@ const DatesPage = () => {
         </label>
         <input className='typed-input' 
           type="date"
-          name="startDate"
-          value={startDate}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
+          id="start-date"
+          defaultValue={startDate}
+          onKeyDown={saveAndContinue}
         />
       </div>
       <div>
@@ -48,19 +45,16 @@ const DatesPage = () => {
         </label>
         <input className='typed-input'
           type="date"
-          name="endDate"
-          value={endDate}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
+          id="end-date"
+          defaultValue={endDate}
+          onKeyDown={saveAndContinue}
         />
       </div>
       <div >
         <Link to='/form'>
           <button className='m-4 underline text-blue-600' type='button'>Back</button>
         </Link>
-        <Link to='/form/page3'>
-          <button className='m-4 underline text-blue-600' type='button'>Next</button>
-        </Link>
+        <button className='m-4 underline text-blue-600' type='button' onClick={saveAndContinue}>Next</button>
       </div>
     </div>
   );
