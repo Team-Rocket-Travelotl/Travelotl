@@ -1,30 +1,30 @@
-/* 
-GOAL: make the text feilds editable 
+/*
+GOAL: make the text feilds editable
 [x] import in react
 [] import in the state we will edit
 [x] writie an on change function
 [x] update each feild to be input boxes
-[] add a button to save 
+[] add a button to save
 [] write an onclick function to:
-[] save the new date to the database using a patch 
-[] style the input boxes 
+[] save the new date to the database using a patch
+[] style the input boxes
 */
 
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { actions } from '../reducers/tripReducer';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actions } from "../reducers/tripReducer";
 
 const Itinerary = ({ itinerary }) => {
   const [editedItinerary, setEditedItinerary] = useState({});
-  console.log('original state ===>', editedItinerary);
+  console.log("original state ===>", editedItinerary);
 
-  console.log('do we have update activities', actions.updateActivities);
+  console.log("do we have update activities", actions.updateActivities);
   const { activities } = useSelector((state) => state.trip);
 
   const dispatch = useDispatch();
 
   const handleChange = (date, timeOfDay, field, e) => {
-    console.log('arguments ===>', date, timeOfDay, field);
+    console.log("arguments ===>", date, timeOfDay, field);
     const inputs = {
       date,
       timeOfDay,
@@ -36,10 +36,10 @@ const Itinerary = ({ itinerary }) => {
     ItineraryCopy[timeOfDay] = timeOfDay;
     ItineraryCopy[field] = field;
     ItineraryCopy.value = e;
-    console.log('copy===>', ItineraryCopy);
+    console.log("copy===>", ItineraryCopy);
     // { ...editedItinerary, [date]: {...editedItinerary[date], [timeOfDay]: {...editedItinerary[field]: value}} }; // => {}
     setEditedItinerary(ItineraryCopy); // => {inputs{data}}
-    console.log('edit IT--->', editedItinerary);
+    console.log("edit IT--->", editedItinerary);
     // dispatch(actions.updateActivities(inputs));
   };
 
@@ -47,7 +47,7 @@ const Itinerary = ({ itinerary }) => {
   // send a patch
   // }
   // date, timeOfDay, field, value
-  if (itinerary) console.log('if null, log in ====> ', itinerary.itinerary);
+  if (itinerary) console.log("if null, log in ====> ", itinerary.itinerary);
   return (
     <div id="itinerary-details">
       {Object.entries(itinerary.itinerary).map(([date, timesOfDay]) => (
@@ -70,7 +70,7 @@ const Itinerary = ({ itinerary }) => {
                     // handleChange
                     // (e) =>
                     (e) =>
-                      handleChange(date, timeOfDay, 'activites', e.target.value)
+                      handleChange(date, timeOfDay, "activites", e.target.value)
                   }
                   id="activity"
                 ></input>
