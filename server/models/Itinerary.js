@@ -12,7 +12,7 @@ const ItinerarySchema = new mongoose.Schema(
     startDate: { type: String, required: true },
     endDate: { type: String, required: true },
     // email: { type: String, required: true },
-    trip: { type: String, required: true },
+    trip: { type: Object, required: true },
   },
   {
     timestamps: true,

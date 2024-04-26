@@ -1,13 +1,13 @@
 //Controller to call the Open AI API for information on destinations for the itinerary
 // import { Configuration, OpenAI } from "openai";
-const OpenAI = require('openai');
-const express = require('express');
+const OpenAI = require("openai");
+const express = require("express");
 const app = express();
-const Itinerary = require('../models/Itinerary');
-const { recompileSchema } = require('../models/User');
-const dotenv = require('dotenv');
+const Itinerary = require("../models/Itinerary");
+const { recompileSchema } = require("../models/User");
+const dotenv = require("dotenv");
 
-dotenv.config({ path: './config.env' });
+dotenv.config({ path: "./config.env" });
 const openai = new OpenAI({ apiKey: process.env.OPEN_AI_API_KEY });
 
 // TEST DATA - DELETE WHEN FINISHEDßß
@@ -27,7 +27,7 @@ const openai = new OpenAI({ apiKey: process.env.OPEN_AI_API_KEY });
 const tripController = {
   // buildTrip - To fetch itinerary from API request to Open AI
   async buildTrip(req, res, next) {
-    console.log('buildTrip invoked');
+    console.log("buildTrip invoked");
     const {
       destination,
       startDate,
@@ -40,7 +40,7 @@ const tripController = {
     res.locals.tripName = `${destination} from ${startDate} to ${endDate}`;
     // Update prompt below to reflect req.body information - DONE (J.H.)
     const prompt = `Make an itinerary for a trip for ${travelers} to ${destination} from ${startDate} until ${endDate}. I have a budget of ${budget}. Include the following types of attractions: ${activities.join(
-      ', '
+      ", "
     )} for a ${groupDescription}. Organize the itinerary by the following times of day: morning, afternoon, and evening. Recommend specific places of interest with their address. Limit cross-city commutes by grouping places of interest by geography for each day. Output the response in json format following this schema:
     // {
     //   itinerary: {
@@ -60,20 +60,22 @@ const tripController = {
       const completion = await openai.chat.completions.create({
         messages: [
           {
-            role: 'system',
-            content: 'You are a helpful travel planning assistant.',
+            role: "system",
+            content: "You are a helpful travel planning assistant.",
           },
           {
-            role: 'user',
+            role: "user",
             content: prompt,
           },
         ],
-        model: 'gpt-3.5-turbo',
-        response_format: { type: 'json_object' },
+        model: "gpt-3.5-turbo",
+        response_format: { type: "json_object" },
       });
 
       console.log(completion.choices[0]);
-      res.locals.itinerary = JSON.parse(completion.choices[0].message.content).itinerary;
+      res.locals.itinerary = JSON.parse(
+        completion.choices[0].message.content
+      ).itinerary;
       return next();
     } catch (err) {
       console.log(err);
@@ -82,6 +84,7 @@ const tripController = {
 
   // saveTrip - To save the contents of the generated itinerary into the database
   saveTrip(req, res, next) {
+    console.log("whats being passed in locals", res.locals.itinerary);
     // const { email } = req.body;
     Itinerary.create({
       // email: req.body.email,
@@ -90,38 +93,39 @@ const tripController = {
       destination: req.body.destination,
       startDate: req.body.startDate,
       endDate: req.body.endDate,
-      trip: JSON.stringify(res.locals.itinerary),
+      trip: res.locals.itinerary,
     })
       .then((result) => {
-        console.log('itinerary successfully saved in database');
+        console.log("result after adding to db", result);
+        console.log("itinerary successfully saved in database");
         return next();
       })
       .catch((err) => {
         console.log(
-          'could not add itinerary to database - saveTrip middleware'
+          "could not add itinerary to database - saveTrip middleware"
         );
-        console.error('saveTrip ERROR =>', err);
+        console.error("saveTrip ERROR =>", err);
       });
   },
 
   // deleteTrip - To delete the itinerary from the database based on the ObjectId
   deleteTrip(req, res, next) {
     console.log(req.body);
-    console.log('deleteTrip Middleware - tripId:', req.body.tripId);
+    console.log("deleteTrip Middleware - tripId:", req.body.tripId);
     Itinerary.findOneAndDelete({ _id: `${req.body.tripId}` })
       .then((result) => {
         if (result) {
-          console.log('Itinerary deleted from the database - deleteTrip');
+          console.log("Itinerary deleted from the database - deleteTrip");
         } else {
-          console.log('ObjectId not found. Nothing deleted');
+          console.log("ObjectId not found. Nothing deleted");
         }
         return next();
       })
       .catch((err) => {
         console.log(
-          'could not locate itinerary based on id passed in - deleteTrip middleware'
+          "could not locate itinerary based on id passed in - deleteTrip middleware"
         );
-        console.error('deleteTrip ERROR =>', err);
+        console.error("deleteTrip ERROR =>", err);
       });
   },
 
@@ -133,16 +137,25 @@ const tripController = {
       .then((result) => {
         // console.log(result);
         res.locals.allTrips = result;
-        console.log('All trips retrieved - retrieveAllTrips middleware');
+        console.log("All trips retrieved - retrieveAllTrips middleware");
         return next();
       })
       .catch((err) => {
         console.log(
-          'could not retrieve all trips - retrieveAllTrips middleware'
+          "could not retrieve all trips - retrieveAllTrips middleware"
         );
-        console.error('retrieveAllTrips ERROR =>', err);
+        console.error("retrieveAllTrips ERROR =>", err);
       });
   },
 };
+
+/*
+req. body = info
+finduser and update
+trip
+trip at the date
+at the time
+value to be info
+*/
 
 module.exports = tripController;
