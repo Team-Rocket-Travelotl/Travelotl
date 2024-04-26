@@ -13,6 +13,7 @@ router.post(
   tripController.buildTrip,
   tripController.saveTrip,
   (req, res) => {
+    console.log("nick is ok", res.locals.itinerary);
     res.status(200).json(res.locals.itinerary);
   }
 );

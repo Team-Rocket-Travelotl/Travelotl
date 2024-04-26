@@ -73,7 +73,9 @@ const tripController = {
       });
 
       console.log(completion.choices[0]);
-      res.locals.itinerary = JSON.parse(completion.choices[0].message.content).itinerary;
+      res.locals.itinerary = JSON.parse(
+        completion.choices[0].message.content
+      ).itinerary;
       return next();
     } catch (err) {
       console.log(err);
@@ -146,5 +148,14 @@ const tripController = {
       });
   },
 };
+
+/*
+req. body = info
+finduser and update
+trip
+trip at the date
+at the time
+value to be info
+*/
 
 module.exports = tripController;

@@ -1,20 +1,3 @@
-/*
-GOAL: make the text feilds editable
-/*
-GOAL: make the text feilds editable
-[x] import in react
-[x] writie an on change function
-[x] update each feild to be input boxes
-[x] add a button to save
-[x] write an onclick function to:
-[x] save the new date to the database using a patch
-[] style the input boxes
-[] add a button to save
-[] write an onclick function to:
-[] save the new date to the database using a patch
-[] style the input boxes
-*/
-
 import React, { useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 // import { actions } from "../reducers/tripReducer";

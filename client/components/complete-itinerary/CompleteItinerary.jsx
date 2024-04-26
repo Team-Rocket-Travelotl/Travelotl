@@ -17,7 +17,11 @@ const CompleteItinerary = () => {
         <div className="day-entry" key={date}>
           <h2 className="date">{date}</h2>
           <div className="day-details">
-            <SingleDayItinerary dateObj={itinerary[date]} />
+            <SingleDayItinerary
+              itinerary={itinerary}
+              dateObj={itinerary[date]}
+              date={date}
+            />
           </div>
         </div>
       );
