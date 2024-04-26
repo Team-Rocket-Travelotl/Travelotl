@@ -3,7 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { updateTravelers } from "../../reducers/tripReducer";
 
-const Page5 = () => {
+const TravelerNumberPage = () => {
+  // page 5
+  
   const { travelers } = useSelector((state) => state.trip);
 
   const dispatch = useDispatch();
@@ -45,4 +47,4 @@ const Page5 = () => {
   );
 };
 
-export default Page5;
+export default TravelerNumberPage;

@@ -1,39 +1,22 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import App from './components/app/App';
+import Manager from './components/manager';
+import Main from './components/main';
+import About from './components/about';
+import Login from './components/login';
+import Form from './components/form';
+import { DestinationPage, DatesPage, ActivitiesPage, BudgetPage, TravelerNumberPage, TravelerTypeSubmitPage } from './components/user-options-pages/index.js';
+import CompleteItinerary from './components/complete-itinerary';
+import Register from './components/register';
+import store from './store.js';
+import './styles.css';
 
-import tripReducer from './reducers/tripReducer';
-import itineraryReducer from './reducers/itineraryReducer';
+const root = createRoot(document.getElementById('root'));
 
-import App from './App';
-import Manager from './components/Manager';
-import Main from './components/Main';
-
-import About from './components/About';
-import Login from './components/Login';
-import Form from './components/Form';
-import Page1 from './components/formPages/Page1';
-import Page2 from './components/formPages/Page2';
-import Page3 from './components/formPages/Page3';
-import Page4 from './components/formPages/Page4';
-import Page5 from './components/formPages/Page5';
-import Page6 from './components/formPages/Page6';
-import ItineraryPage from './components/ItineraryPage';
-import Register from './components/Register';
-import '../styles.css';
-
-export const store = configureStore({
-  reducer: {
-    trip: tripReducer,
-    itinerary: itineraryReducer,
-  }
-});
-
-const root = document.getElementById('root');
-
-createRoot(root).render(
+root.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
@@ -45,15 +28,15 @@ createRoot(root).render(
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path="/form" element={<Form />}>
-              <Route index element={<Page1 />} />
-              <Route path="/form/page2" element={<Page2 />} />
-              <Route path="/form/page3" element={<Page3 />} />
-              <Route path="/form/page4" element={<Page4 />} />
-              <Route path="/form/page5" element={<Page5 />} />
-              <Route path="/form/page6" element={<Page6 />} />
+              <Route index element={<DestinationPage />} />
+              <Route path="/form/page2" element={<DatesPage/>} />
+              <Route path="/form/page3" element={<ActivitiesPage />} />
+              <Route path="/form/page4" element={<BudgetPage />} />
+              <Route path="/form/page5" element={<TravelerNumberPage />} />
+              <Route path="/form/page6" element={<TravelerTypeSubmitPage />} />
             </Route>
           </Route>
-          <Route path="/itinerary" element={<ItineraryPage />} />
+          <Route path="/itinerary" element={<CompleteItinerary />} />
         </Routes>
       </Router>
     </Provider>

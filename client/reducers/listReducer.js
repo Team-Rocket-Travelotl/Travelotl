@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {};
 
 const listSlice = createSlice({
-  name: 'list',
+  name: "list",
   initialState,
   reducers: {
     // updateItinerary(state, action) {
@@ -12,12 +12,9 @@ const listSlice = createSlice({
     deleteTrip(state, action) {
       state.push(action.payload);
     },
-    updateAtivities(state, action) {
-      state.push(action.payload);
-    },
   },
 });
 
-export const { actions, reducer } = itinerarySlice;
-export const { updateItinerary, updateAtivities } = actions;
+export const { actions, reducer } = listSlice;
+export const { deleteTrip } = actions;
 export default reducer;

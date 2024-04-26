@@ -1,4 +1,4 @@
-import Header from "./Header";
+import Header from "../header/Header";
 import { useNavigate } from 'react-router-dom';
 
 import React, { useState } from 'react';
@@ -20,6 +20,7 @@ const Login = () => {
     if(res.ok){
       const user = await res.json();
       localStorage.setItem('userToken', user.token);
+      localStorage.setItem('userEmail',user.email);
       console.log(user)
       navigate('/');
     }
