@@ -20,6 +20,7 @@ const Login = () => {
     if(res.ok){
       const user = await res.json();
       localStorage.setItem('userToken', user.token);
+      localStorage.setItem('userEmail',user.email);
       console.log(user)
       navigate('/');
     }
