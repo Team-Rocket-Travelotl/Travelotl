@@ -8,7 +8,7 @@ const Manager = () => {
   const [itineraries, setItineraries] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const user = useSelector((state) => state.itinerary.user);
   // Retrieve all itineraries associated with the user and update state
   useEffect(() => {
     try {
@@ -64,11 +64,11 @@ const Manager = () => {
 
       itineraryList = await itineraryList.json();
 
-      // console.log(itineraryList);
+      console.log(itineraryList);
 
       let foundTrip;
       for (const trip of itineraryList) {
-        // console.log(trip);
+        console.log('manager',trip);
         // console.log("Parse ID:", trip.tripId, "| Target ID:", tripId)
         if (trip._id === tripId) {
           foundTrip = JSON.parse(trip.trip);
@@ -98,6 +98,9 @@ const Manager = () => {
         </p>
         <p>
           Created on: <b>{new Date(itinerary.createdAt).toLocaleString()}</b>
+        </p>
+        <p>
+          User Email: <b>{itinerary.user}</b>
         </p>
         <div className="tile-buttons">
           <button onClick={seeDetails}>See Details</button>

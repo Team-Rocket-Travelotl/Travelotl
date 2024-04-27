@@ -30,6 +30,7 @@ const Itinerary = ({ itinerary }) => {
   const handleChange = (date, timeOfDay, field, e) => {
     console.log("arguments ===>", date, timeOfDay, field);
     const inputs = {
+      email: itinerary.email,
       date,
       timeOfDay,
       field,
@@ -54,6 +55,9 @@ const Itinerary = ({ itinerary }) => {
   if (itinerary) console.log("if null, log in ====> ", itinerary.itinerary);
   return (
     <div id="itinerary-details">
+      <div>
+        <h3>User Email: {itinerary.email}</h3>
+      </div>
       {Object.entries(itinerary.itinerary).map(([date, timesOfDay]) => (
         <div className="day-entry" key={date}>
           <h2 className="date">{date}</h2>
