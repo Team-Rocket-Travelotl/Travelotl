@@ -1,6 +1,6 @@
-export { default as DestinationPage } from './destination-page';
-export { default as DatesPage } from './dates-page';
-export { default as ActivitiesPage } from './activities-page';
-export { default as BudgetPage } from './budget-page';
-export { default as TravelerNumberPage } from './traveler-number-page';
-export { default as TravelerTypeSubmitPage } from './traveler-type-submit-page';
+export { default as DestinationPage } from './DestinationPage';
+export { default as DatesPage } from './DatesPage';
+export { default as ActivitiesPage } from './ActivitiesPage';
+export { default as BudgetPage } from './BudgetPage';
+export { default as TravelerNumberPage } from './TravelerNumberPage';
+export { default as TravelerTypeSubmitPage } from './TravelerTypeSubmitPage';

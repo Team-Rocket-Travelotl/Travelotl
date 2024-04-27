@@ -1,16 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-let startDate = new Date(Date.now());
-let endDate = new Date(Date.now());
-endDate.setDate(startDate.getDate() + 3);
+const today = new Date(Date.now());
 
 const initialState = {
-  destination: 'Las Vegas, NV',
-  startDate: startDate.toISOString().slice(0, 10),
-  endDate: endDate.toISOString().slice(0, 10),
+  destination: '',
+  startDate: today.toISOString().slice(0, 10),
+  endDate: today.toISOString().slice(0, 10),
   activities: [],
-  budget: 500,
-  travelers: 1,
+  budget: '',
+  travelers: '',
   groupDescription: 'Solo traveler',
 };
 
