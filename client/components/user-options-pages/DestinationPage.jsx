@@ -24,7 +24,7 @@ const DestinationPage = () => {
   const saveAndContinue = (event) => {
     if (event.type == 'keydown' && event.key !== 'Enter') return;
     else if (event) event.preventDefault();
-    updateSelectedDestination(event.target.value);
+    updateSelectedDestination(navDirection = event.target.value);
     navigate(nextPage);
   };
 

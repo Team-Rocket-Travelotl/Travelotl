@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import TripDetails from '../models/TripDetails';
 
 const initialState = {itinerary: {}, id: ''}
 

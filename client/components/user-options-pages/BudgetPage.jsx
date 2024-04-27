@@ -25,7 +25,7 @@ const BudgetPage = () => {
   const saveAndContinue = (event) => {
     if (event.type == 'keydown' && event.key !== 'Enter') return;
     else if (event) event.preventDefault();
-    updateSelectedBudget(event.target.value);
+    updateSelectedBudget(navDirection = event.target.value);
     navigate(event.target.value === 'back' ? prevPage : nextPage);
   };
 

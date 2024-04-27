@@ -17,9 +17,7 @@ const tripSlice = createSlice({
   initialState,
   reducers: {
     updateDestination(state, action) {
-      // return { ...state, destination: action.payload }
       state.destination = action.payload;
-      // return state;
     },
     updateStartDate(state, action) {
       state.startDate = action.payload;

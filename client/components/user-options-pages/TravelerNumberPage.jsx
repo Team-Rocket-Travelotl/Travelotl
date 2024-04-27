@@ -25,7 +25,7 @@ const TravelerNumberPage = () => {
   const saveAndContinue = (event) => {
     if (event.type == 'keydown' && event.key !== 'Enter') return;
     else if (event) event.preventDefault();
-    updateSelectedTravelerNumber(event.target.value);
+    updateSelectedTravelerNumber(navDirection = event.target.value);
     navigate(event.target.value === 'back' ? prevPage : nextPage);
   };
 
