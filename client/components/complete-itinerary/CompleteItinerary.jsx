@@ -4,7 +4,7 @@ import Header from "../header";
 import SingleDayItinerary from '../single-day-itinerary';
 
 const CompleteItinerary = () => {
-  const itinerary = useSelector(state => state.itinerary.itinerary);
+  const { itinerary } = useSelector(state => state.itinerary);
 
   let dates;
   let dateComponents;
