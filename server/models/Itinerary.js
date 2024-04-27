@@ -1,19 +1,22 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const ItinerarySchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'User',
+const ItinerarySchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    tripName: { type: String, required: true },
+    destination: { type: String, required: true },
+    startDate: { type: String, required: true },
+    endDate: { type: String, required: true },
+    // email: { type: String, required: true },
+    trip: { type: Object, required: true },
   },
-  tripName: { type: String, required: true },
-  destination: { type: String, required: true },
-  startDate: { type: String, required: true },
-  endDate: { type: String, required: true },
-  // email: { type: String, required: true },
-  trip: { type: String, required: true },
-},{
-  timestamps: true
-});
+  {
+    timestamps: true,
+  }
+);
 
-module.exports = mongoose.model('itinerary', ItinerarySchema);
+module.exports = mongoose.model("itinerary", ItinerarySchema);

@@ -1,17 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {};
 
 const listSlice = createSlice({
-  name: 'list',
+  name: "list",
   initialState,
   reducers: {
     // updateItinerary(state, action) {
     //   state.itinerary = action.payload;
     // },
     deleteTrip(state, action) {
-      state.push(action.payload)
-    }
+      state.push(action.payload);
+    },
   },
 });
 

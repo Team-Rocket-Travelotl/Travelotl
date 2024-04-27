@@ -5,3 +5,5 @@ gitpush.zsh
 dist
 config.env
 package-lock.json
+
+.env
