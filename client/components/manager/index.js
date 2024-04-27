@@ -1,1 +1,1 @@
-export { default } from './Manager';
+export { default } from './Manager.tsx';

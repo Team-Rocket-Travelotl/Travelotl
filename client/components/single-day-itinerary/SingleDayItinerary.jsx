@@ -26,7 +26,7 @@ const SingleDayItinerary = ({
     return (
       <div className="activity-details" key={timeOfDay}>
         <h3 className="time-of-day">{timeOfDay}</h3>
-        <label for=""> Activity:</label>
+        <label htmlFor="Activity"> Activity:</label>
         <input
           type="text"
           defaultValue={activity}
@@ -35,7 +35,7 @@ const SingleDayItinerary = ({
           }
           id="activity"
         ></input>
-        <label for=""> Description:</label>
+        <label htmlFor="Description"> Description:</label>
         <input
           type="text"
           defaultValue={description}
@@ -44,7 +44,7 @@ const SingleDayItinerary = ({
           }
           id="Description"
         ></input>
-        <label for="Address"> Address:</label>
+        <label htmlFor="Address"> Address:</label>
         <input
           type="text"
           defaultValue={address}

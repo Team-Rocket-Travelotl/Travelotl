@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updateTravelers } from "../../reducers/tripReducer";
+import { updateTravelers } from "../../reducers/tripReducer.ts";
 
 const TravelerNumberPage = () => {
   // page 5
@@ -15,8 +15,8 @@ const TravelerNumberPage = () => {
 
   const updateSelectedTravelerNumber = (navDirection) => {
     const numTravelers = document.getElementById('travelers').value;
-    if (numTravelers === '' && navDirection !== 'back') {
-      alert('Must enter value for Number of Travelers');
+    if (Number(numTravelers) <= 0 && navDirection === 'next') {
+      alert('Must enter numerical value greater than zero for Number of Travelers');
       throw new Error;
     }
     dispatch(updateTravelers(numTravelers));

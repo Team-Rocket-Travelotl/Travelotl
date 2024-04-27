@@ -4,8 +4,11 @@ import Header from "../header";
 import SingleDayItinerary from "../single-day-itinerary";
 
 const CompleteItinerary = () => {
-  const itinerary = useSelector((state) => state.itinerary.itinerary);
+  const { itinerary, id } = useSelector(state => state.itinerary);
   const [editedItinerary, setEditedItinerary] = useState({ itinerary });
+
+  console.log('complete itinerary:', itinerary)
+  console.log('id: ', id)
 
   //=======> HANDLE CLICK <============
   const handleClick = async () => {
@@ -56,14 +59,14 @@ const CompleteItinerary = () => {
     <div id="itinerary-details">
       <h2>Your Itinerary</h2>
       {dateComponents}
+      <button onClick={handleClick}>Save Changes</button>
     </div>
-  ) : null;
+  ) : <h2>No itinerary currently selected</h2>;
 
   return (
     <div>
       <Header />
       {itineraryItems}
-      <button onClick={handleClick}>save</button>
     </div>
   );
 };

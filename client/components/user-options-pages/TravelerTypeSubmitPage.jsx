@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { updateItinerary } from '../../reducers/itineraryReducer';
-import { updateGroupDescription } from '../../reducers/tripReducer';
-import Loader from '../loader/Loader';
+import { updateItineraryAndId } from '../../reducers/itineraryReducer.ts';
+import { updateGroupDescription } from '../../reducers/tripReducer.ts';
+import Loader from '../loader';
 
 const TravelerTypeSubmitPage = () => {
   // page 6
@@ -40,7 +40,7 @@ const TravelerTypeSubmitPage = () => {
       setLoading(false);
 
       if (response.ok) {
-        dispatch(updateItinerary(parsedData));
+        dispatch(updateItineraryAndId(parsedData));
         navigate('/itinerary');
       } else throw new Error('failed to retrieve data');
     } catch (error) {

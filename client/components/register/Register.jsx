@@ -1,6 +1,6 @@
-import Header from "../header/Header";
-import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Header from "../header";
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');

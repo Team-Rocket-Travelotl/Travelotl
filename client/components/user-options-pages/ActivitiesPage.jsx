@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { updateActivities } from '../../reducers/tripReducer';
+import { updateActivities } from '../../reducers/tripReducer.ts';
 
 const ActivitiesPage = () => {
   // page 3

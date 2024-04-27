@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import Trip from '../models/Trip';
 
 const today = new Date(Date.now());
+
+// const initialState: Trip = new Trip();
 
 const initialState = {
   destination: '',
@@ -17,7 +20,9 @@ const tripSlice = createSlice({
   initialState,
   reducers: {
     updateDestination(state, action) {
+      // return { ...state, destination: action.payload }
       state.destination = action.payload;
+      // return state;
     },
     updateStartDate(state, action) {
       state.startDate = action.payload;

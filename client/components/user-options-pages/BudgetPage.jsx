@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { updateBudget } from '../../reducers/tripReducer';
+import { updateBudget } from '../../reducers/tripReducer.ts';
 
 const BudgetPage = () => {
   // page 4
@@ -15,8 +15,8 @@ const BudgetPage = () => {
 
   const updateSelectedBudget = (navDirection) => {
     const budgetInput = document.getElementById('budget-input').value;
-    if (budgetInput === '' && navDirection !== 'back') {
-      alert('Must enter value for Budget');
+    if (Number(budgetInput) <= 0 && navDirection === 'next') {
+      alert('Must enter numerical value greater than zero for Budget');
       throw new Error;
     }
     dispatch(updateBudget(budgetInput));

@@ -1,7 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { useTransition, animated } from '@react-spring/web';
-
-import Header from '../header/Header';
+import Header from '../header';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -19,7 +18,6 @@ const AnimatedRoutes = () => {
 };
 
 const Form = () => {
-  
   return (
     <>
       <Header />

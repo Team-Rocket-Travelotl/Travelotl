@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import tripReducer from './reducers/tripReducer';
-import itineraryReducer from './reducers/itineraryReducer';
+import tripReducer from './reducers/tripReducer.ts';
+import itineraryReducer from './reducers/itineraryReducer.ts';
 
 export default configureStore({ 
   reducer: {

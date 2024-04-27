@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { updateStartDate, updateEndDate } from '../../reducers/tripReducer';
+import { updateStartDate, updateEndDate } from '../../reducers/tripReducer.ts';
 
 const DatesPage = () => {
   // page 2

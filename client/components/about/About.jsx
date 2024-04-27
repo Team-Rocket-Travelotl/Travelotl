@@ -1,4 +1,4 @@
-import Header from "../header/Header"
+import Header from "../header"
 
 const About = () => {
   return (
@@ -9,4 +9,4 @@ const About = () => {
   );
 };
 
-export default About
+export default About;
