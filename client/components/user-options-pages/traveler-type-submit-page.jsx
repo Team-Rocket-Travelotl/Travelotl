@@ -5,8 +5,6 @@ import Loader from "../loader/Loader.jsx";
 
 import { updateGroupDescription } from "../../reducers/tripReducer";
 import { useState } from "react";
-import { updateGroupDescription } from "../../reducers/tripReducer";
-import { useState } from "react";
 
 const TravelerTypeSubmitPage = () => {
   // page 6
@@ -30,15 +28,10 @@ const TravelerTypeSubmitPage = () => {
   const handleClick = async () => {
     setLoading(true);
     try {
-      console.log("data sent to back end server to make API request");
-      const response = await fetch("/api/trip/build", {
-        method: "POST",
-      console.log("data sent to back end server to make API request");
+      console.log("Sending data to the backend server to make API request");
       const response = await fetch("/api/trip/build", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
@@ -46,22 +39,20 @@ const TravelerTypeSubmitPage = () => {
       });
       const parsedData = await response.json();
       if (response.ok) {
-        console.log("ok");
+        console.log("Request successful");
         dispatch(updateItinerary(parsedData));
         navigate("/itinerary");
-        setLoading(false);
       } else {
-        throw new Error("failed to retrieve data");
-        throw new Error("failed to retrieve data");
+        throw new Error("Failed to retrieve data");
       }
     } catch (error) {
       console.error("Error with request:", error);
-      console.error("Error with request:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleKeyDown = async (event) => {
-    if (event.key === "Enter") {
     if (event.key === "Enter") {
       await handleClick();
     }
@@ -86,7 +77,6 @@ const TravelerTypeSubmitPage = () => {
                     value="Solo traveler"
                     onChange={handleDescriptionChange}
                     checked={groupDescription === "Solo traveler"}
-                    checked={groupDescription === "Solo traveler"}
                     onKeyDown={handleKeyDown}
                   />
                   Solo traveler
@@ -99,7 +89,6 @@ const TravelerTypeSubmitPage = () => {
                     name="groupDescription"
                     value="Family with young kids"
                     onChange={handleDescriptionChange}
-                    checked={groupDescription === "Family with young kids"}
                     checked={groupDescription === "Family with young kids"}
                     onKeyDown={handleKeyDown}
                   />
@@ -114,7 +103,6 @@ const TravelerTypeSubmitPage = () => {
                     value="Family of all ages"
                     onChange={handleDescriptionChange}
                     checked={groupDescription === "Family of all ages"}
-                    checked={groupDescription === "Family of all ages"}
                     onKeyDown={handleKeyDown}
                   />
                   Family (all ages)
@@ -128,7 +116,6 @@ const TravelerTypeSubmitPage = () => {
                     value="Family of adults"
                     onChange={handleDescriptionChange}
                     checked={groupDescription === "Family of adults"}
-                    checked={groupDescription === "Family of adults"}
                     onKeyDown={handleKeyDown}
                   />
                   Family (adults)
@@ -141,7 +128,6 @@ const TravelerTypeSubmitPage = () => {
                     name="groupDescription"
                     value="Friends"
                     onChange={handleDescriptionChange}
-                    checked={groupDescription === "Friends"}
                     checked={groupDescription === "Friends"}
                     onKeyDown={handleKeyDown}
                   />

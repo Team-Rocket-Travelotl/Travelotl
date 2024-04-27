@@ -9,18 +9,14 @@
 }
 
 .header-container {
-  text-decoration: underline;
-  text-decoration-color: blue;
-  column-count: 3;
+  display: flex;
+  justify-content: space-between;
   background: rgb(145, 206, 224);
   background: radial-gradient(
     circle,
     rgba(145, 206, 224, 1) 0%,
-    rgba(167, 166, 166, 1) 100%
+    rgb(235, 178, 178) 100%
   );
-  border-radius: 10px;
-  border-width: 4px;
-  border-color: rgb(4, 153, 153);
 }
 
 .activities {
