@@ -1,9 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import Trip from '../models/Trip';
 
 const today = new Date(Date.now());
-
-// const initialState: Trip = new Trip();
 
 const initialState = {
   destination: '',

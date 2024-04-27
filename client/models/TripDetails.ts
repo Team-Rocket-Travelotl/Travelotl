@@ -1,4 +1,4 @@
-export default class Itinerary {
+export default class TripDetails {
   _id: string = '';
   tripName: string = '';
   destination: string = '';

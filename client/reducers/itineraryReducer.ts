@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import Itinerary from '../models/Itinerary';
+import TripDetails from '../models/TripDetails';
 
 const initialState = {itinerary: {}, id: ''}
 

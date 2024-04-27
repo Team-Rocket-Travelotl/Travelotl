@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Itinerary from "../../models/Itinerary.tsx";
+import TripDetails from "../../models/TripDetails.ts";
 import { updateItineraryAndId } from "../../reducers/itineraryReducer.ts";
 import Header from "../header";
 
 const Manager = () => {
-  const [itineraries, setItineraries] = useState<Itinerary[]>([]);
+  const [itineraries, setItineraries] = useState<TripDetails[]>([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ const Manager = () => {
             Authorization: `Bearer ${localStorage.getItem("userToken")}`,
           },
         });
-        const itineraryList: Itinerary[] = await response.json();
+        const itineraryList: TripDetails[] = await response.json();
         setItineraries(itineraryList);
         console.log(itineraryList);
       })();
