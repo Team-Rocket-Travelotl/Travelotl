@@ -21,11 +21,11 @@ const itinerarySlice = createSlice({
   initialState,
   reducers: {
     updateItinerary(state, action) {
-      const { itinerary, email } = action.payload;
-      state.itinerary = itinerary;
-      state.email = email;
-      console.log(`email in the payload ${email}`);
-      //state.itinerary = action.payload;
+      // const { itinerary, email } = action.payload;
+      // state.itinerary = itinerary;
+      // state.email = email;
+      // console.log(`email in the payload ${email}`);
+      state.itinerary = action.payload;
     },
     updateActivities(state, action) {
       console.log("inside update activities---->", initialState);
