@@ -24,35 +24,42 @@ const SingleDayItinerary = ({
     };
     //=======> COMPONENT <============
     return (
-      <div className="activity-details" key={timeOfDay}>
+      <div className="activity-details " key={timeOfDay}>
         <h3 className="time-of-day">{timeOfDay}</h3>
-        <label for=""> Activity:</label>
-        <input
-          type="text"
-          defaultValue={activity}
-          onChange={(e) =>
-            handleChange(date, timeOfDay, "activity", e.target.value)
-          }
-          id="activity"
-        ></input>
-        <label for=""> Description:</label>
-        <input
-          type="text"
-          defaultValue={description}
-          onChange={(e) =>
-            handleChange(date, timeOfDay, "description", e.target.value)
-          }
-          id="Description"
-        ></input>
-        <label for="Address"> Address:</label>
-        <input
-          type="text"
-          defaultValue={address}
-          onChange={(e) =>
-            handleChange(date, timeOfDay, "address", e.target.value)
-          }
-          id="Address"
-        ></input>
+        <div>
+          <label> Activity: </label>
+          <input
+            className="w-40px"
+            type="text"
+            defaultValue={activity}
+            onChange={(e) =>
+              handleChange(date, timeOfDay, "activity", e.target.value)
+            }
+            id="activity "
+          ></input>
+        </div>
+        <div>
+          <label for="">Description: </label>
+          <input
+            type="text"
+            defaultValue={description}
+            onChange={(e) =>
+              handleChange(date, timeOfDay, "description", e.target.value)
+            }
+            id="Description "
+          ></input>
+        </div>
+        <div>
+          <label for="Address"> Address: </label>
+          <input
+            type="text"
+            defaultValue={address}
+            onChange={(e) =>
+              handleChange(date, timeOfDay, "address", e.target.value)
+            }
+            id="Address"
+          ></input>
+        </div>
       </div>
     );
   });

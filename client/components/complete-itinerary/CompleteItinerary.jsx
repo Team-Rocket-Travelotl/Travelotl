@@ -6,8 +6,7 @@ import SingleDayItinerary from "../single-day-itinerary";
 const CompleteItinerary = () => {
   const itinerary = useSelector((state) => state.itinerary.itinerary);
   const [editedItinerary, setEditedItinerary] = useState({ itinerary });
-
-  //=======> HANDLE CLICK <============
+  //=======> HANDLE CLICK <============//
   const handleClick = async () => {
     console.log("state to send to back end", editedItinerary);
     try {
@@ -54,7 +53,9 @@ const CompleteItinerary = () => {
 
   const itineraryItems = itinerary ? (
     <div id="itinerary-details">
-      <h2>Your Itinerary</h2>
+      <h1 className="text-center font-family: lobster-regular text-3xl">
+        Your Itinerary
+      </h1>
       {dateComponents}
     </div>
   ) : null;
@@ -63,7 +64,14 @@ const CompleteItinerary = () => {
     <div>
       <Header />
       {itineraryItems}
-      <button onClick={handleClick}>save</button>
+      <div className="fixed bottom-0 right-0 p-4">
+        <button
+          className="bg-blue-500/50 hover:bg-pink-300/50 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          onClick={handleClick}
+        >
+          Save
+        </button>
+      </div>
     </div>
   );
 };

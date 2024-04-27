@@ -112,7 +112,9 @@ const Manager = () => {
   return (
     <div>
       <Header />
-      <h2>Itinerary Manager</h2>
+      <h2 className="text-center font-family: lobster-regular text-3xl">
+        Itinerary Manager
+      </h2>
       <div id="itinerary-grid">{renderList}</div>
     </div>
   );
