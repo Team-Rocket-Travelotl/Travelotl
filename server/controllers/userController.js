@@ -79,6 +79,10 @@ const loginUser = async (req, res) => {
   }
 };
 
+const logoutUser = (req, res) => {
+  console.log(`in backend logout user`);
+};
+
 const getUser = async (req, res) => {
   const user = await User.findById(req.user.id);
   try {
@@ -115,4 +119,10 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
 
-module.exports = { registerUser, loginUser, getUser, getUserEmailById };
+module.exports = {
+  registerUser,
+  loginUser,
+  getUser,
+  getUserEmailById,
+  logoutUser,
+};

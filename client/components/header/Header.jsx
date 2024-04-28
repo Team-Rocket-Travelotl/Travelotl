@@ -15,10 +15,12 @@ const Header = () => {
       <div className="grid grid-cols-2 gap-1 place-content-around">
         <>
           <Link to="/manager">Manager</Link>
+          <Link to="/myitinerary">My Itinerary</Link>
           <Link to="/about">About</Link>
         </>
         {userEmail ? (
           <>
+            <Link to="/logout">Log out</Link>
             <p>Welcome,</p>
             <p>{userEmail}</p>
           </>
