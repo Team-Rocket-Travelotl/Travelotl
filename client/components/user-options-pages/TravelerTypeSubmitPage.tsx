@@ -43,6 +43,7 @@ const TravelerTypeSubmitPage = () => {
       setLoading(false);
 
       if (response.ok) {
+        // temporary - need to bring in id and userEmail from /build endpoint; should function same way as /retrieve endpoint;
         dispatch(setCurrentItineraryDetails({ itinerary: parsedData, id: 'fakeid0', userEmail: 'placeholder' }));
         navigate('/itinerary');
       } else throw new Error('failed to retrieve data');
