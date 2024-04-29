@@ -5,7 +5,7 @@ import SingleDayItinerary from "../single-day-itinerary";
 import { useAppSelector } from "../../hooks";
 
 const CompleteItinerary = () => {
-  const { itinerary, id } = useAppSelector(state => state.itinerary);
+  const { itinerary, id, userEmail } = useAppSelector(state => state.itinerary);
   const [editedItinerary, setEditedItinerary] = useState(itinerary);
 
   console.log('complete itinerary:', itinerary)
@@ -58,6 +58,9 @@ const CompleteItinerary = () => {
 
   const itineraryItems = itinerary ? (
     <div id="itinerary-details">
+      <div>
+        <h3>User Email: {userEmail}</h3>
+      </div>
       <h2>Your Itinerary</h2>
       {dateComponents}
       <button onClick={handleClick}>Save Changes</button>

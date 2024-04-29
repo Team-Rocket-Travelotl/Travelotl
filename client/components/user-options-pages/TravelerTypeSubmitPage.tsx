@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks.ts';
-import { updateItineraryAndId } from '../../reducers/itineraryReducer.ts';
+import { setCurrentItineraryDetails } from '../../reducers/itineraryReducer.ts';
 import { updateGroupDescription } from '../../reducers/tripReducer.ts';
 import Loader from '../loader';
 
@@ -40,7 +40,7 @@ const TravelerTypeSubmitPage = () => {
       setLoading(false);
 
       if (response.ok) {
-        dispatch(updateItineraryAndId(parsedData));
+        dispatch(setCurrentItineraryDetails(parsedData));
         navigate('/itinerary');
       } else throw new Error('failed to retrieve data');
     } catch (error) {

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import TripDetails from "../../models/TripDetails.ts";
-import { updateItineraryAndId } from "../../reducers/itineraryReducer.ts";
+import TripDetails from "../../models/TripDetails";
+import CompleteItinerary from "../../models/CompleteItinerary";
 import Header from "../header";
-import CompleteItinerary from "../../models/CompleteItinerary.ts";
+import { setCurrentItineraryDetails } from "../../reducers/itineraryReducer.ts";
 
 const Manager = () => {
   const [itineraries, setItineraries] = useState<TripDetails[]>([]);
+  const [userEmails, setUserEmails] = useState(new Map<string, string>());
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,11 +26,39 @@ const Manager = () => {
         const itineraryList: TripDetails[] = await response.json();
         setItineraries(itineraryList);
         console.log(itineraryList);
+        const userIds: string[] = itineraryList.map(itinerary => itinerary.user);
+        const userEmailMap: Map<string, string> = new Map();
+        for (const userId of userIds) {
+          if (!userEmailMap[userId]) {
+            const email = await getEmailById(userId);
+            userEmailMap[userId] = email;
+          }
+        }
+        setUserEmails(userEmailMap);
       })();
     } catch (error) {
       console.error("Error with request: ", error);
     }
   }, []);
+
+  const getEmailById = async (_id) => {
+    try {
+      const response = await fetch(`/api/users/${_id}/email`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch user email");
+      }
+      const { email } = await response.json();
+      return email;
+    } catch (err) {
+      console.error(`error in fetch user email ${err}`);
+      return null;
+    }
+  };
 
   const deleteItinerary = async (e) => {
     const tripId = e.target.parentNode.parentNode.id;
@@ -50,23 +79,36 @@ const Manager = () => {
   };
 
   const seeDetails = async (e) => {
-    const tripId = e.target.parentNode.parentNode.id;
-    const matchingTrips = itineraries.filter(trip => trip._id === tripId);
-    const foundTrip: CompleteItinerary = JSON.parse(matchingTrips[0].trip).itinerary;
+    const tripId: string = e.target.parentNode.parentNode.id;
+    const matchingTrip = itineraries.filter(trip => trip._id === tripId)[0];
+    const userEmail = userEmails[matchingTrip.user];
+    let foundTrip: CompleteItinerary; 
+    
+    // rn we have data coming back in different formats so this grabs the right info depending on which format we get
+    if (typeof matchingTrip.trip === 'string') {
+      foundTrip = JSON.parse(matchingTrip.trip).hasOwnProperty('itinerary') 
+        ? JSON.parse(matchingTrip.trip).itinerary
+        : JSON.parse(matchingTrip.trip);
+    } else foundTrip = matchingTrip.trip;
 
     console.log("See Details of:", foundTrip);
 
     if (foundTrip) {
-      dispatch(updateItineraryAndId({ itinerary: foundTrip, id: tripId }));
+      dispatch(setCurrentItineraryDetails({ itinerary: foundTrip, id: tripId, userEmail: userEmail }));
       navigate("/itinerary");
     } else throw new Error('Sorry, we couldn\'t find that trip.');
   };
 
   const renderList = itineraries.map(itinerary => {
-    const { _id, destination, startDate, endDate, createdAt } = itinerary;
+    const { _id, destination, startDate, endDate, createdAt, user } = itinerary;
     return (
       <div className="trip-tile" key={_id} id={_id}>
-        <h3>{destination}</h3>
+          <p>
+          User: <b>{userEmails[user]}</b>
+        </p>
+        <h3>
+          Destination: <b>{destination}</b>
+        </h3>
         <p>
           From: <b>{startDate}</b>
         </p>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { updateActivities } from '../../reducers/tripReducer.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks.ts';
@@ -24,10 +24,10 @@ const ActivitiesPage = () => {
     dispatch(updateActivities(newSelectedActivities));
   }
 
-  const saveAndContinue = (event) => {
+  function saveAndContinue(event: any) {
     if (event.type == 'keydown' && event.key !== 'Enter') return;
     else if (event) event.preventDefault();
-    updateSelectedActivities(event.target.value);
+    updateSelectedActivities(this.value);
     navigate(event.target.value === 'back' ? prevPage : nextPage);
   };
 

@@ -1,3 +1,5 @@
+import CompleteItinerary from "./CompleteItinerary";
+
 export default interface TripDetails {
   _id: string,
   tripName: string,
@@ -6,6 +8,6 @@ export default interface TripDetails {
   updatedAt: string,
   startDate: string,
   endDate: string,
-  trip: string,
+  trip: CompleteItinerary | string
   user: string,
 }

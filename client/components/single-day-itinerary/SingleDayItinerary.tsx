@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import CompleteItinerary from "../../models/CompleteItinerary";
 import DailyItinerary from "../../models/DailyItinerary";
 
-const SingleDayItinerary = (props: { 
-  setEditedItinerary: React.Dispatch<React.SetStateAction<CompleteItinerary>>, 
-  editedItinerary: CompleteItinerary, 
-  dateObj: DailyItinerary, 
-  date: string 
+const SingleDayItinerary = ({ 
+  setEditedItinerary,
+  editedItinerary,
+  dateObj,
+  date, 
 }) => {
   const timeSlots = Object.keys(dateObj);
   const timeSlotComponents = timeSlots.map((timeOfDay) => {
