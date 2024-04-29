@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import TripDetails from "../../models/TripDetails";
 import CompleteItinerary from "../../models/CompleteItinerary";
 import Header from "../header";
-import { setCurrentItineraryDetails } from "../../reducers/itineraryReducer.ts";
+import { setCurrentItineraryDetails } from "../../reducers/itineraryReducer";
 
 const Manager = () => {
   const [itineraries, setItineraries] = useState<TripDetails[]>([]);

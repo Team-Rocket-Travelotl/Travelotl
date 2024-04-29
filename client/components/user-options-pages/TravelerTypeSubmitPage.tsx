@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks.ts';
-import { setCurrentItineraryDetails } from '../../reducers/itineraryReducer.ts';
-import { updateGroupDescription } from '../../reducers/tripReducer.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setCurrentItineraryDetails } from '../../reducers/itineraryReducer';
+import { updateGroupDescription } from '../../reducers/tripReducer';
 import Loader from '../loader';
 
 const TravelerTypeSubmitPage = () => {

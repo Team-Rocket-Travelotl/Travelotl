@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import { useSelector } from "react-redux";
 import Header from "../header";
-import SingleDayItinerary from "../single-day-itinerary";
+import SingleDayItinerary from "../single-day-itinerary/index.ts";
 import { useAppSelector } from "../../hooks";
 
 const CompleteItinerary = () => {
