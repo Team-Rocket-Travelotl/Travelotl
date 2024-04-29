@@ -135,7 +135,7 @@ const tripController = {
       email: req.body.email,
     })
       .then((result) => {
-        // console.log(result);
+        console.log(result);
         res.locals.allTrips = result;
         console.log("All trips retrieved - retrieveAllTrips middleware");
         return next();
