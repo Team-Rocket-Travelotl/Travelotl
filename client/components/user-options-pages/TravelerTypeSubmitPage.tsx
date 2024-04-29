@@ -4,6 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setCurrentItineraryDetails } from '../../reducers/itineraryReducer';
 import { updateGroupDescription } from '../../reducers/tripReducer';
 import Loader from '../loader';
+import { parse } from 'dotenv';
+import CompleteItinerary from '../../models/CompleteItinerary';
 
 const TravelerTypeSubmitPage = () => {
   // page 6
@@ -35,12 +37,13 @@ const TravelerTypeSubmitPage = () => {
         },
         body: JSON.stringify(userOptions)
       });
-      const parsedData = await response.json();
+      const parsedData: CompleteItinerary = await response.json();
+      console.log(parsedData)
 
       setLoading(false);
 
       if (response.ok) {
-        dispatch(setCurrentItineraryDetails(parsedData));
+        dispatch(setCurrentItineraryDetails({ itinerary: parsedData, id: 'fakeid0', userEmail: 'placeholder' }));
         navigate('/itinerary');
       } else throw new Error('failed to retrieve data');
     } catch (error) {

@@ -27,7 +27,7 @@ const ActivitiesPage = () => {
   function saveAndContinue(event: any) {
     if (event.type == 'keydown' && event.key !== 'Enter') return;
     else if (event) event.preventDefault();
-    updateSelectedActivities(this.value);
+    updateSelectedActivities(event.target.value);
     navigate(event.target.value === 'back' ? prevPage : nextPage);
   };
 
