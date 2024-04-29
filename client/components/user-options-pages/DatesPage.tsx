@@ -1,21 +1,22 @@
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks.ts';
 import { updateStartDate, updateEndDate } from '../../reducers/tripReducer.ts';
 
 const DatesPage = () => {
   // page 2
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const prevPage = '/form';
   const nextPage = '/form/activities-select';
 
-  const { startDate, endDate } = useSelector(state => state.trip);
+  const { startDate, endDate } = useAppSelector(state => state.trip);
   
   const updateSelectedDates = () => {
-    const startDate = document.getElementById('start-date').value;
-    const endDate = document.getElementById('end-date').value;
+    const startDate = (document.getElementById('start-date') as HTMLInputElement).value;
+    const endDate = (document.getElementById('end-date') as HTMLInputElement).value;
     dispatch(updateStartDate(startDate));
     dispatch(updateEndDate(endDate));
   }

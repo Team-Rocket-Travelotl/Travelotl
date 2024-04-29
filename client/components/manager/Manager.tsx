@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import TripDetails from "../../models/TripDetails.ts";
 import { updateItineraryAndId } from "../../reducers/itineraryReducer.ts";
 import Header from "../header";
+import CompleteItinerary from "../../models/CompleteItinerary.ts";
 
 const Manager = () => {
   const [itineraries, setItineraries] = useState<TripDetails[]>([]);
@@ -51,11 +52,12 @@ const Manager = () => {
   const seeDetails = async (e) => {
     const tripId = e.target.parentNode.parentNode.id;
     const matchingTrips = itineraries.filter(trip => trip._id === tripId);
-    const foundTrip = JSON.parse(matchingTrips[0].trip);
+    const foundTrip: CompleteItinerary = JSON.parse(matchingTrips[0].trip).itinerary;
 
     console.log("See Details of:", foundTrip);
+
     if (foundTrip) {
-      dispatch(updateItineraryAndId({ itinerary: foundTrip.itinerary, id: tripId }));
+      dispatch(updateItineraryAndId({ itinerary: foundTrip, id: tripId }));
       navigate("/itinerary");
     } else throw new Error('Sorry, we couldn\'t find that trip.');
   };

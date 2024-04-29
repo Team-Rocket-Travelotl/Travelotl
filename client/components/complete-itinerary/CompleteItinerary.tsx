@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { useSelector } from "react-redux";
 import Header from "../header";
 import SingleDayItinerary from "../single-day-itinerary";
+import { useAppSelector } from "../../hooks";
 
 const CompleteItinerary = () => {
-  const { itinerary, id } = useSelector(state => state.itinerary);
-  const [editedItinerary, setEditedItinerary] = useState({ itinerary });
+  const { itinerary, id } = useAppSelector(state => state.itinerary);
+  const [editedItinerary, setEditedItinerary] = useState(itinerary);
 
   console.log('complete itinerary:', itinerary)
   console.log('id: ', id)
@@ -32,8 +33,8 @@ const CompleteItinerary = () => {
     }
   };
 
-  let dates;
-  let dateComponents;
+  let dates: string[];
+  let dateComponents: ReactElement[] = [];
 
   if (itinerary) {
     dates = Object.keys(itinerary);

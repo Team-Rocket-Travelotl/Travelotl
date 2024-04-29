@@ -1,19 +1,20 @@
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { updateActivities } from '../../reducers/tripReducer.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks.ts';
 
 const ActivitiesPage = () => {
   // page 3
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const prevPage = '/form/dates-select';
   const nextPage = '/form/budget-select';
 
-  const { activities } = useSelector(state => state.trip);
+  const { activities } = useAppSelector(state => state.trip);
 
-  const updateSelectedActivities = (navDirection) => {
+  const updateSelectedActivities = (navDirection: string) => {
     const inputFields = new Array(...document.getElementsByTagName('input'));
     const newSelectedActivities = inputFields.filter(box => box.checked).map(field => field.value);
     if (!newSelectedActivities.length && navDirection !== 'back') {
@@ -26,7 +27,7 @@ const ActivitiesPage = () => {
   const saveAndContinue = (event) => {
     if (event.type == 'keydown' && event.key !== 'Enter') return;
     else if (event) event.preventDefault();
-    updateSelectedActivities(navDirection = event.target.value);
+    updateSelectedActivities(event.target.value);
     navigate(event.target.value === 'back' ? prevPage : nextPage);
   };
 

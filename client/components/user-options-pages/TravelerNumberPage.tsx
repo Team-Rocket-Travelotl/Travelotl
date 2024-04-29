@@ -1,31 +1,32 @@
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { updateTravelers } from "../../reducers/tripReducer.ts";
+import { useAppDispatch, useAppSelector } from "../../hooks.ts";
 
 const TravelerNumberPage = () => {
   // page 5
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const prevPage = '/form/budget-select';
   const nextPage = '/form/type-traveler-select';
 
-  const { travelers } = useSelector((state) => state.trip);
+  const { travelers } = useAppSelector((state) => state.trip);
 
-  const updateSelectedTravelerNumber = (navDirection) => {
-    const numTravelers = document.getElementById('travelers').value;
+  const updateSelectedTravelerNumber = (navDirection: string) => {
+    const numTravelers = (document.getElementById('travelers') as HTMLInputElement).value;
     if (Number(numTravelers) <= 0 && navDirection === 'next') {
       alert('Must enter numerical value greater than zero for Number of Travelers');
       throw new Error;
     }
-    dispatch(updateTravelers(numTravelers));
+    dispatch(updateTravelers(Number(numTravelers)));
   }
 
   const saveAndContinue = (event) => {
     if (event.type == 'keydown' && event.key !== 'Enter') return;
     else if (event) event.preventDefault();
-    updateSelectedTravelerNumber(navDirection = event.target.value);
+    updateSelectedTravelerNumber(event.target.value);
     navigate(event.target.value === 'back' ? prevPage : nextPage);
   };
 

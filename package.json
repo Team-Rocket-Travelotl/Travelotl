@@ -2,7 +2,7 @@
   "name": "travelotl",
   "version": "1.0.0",
   "description": "Scratch project",
-  "main": "index.js",
+  "main": "index.ts",
   "repository": "https://github.com/Jaysus119/Travelotl.git",
   "author": "Team Axolotl",
   "license": "MIT",

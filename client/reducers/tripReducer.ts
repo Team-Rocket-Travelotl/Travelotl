@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import UserTripOptions from '../models/UserTripOptions';
 
 const today = new Date(Date.now());
 
@@ -7,34 +8,34 @@ const initialState = {
   startDate: today.toISOString().slice(0, 10),
   endDate: today.toISOString().slice(0, 10),
   activities: [],
-  budget: '',
-  travelers: '',
+  budget: 0,
+  travelers: 0,
   groupDescription: 'Solo traveler',
-};
+} as UserTripOptions;
 
 const tripSlice = createSlice({
   name: 'trip',
   initialState,
   reducers: {
-    updateDestination(state, action) {
+    updateDestination(state, action: PayloadAction<string>) {
       state.destination = action.payload;
     },
-    updateStartDate(state, action) {
+    updateStartDate(state, action: PayloadAction<string>) {
       state.startDate = action.payload;
     },
-    updateEndDate(state, action) {
+    updateEndDate(state, action: PayloadAction<string>) {
       state.endDate = action.payload;
     },
-    updateActivities(state, action) {
+    updateActivities(state, action: PayloadAction<String[]>) {
       state.activities = action.payload;
     },
-    updateBudget(state, action) {
+    updateBudget(state, action: PayloadAction<number>) {
       state.budget = action.payload;
     },
-    updateTravelers(state, action) {
+    updateTravelers(state, action: PayloadAction<number>) {
       state.travelers = action.payload;
     },
-    updateGroupDescription(state, action) {
+    updateGroupDescription(state, action: PayloadAction<string>) {
       state.groupDescription = action.payload;
     },
   },

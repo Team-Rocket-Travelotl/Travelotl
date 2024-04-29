@@ -1,12 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import CompleteItinerary from '../models/CompleteItinerary';
 
-const initialState = {itinerary: {}, id: ''}
+const initialState = {itinerary: {} as CompleteItinerary, id: ''};
 
 const itinerarySlice = createSlice({
   name: 'itinerary',
   initialState,
   reducers: {
-    updateItineraryAndId(state, action) {
+    updateItineraryAndId(state, action: PayloadAction<{itinerary: CompleteItinerary, id: string}>) {
       const { itinerary, id } = action.payload;
       state.itinerary = itinerary;
       state.id = id;

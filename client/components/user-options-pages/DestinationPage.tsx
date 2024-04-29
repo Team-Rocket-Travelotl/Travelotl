@@ -1,19 +1,20 @@
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks.ts';
 import { updateDestination } from '../../reducers/tripReducer.ts';
 
 const DestinationPage = () => {
   // page 1
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const nextPage = '/form/dates-select';
 
-  const { destination } = useSelector(state => state.trip);
+  const { destination } = useAppSelector(state => state.trip);
 
-  const updateSelectedDestination = (navDirection) => {
-    const selectedDestination = document.getElementById('destination').value;
+  const updateSelectedDestination = (navDirection: string) => {
+    const selectedDestination = (document.getElementById('destination') as HTMLInputElement).value;
     if (selectedDestination === '' && navDirection !== 'back') {
       alert('Must enter value for Destination');
       throw new Error;
@@ -24,7 +25,7 @@ const DestinationPage = () => {
   const saveAndContinue = (event) => {
     if (event.type == 'keydown' && event.key !== 'Enter') return;
     else if (event) event.preventDefault();
-    updateSelectedDestination(navDirection = event.target.value);
+    updateSelectedDestination(event.target.value);
     navigate(nextPage);
   };
 

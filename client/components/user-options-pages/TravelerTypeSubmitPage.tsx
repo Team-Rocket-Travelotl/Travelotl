@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks.ts';
 import { updateItineraryAndId } from '../../reducers/itineraryReducer.ts';
 import { updateGroupDescription } from '../../reducers/tripReducer.ts';
 import Loader from '../loader';
@@ -9,12 +9,12 @@ const TravelerTypeSubmitPage = () => {
   // page 6
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const prevPage = '/form/number-traveler-select';
  
-  const { groupDescription } = useSelector(state => state.trip);
-  const userOptions = useSelector(state => state.trip);
+  const { groupDescription } = useAppSelector(state => state.trip);
+  const userOptions = useAppSelector(state => state.trip);
 
   const [loading, setLoading] = useState(false);
 

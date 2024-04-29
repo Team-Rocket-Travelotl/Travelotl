@@ -26,7 +26,7 @@ const Register = () => {
 
   return (
     <div>
-        <Header />
+      <Header />
       <h2>Register</h2>
       <form onSubmit={handleSubmit} method='post' action='submit' id='registerForm'>
         <label>
