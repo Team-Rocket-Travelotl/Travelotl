@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   /* have properies that reflect the schema 
@@ -14,17 +14,21 @@ const initialState = {
     }
     
     */
-  key: 'value',
+  key: "value",
 };
 const itinerarySlice = createSlice({
-  name: 'itinerary',
+  name: "itinerary",
   initialState,
   reducers: {
     updateItinerary(state, action) {
+      // const { itinerary, email } = action.payload;
+      // state.itinerary = itinerary;
+      // state.email = email;
+      // console.log(`email in the payload ${email}`);
       state.itinerary = action.payload;
     },
     updateActivities(state, action) {
-      console.log('inside update activities---->', initialState);
+      console.log("inside update activities---->", initialState);
       state.map((day) => {
         console.log(day);
         if (day === action.payload.date) {

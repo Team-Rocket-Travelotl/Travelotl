@@ -26,6 +26,7 @@ const SingleDayItinerary = ({
     return (
       <div className="activity-details" key={timeOfDay}>
         <h3 className="time-of-day">{timeOfDay}</h3>
+
         <label for=""> Activity:</label>
         <input
           type="text"
