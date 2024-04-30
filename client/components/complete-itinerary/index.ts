@@ -1,1 +1,1 @@
-export { default } from './CompleteItinerary';
+export { default } from './CompleteDisplayItinerary';

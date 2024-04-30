@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { KeyboardEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks.ts';
 import { updateDestination } from '../../reducers/tripReducer.ts';
@@ -13,24 +13,28 @@ const DestinationPage = () => {
 
   const { destination } = useAppSelector(state => state.trip);
 
-  const updateSelectedDestination = (navDirection: string) => {
+  const updateSelectedDestination = () => {
     const selectedDestination = (document.getElementById('destination') as HTMLInputElement).value;
-    if (selectedDestination === '' && navDirection !== 'back') {
+    if (selectedDestination === '') {
       alert('Must enter value for Destination');
       throw new Error;
     }
     dispatch(updateDestination(selectedDestination));
   }
 
-  const saveAndContinue = (event) => {
-    if (event.type == 'keydown' && event.key !== 'Enter') return;
-    else if (event) event.preventDefault();
-    updateSelectedDestination(event.target.value);
+  const saveAndContinue = () => {
+    updateSelectedDestination();
     navigate(nextPage);
   };
 
+  const handleEnterKey = (event: KeyboardEvent) => {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    saveAndContinue();
+  }
+
   return (
-    <div className="bg-gray-300 rounded border-4 border-black" onKeyDown={saveAndContinue}>
+    <div className="bg-gray-300 rounded border-4 border-black" onKeyDown={handleEnterKey}>
       <label className='text-2xl' htmlFor="destination">
         Destination:
       </label>

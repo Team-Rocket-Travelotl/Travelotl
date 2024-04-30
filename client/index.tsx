@@ -7,6 +7,7 @@ import Manager from './components/manager';
 import Main from './components/main';
 import About from './components/about';
 import Login from './components/login';
+import Logout from './components/logout';
 import Form from './components/form';
 import { 
   DestinationPage, 

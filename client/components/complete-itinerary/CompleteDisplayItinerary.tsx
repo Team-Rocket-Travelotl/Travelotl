@@ -1,12 +1,12 @@
 import React, { ReactElement, useState } from "react";
-import { useSelector } from "react-redux";
-import Header from "../header";
+import Header from "../header/index.ts";
 import SingleDayItinerary from "../single-day-itinerary/index.ts";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector } from "../../hooks.ts";
+import CompleteItinerary from "../../models/CompleteItinerary.ts";
 
-const CompleteItinerary = () => {
+const CompleteDisplayItinerary = () => {
   const { itinerary, id, userEmail } = useAppSelector(state => state.itinerary);
-  const [editedItinerary, setEditedItinerary] = useState(itinerary);
+  const [editedItinerary, setEditedItinerary] = useState<CompleteItinerary>(itinerary);
 
   console.log('complete itinerary:', itinerary)
   console.log('id: ', id)
@@ -56,7 +56,7 @@ const CompleteItinerary = () => {
     });
   }
 
-  const itineraryItems = itinerary ? (
+  const itineraryItems = itinerary !== undefined ? (
     <div id="itinerary-details">
       <div>
         <h3>User Email: {userEmail}</h3>
@@ -75,4 +75,4 @@ const CompleteItinerary = () => {
   );
 };
 
-export default CompleteItinerary;
+export default CompleteDisplayItinerary;

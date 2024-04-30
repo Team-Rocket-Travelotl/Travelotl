@@ -61,7 +61,7 @@ const Manager = () => {
   };
 
   const deleteItinerary = async (e) => {
-    const tripId = e.target.parentNode.parentNode.id;
+    const tripId: string = e.target.parentNode.parentNode.id;
     try {
       const response = await fetch("api/trip/delete", {
         method: "DELETE",
@@ -71,7 +71,7 @@ const Manager = () => {
         },
         body: JSON.stringify({ tripId: tripId }),
       });
-      const remainingTrips = await response.json();
+      const remainingTrips: TripDetails[] = await response.json();
       setItineraries(remainingTrips);
     } catch (err) {
       console.error("Error with request: ", err);

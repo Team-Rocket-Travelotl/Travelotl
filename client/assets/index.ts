@@ -1,1 +1,3 @@
-export default './loader.mp4';
+import video from './loader.mp4';
+
+export default video;

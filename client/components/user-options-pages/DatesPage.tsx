@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, KeyboardEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks.ts';
 import { updateStartDate, updateEndDate } from '../../reducers/tripReducer.ts';
@@ -21,15 +21,19 @@ const DatesPage = () => {
     dispatch(updateEndDate(endDate));
   }
 
-  const saveAndContinue = (event) => {
-    if (event.type == 'keydown' && event.key !== 'Enter') return;
-    else if (event) event.preventDefault();
+  const saveAndContinue = (navDirection) => {
     updateSelectedDates();
-    navigate(event.target.value === 'back' ? prevPage : nextPage);
+    navigate(navDirection === 'back' ? prevPage : nextPage);
   };
 
+  const handleEnterKey = (event: KeyboardEvent) => {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    saveAndContinue('next');
+  }
+
   return (
-    <div className="bg-gray-300 rounded border-4 border-black" onKeyDown={saveAndContinue}>
+    <div className="bg-gray-300 rounded border-4 border-black" onKeyDown={handleEnterKey}>
       <div>
         <label className='text-2xl' htmlFor="startDate">
           Start Date:
@@ -51,8 +55,8 @@ const DatesPage = () => {
         />
       </div>
       <div >
-        <button className='m-4 underline text-blue-600' type='button' value='back' onClick={saveAndContinue}>Back</button>
-        <button className='m-4 underline text-blue-600' type='button' value='next' onClick={saveAndContinue}>Next</button>
+        <button className='m-4 underline text-blue-600' type='button' value='back' onClick={ () => saveAndContinue('back') }>Back</button>
+        <button className='m-4 underline text-blue-600' type='button' value='next' onClick={ () => saveAndContinue('next') }>Next</button>
       </div>
     </div>
   );

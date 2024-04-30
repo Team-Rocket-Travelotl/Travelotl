@@ -1,48 +1,46 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateItinerary } from "../../reducers/itineraryReducer";
+import { setCurrentItineraryDetails } from "../../reducers/itineraryReducer";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../header/Header";
+import { useAppSelector } from "../../hooks";
+import TripDetails from "../../models/TripDetails";
+import CompleteItinerary from "../../models/CompleteItinerary";
+import React from "react";
 
 const MyItinerary = () => {
-  const [itineraries, setItineraries] = useState([]);
+  const [itineraries, setItineraries] = useState<TripDetails[]>([]);
+  const [userEmails, setUserEmails] = useState(new Map<string, string>());
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [userEmails, setUserEmails] = useState({});
-  const user = useSelector((state) => state.itinerary.user);
 
   useEffect(() => {
     try {
-      const getItineraryList = async () => {
+      (async function() {
         const userId = localStorage.getItem("userId");
         console.log("get my iti before and userId", userId);
-        let itineraryList = await fetch(`api/trip/retrieveById/${userId}`, {
+        const response = await fetch(`api/trip/retrieveById/${userId}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("userToken")}`,
           },
         });
 
-        itineraryList = await itineraryList.json();
+        const itineraryList: TripDetails[] = await response.json();
         console.log("get my iti later");
         console.log("front end result", itineraryList);
         setItineraries(itineraryList);
 
-        const userIds = itineraryList.map((itinerary) => itinerary.user);
-        const userEmailMap = {};
+        const userIds = itineraryList.map(itinerary => itinerary.user);
+        const userEmailMap: Map<string, string> = new Map();
         for (const id of userIds) {
-          if (!userEmails[id]) {
+          if (!userEmailMap[id]) {
             const email = await getEmailById(id);
             userEmailMap[id] = email;
           }
         }
-        setUserEmails((prevUserEmails) => ({
-          ...prevUserEmails,
-          ...userEmailMap,
-        }));
-      };
-
-      getItineraryList();
+        setUserEmails(userEmailMap);
+      })();
     } catch (error) {
       console.error("Error with request:", error);
     }
@@ -68,9 +66,9 @@ const MyItinerary = () => {
   };
 
   const deleteItinerary = async (e) => {
-    const tripId = e.target.parentNode.parentNode.id;
+    const tripId: string = e.target.parentNode.parentNode.id;
     try {
-      let remainingTrips = await fetch("api/trip/delete", {
+      const response = await fetch("api/trip/delete", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -79,68 +77,72 @@ const MyItinerary = () => {
         body: JSON.stringify({ tripId: tripId }),
       });
 
-      remainingTrips = await remainingTrips.json();
+      const remainingTrips: TripDetails[] = await response.json();
 
       setItineraries(remainingTrips);
     } catch (err) {
-      console.error("Error with request:", error);
+      console.error("Error with request:", err);
     }
   };
 
   const seeDetails = async (e) => {
-    const tripId = e.target.parentNode.parentNode.id;
+    const tripId: string = e.target.parentNode.parentNode.id;
+    
+    const userEmail = userEmails[matchingTrip.user];
+     
 
     try {
-      let itineraryList = await fetch("api/trip/retrieveById", {
+      const response = await fetch("api/trip/retrieveById", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
       });
 
-      itineraryList = await itineraryList.json();
+      const itineraryList = await response.json();
 
       console.log(itineraryList);
 
-      let foundTrip;
-      for (const trip of itineraryList) {
-        console.log("MyItinerary", trip);
-        // console.log("Parse ID:", trip.tripId, "| Target ID:", tripId)
-        if (trip._id === tripId) {
-          foundTrip = JSON.parse(trip.trip);
-          break;
-        }
-      }
+      const matchingTrip = itineraryList.filter(trip => trip._id === tripId)[0];
+      let foundTrip: CompleteItinerary;
+
+
+      // rn we have data coming back in different formats so this grabs the right info depending on which format we get
+      if (typeof matchingTrip.trip === 'string') {
+        foundTrip = JSON.parse(matchingTrip.trip).hasOwnProperty('itinerary') 
+          ? JSON.parse(matchingTrip.trip).itinerary
+          : JSON.parse(matchingTrip.trip);
+      } else foundTrip = matchingTrip.trip;
+      
       console.log("See Details of:", foundTrip);
+
       if (foundTrip) {
-        dispatch(updateItinerary(foundTrip.itinerary));
+        dispatch(setCurrentItineraryDetails({ itinerary: foundTrip, id: tripId, userEmail: userEmail }));
         navigate("/itinerary");
-      }
+      } else throw new Error('Sorry, we couldn\'t find that trip.');
     } catch (error) {
       console.error("Error with request:", error);
     }
   };
 
-  const itineraryList = [...itineraries];
-  //console.log(`in the frontend itineraryList ${itineraryList}`);
-  const renderList = itineraryList.map((itinerary) => {
-    //let email = getEmailById(itinerary.user);
+  const renderList = itineraries.map((itinerary) => {
+    const { _id, destination, startDate, endDate, createdAt, user } = itinerary;
     return (
-      <div className="trip-tile" key={itinerary._id} id={itinerary._id}>
+      <div className="trip-tile" key={_id} id={_id}>
         <p>
-          User: <b>{userEmails[itinerary.user]}</b>
+          User: <b>{userEmails[user]}</b>
         </p>
         <h3>
-          Destination: <b>{itinerary.destination}</b>
+          Destination: <b>{destination}</b>
         </h3>
         <p>
-          From: <b>{itinerary.startDate}</b>
+          From: <b>{startDate}</b>
         </p>
         <p>
-          To: <b>{itinerary.endDate}</b>
+          To: <b>{endDate}</b>
         </p>
         <p>
-          Created on: <b>{new Date(itinerary.createdAt).toLocaleString()}</b>
+          Created on: <b>{new Date(createdAt).toLocaleString()}</b>
         </p>
 
         <div className="tile-buttons">
@@ -150,8 +152,6 @@ const MyItinerary = () => {
       </div>
     );
   });
-  // state: { itinerary: { itinerary: itinerary.trip }}
-  // to={{ pathname: '/other', state: dataToPass }}
 
   return (
     <div>
