@@ -5,7 +5,7 @@ import { useAppSelector } from "../../hooks.ts";
 import CompleteItinerary from "../../models/CompleteItinerary.ts";
 
 const CompleteDisplayItinerary = () => {
-  const { itinerary, id, userEmail } = useAppSelector(state => state.itinerary);
+  const { itinerary, id, /* userEmail */ } = useAppSelector(state => state.itinerary);
   const [editedItinerary, setEditedItinerary] = useState<CompleteItinerary>(itinerary);
 
   console.log('complete itinerary:', itinerary)
@@ -58,9 +58,9 @@ const CompleteDisplayItinerary = () => {
 
   const itineraryItems = itinerary !== undefined ? (
     <div id="itinerary-details">
-      <div>
-        <h3>User Email: {userEmail}</h3>
-      </div>
+      {/* <div>
+        <h3>User Email: {localStorage.getItem('userEmail')}</h3>
+      </div> */}
       <h2>Your Itinerary</h2>
       {dateComponents}
       <button onClick={handleClick}>Save Changes</button>

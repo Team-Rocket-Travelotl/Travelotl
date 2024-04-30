@@ -8,6 +8,6 @@ export default interface TripDetails {
   updatedAt: string,
   startDate: string,
   endDate: string,
-  trip: CompleteItinerary | string
+  trip: CompleteItinerary,
   user: string,
 }

@@ -17,7 +17,7 @@ import {
   TravelerNumberPage, 
   TravelerTypeSubmitPage 
 } from './components/user-options-pages';
-import CompleteItinerary from './components/complete-itinerary';
+import CompleteDisplayItinerary from './components/complete-display-itinerary';
 import MyItinerary from './components/my-itinerary';
 import Register from './components/register';
 import { store } from './store';
@@ -56,7 +56,7 @@ root.render(
               />
             </Route>
           </Route>
-          <Route path="/itinerary" element={<CompleteItinerary />} />
+          <Route path="/itinerary" element={<CompleteDisplayItinerary />} />
         </Routes>
       </Router>
     </Provider>

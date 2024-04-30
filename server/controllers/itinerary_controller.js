@@ -98,6 +98,7 @@ const tripController = {
       .then((result) => {
         console.log("result after adding to db", result);
         console.log("itinerary successfully saved in database");
+        res.locals.tripDetails = result;
         return next();
       })
       .catch((err) => {

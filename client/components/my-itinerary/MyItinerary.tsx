@@ -1,12 +1,11 @@
+import React from "react";
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { setCurrentItineraryDetails } from "../../reducers/itineraryReducer";
-import { Link, useNavigate } from "react-router-dom";
 import Header from "../header/Header";
-import { useAppSelector } from "../../hooks";
 import TripDetails from "../../models/TripDetails";
 import CompleteItinerary from "../../models/CompleteItinerary";
-import React from "react";
 
 const MyItinerary = () => {
   const [itineraries, setItineraries] = useState<TripDetails[]>([]);

@@ -7,6 +7,7 @@ import Loader from '../loader';
 import CompleteItinerary from '../../models/CompleteItinerary';
 import pageRoutes from '../../constants/routes';
 import navigationDirections from '../../constants/navigationDirections';
+import TripDetails from '../../models/TripDetails';
 
 const TravelerTypeSubmitPage = () => {
   // page 6
@@ -38,14 +39,14 @@ const TravelerTypeSubmitPage = () => {
         },
         body: JSON.stringify(userOptions)
       });
-      const parsedData: CompleteItinerary = await response.json();
+      const parsedData: TripDetails = await response.json();
       console.log(parsedData)
 
       setLoading(false);
 
       if (response.ok) {
-        // temporary - need to bring in id and userEmail from /build endpoint; should function same way as /retrieve endpoint;
-        dispatch(setCurrentItineraryDetails({ itinerary: parsedData, id: 'fakeid0', userEmail: 'placeholder' }));
+        // get user email from backend to display in Itinerary?
+        dispatch(setCurrentItineraryDetails({ itinerary: parsedData.trip, id: parsedData._id, userEmail: 'placeholder' }));
         navigate('/itinerary');
       } else throw new Error('failed to retrieve data');
     } catch (error) {

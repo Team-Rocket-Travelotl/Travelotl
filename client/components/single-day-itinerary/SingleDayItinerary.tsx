@@ -1,29 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
+import SingleDayItineraryProps from "../../models/SingleDayItineraryProps";
 import CompleteItinerary from "../../models/CompleteItinerary";
-import DailyItinerary from "../../models/DailyItinerary";
 
-const SingleDayItinerary = ({ 
-  setEditedItinerary,
-  editedItinerary,
-  dateObj,
-  date, 
-}) => {
+const SingleDayItinerary = (props: SingleDayItineraryProps) => {
+  const { editedItinerary, setEditedItinerary, dateObj, date } = props;
   const timeSlots = Object.keys(dateObj);
+
+  //=======> HANDLE CHANGE <============
+  const handleChange = (date: string, timeOfDay: string, field: string, newText: string) => {
+    const ItineraryCopy: CompleteItinerary = JSON.parse(JSON.stringify(editedItinerary));
+
+    console.log(
+      "time of day",
+      ItineraryCopy[date][timeOfDay][field]
+    );
+    ItineraryCopy[date][timeOfDay][field] = newText;
+    setEditedItinerary(ItineraryCopy);
+    console.log("edit IT--->", editedItinerary);
+  };
+
   const timeSlotComponents = timeSlots.map((timeOfDay) => {
     const { activity, description, address } = dateObj[timeOfDay];
-    //=======> HANDLE CHANGE <============
-    const handleChange = (date: string, timeOfDay: string, field: string, e) => {
-      const ItineraryCopy = JSON.parse(JSON.stringify(editedItinerary));
-
-      console.log(
-        "time of day",
-        ItineraryCopy.itinerary[date][timeOfDay][field]
-      );
-      ItineraryCopy.itinerary[date][timeOfDay][field] = e;
-      setEditedItinerary(ItineraryCopy);
-      console.log("edit IT--->", editedItinerary);
-      return editedItinerary;
-    };
+ 
     //=======> COMPONENT <============
     return (
       <div className="activity-details" key={timeOfDay}>
@@ -31,6 +29,7 @@ const SingleDayItinerary = ({
         <label htmlFor="Activity"> Activity:</label>
         <input
           type="text"
+          name="activity"
           defaultValue={activity}
           onChange={(e) =>
             handleChange(date, timeOfDay, "activity", e.target.value)
