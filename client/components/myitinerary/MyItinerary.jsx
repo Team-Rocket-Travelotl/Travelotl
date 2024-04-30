@@ -4,18 +4,19 @@ import { updateItinerary } from "../../reducers/itineraryReducer";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../header/Header";
 
-const Manager = () => {
+const MyItinerary = () => {
   const [itineraries, setItineraries] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [userEmails, setUserEmails] = useState({});
   const user = useSelector((state) => state.itinerary.user);
-  // Retrieve all itineraries associated with the user and update state
 
   useEffect(() => {
     try {
       const getItineraryList = async () => {
-        let itineraryList = await fetch("api/trip/retrieve", {
+        const userId = localStorage.getItem("userId");
+        console.log("get my iti before and userId", userId);
+        let itineraryList = await fetch(`api/trip/retrieveById/${userId}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("userToken")}`,
@@ -23,16 +24,16 @@ const Manager = () => {
         });
 
         itineraryList = await itineraryList.json();
-
-        console.log(itineraryList);
+        console.log("get my iti later");
+        console.log("front end result", itineraryList);
         setItineraries(itineraryList);
 
         const userIds = itineraryList.map((itinerary) => itinerary.user);
         const userEmailMap = {};
-        for (const userId of userIds) {
-          if (!userEmails[userId]) {
-            const email = await getEmailById(userId);
-            userEmailMap[userId] = email;
+        for (const id of userIds) {
+          if (!userEmails[id]) {
+            const email = await getEmailById(id);
+            userEmailMap[id] = email;
           }
         }
         setUserEmails((prevUserEmails) => ({
@@ -90,7 +91,7 @@ const Manager = () => {
     const tripId = e.target.parentNode.parentNode.id;
 
     try {
-      let itineraryList = await fetch("api/trip/retrieve", {
+      let itineraryList = await fetch("api/trip/retrieveById", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
@@ -99,11 +100,11 @@ const Manager = () => {
 
       itineraryList = await itineraryList.json();
 
-      //console.log(itineraryList);
+      console.log(itineraryList);
 
       let foundTrip;
       for (const trip of itineraryList) {
-        console.log("manager", trip);
+        console.log("MyItinerary", trip);
         // console.log("Parse ID:", trip.tripId, "| Target ID:", tripId)
         if (trip._id === tripId) {
           foundTrip = JSON.parse(trip.trip);
@@ -121,6 +122,7 @@ const Manager = () => {
   };
 
   const itineraryList = [...itineraries];
+  //console.log(`in the frontend itineraryList ${itineraryList}`);
   const renderList = itineraryList.map((itinerary) => {
     //let email = getEmailById(itinerary.user);
     return (
@@ -154,10 +156,10 @@ const Manager = () => {
   return (
     <div>
       <Header />
-      <h2>Itinerary Manager</h2>
+      <h2>My Itinerary</h2>
       <div id="itinerary-grid">{renderList}</div>
     </div>
   );
 };
 
-export default Manager;
+export default MyItinerary;
