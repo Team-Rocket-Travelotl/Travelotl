@@ -1,31 +1,36 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import Header from "../header";
-import SingleDayItinerary from "../single-day-itinerary";
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import Header from '../header';
+import SingleDayItinerary from '../single-day-itinerary';
 
 const CompleteItinerary = () => {
-  const itinerary = useSelector((state) => state.itinerary.itinerary);
+  // const {itinerary} = useSelector((state) => state.itinerary.itinerary)
+  const { itinerary, user, _id } = useSelector(
+    (state) => state.itinerary.itinerary
+  );
+  console.log('state in Tommy time -->', user, _id, itinerary);
   const [editedItinerary, setEditedItinerary] = useState({ itinerary });
 
   //=======> HANDLE CLICK <============
   const handleClick = async () => {
-    console.log("state to send to back end", editedItinerary);
+    console.log('state to send to back end', editedItinerary, user);
     try {
-      const response = await fetch("/api/trip/update", {
-        method: "PATCH",
+      const response = await fetch('/api/trip/update', {
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
         },
-        body: JSON.stringify(editedItinerary),
+        body: JSON.stringify({ ...editedItinerary, _id: _id }),
+        _id,
       });
       if (response.ok) {
-        console.log("successful patch");
+        console.log('successful patch');
       } else {
-        throw new Error("failed to retrieve data");
+        throw new Error('failed to retrieve data');
       }
     } catch (error) {
-      console.error("Error with patch request:", error);
+      console.error('Error with patch request:', error);
     }
   };
 

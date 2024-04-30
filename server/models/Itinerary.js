@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const ItinerarySchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "User",
+      ref: 'User',
     },
     tripName: { type: String, required: true },
     destination: { type: String, required: true },
@@ -19,4 +19,4 @@ const ItinerarySchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("itinerary", ItinerarySchema);
+module.exports = mongoose.model('itinerary', ItinerarySchema);

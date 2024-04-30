@@ -21,6 +21,7 @@ const itinerarySlice = createSlice({
   initialState,
   reducers: {
     updateItinerary(state, action) {
+      console.log('PayLoad Update itinerary --->', action);
       state.itinerary = action.payload;
     },
     updateActivities(state, action) {
