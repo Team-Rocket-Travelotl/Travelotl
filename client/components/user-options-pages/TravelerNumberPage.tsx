@@ -1,7 +1,9 @@
-import React, { useState, KeyboardEvent, useEffect } from "react";
+import React, { KeyboardEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateTravelers } from "../../reducers/tripReducer.ts";
 import { useAppDispatch, useAppSelector } from "../../hooks.ts";
+import pageRoutes from "../../constants/routes.ts";
+import navigationDirections from "../../constants/navigationDirections.ts";
 
 const TravelerNumberPage = () => {
   // page 5
@@ -9,10 +11,9 @@ const TravelerNumberPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const prevPage = '/form/budget-select';
-  const nextPage = '/form/type-traveler-select';
-
   const { travelers } = useAppSelector((state) => state.trip);
+  const { BUDGET: prevPage, TYPE_TRAVELERS: nextPage } = pageRoutes;
+  const { NEXT, BACK } = navigationDirections;
 
   const updateSelectedTravelerNumber = (navDirection: string) => {
     const numTravelers = (document.getElementById('travelers') as HTMLInputElement).value;
@@ -23,16 +24,15 @@ const TravelerNumberPage = () => {
     dispatch(updateTravelers(Number(numTravelers)));
   }
 
-  const saveAndContinue = (navDirection) => {
+  const saveAndContinue = (navDirection: string) => {
     updateSelectedTravelerNumber(navDirection);
-    navigate(navDirection === 'back' ? prevPage : nextPage);
+    navigate(navDirection === BACK ? prevPage : nextPage);
   };
 
   const handleEnterKey = (event: KeyboardEvent) => {
-    console.log('handling enter')
     if (event.key !== 'Enter') return;
     event.preventDefault();
-    saveAndContinue('next');
+    saveAndContinue(NEXT);
   }
 
   return (
@@ -47,8 +47,8 @@ const TravelerNumberPage = () => {
         defaultValue={travelers}
       />
       <div>
-        <button className='m-4 underline text-blue-600' type='button' value='back' onClick={ () => saveAndContinue('back') }>Back</button>
-        <button className='m-4 underline text-blue-600' type='button' value='next' onClick={ () => saveAndContinue('next') }>Next</button>
+        <button className='m-4 underline text-blue-600' type='button' value='back' onClick={ () => saveAndContinue(BACK) }>Back</button>
+        <button className='m-4 underline text-blue-600' type='button' value='next' onClick={ () => saveAndContinue(NEXT) }>Next</button>
       </div>
     </div>
   );

@@ -1,7 +1,9 @@
-import React, { useState, KeyboardEvent, useEffect } from 'react';
+import React, { KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks.ts';
 import { updateStartDate, updateEndDate } from '../../reducers/tripReducer.ts';
+import pageRoutes from '../../constants/routes.ts';
+import navigationDirections from '../../constants/navigationDirections.ts';
 
 const DatesPage = () => {
   // page 2
@@ -9,10 +11,9 @@ const DatesPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const prevPage = '/form';
-  const nextPage = '/form/activities-select';
-
   const { startDate, endDate } = useAppSelector(state => state.trip);
+  const { DESTINATION: prevPage, ACTIVITIES: nextPage } = pageRoutes;
+  const { NEXT, BACK } = navigationDirections;
   
   const updateSelectedDates = () => {
     const startDate = (document.getElementById('start-date') as HTMLInputElement).value;
@@ -21,15 +22,15 @@ const DatesPage = () => {
     dispatch(updateEndDate(endDate));
   }
 
-  const saveAndContinue = (navDirection) => {
+  const saveAndContinue = (navDirection: string) => {
     updateSelectedDates();
-    navigate(navDirection === 'back' ? prevPage : nextPage);
+    navigate(navDirection === BACK ? prevPage : nextPage);
   };
 
   const handleEnterKey = (event: KeyboardEvent) => {
     if (event.key !== 'Enter') return;
     event.preventDefault();
-    saveAndContinue('next');
+    saveAndContinue(NEXT);
   }
 
   return (
@@ -55,8 +56,8 @@ const DatesPage = () => {
         />
       </div>
       <div >
-        <button className='m-4 underline text-blue-600' type='button' value='back' onClick={ () => saveAndContinue('back') }>Back</button>
-        <button className='m-4 underline text-blue-600' type='button' value='next' onClick={ () => saveAndContinue('next') }>Next</button>
+        <button className='m-4 underline text-blue-600' type='button' value='back' onClick={ () => saveAndContinue(BACK) }>Back</button>
+        <button className='m-4 underline text-blue-600' type='button' value='next' onClick={ () => saveAndContinue(NEXT) }>Next</button>
       </div>
     </div>
   );

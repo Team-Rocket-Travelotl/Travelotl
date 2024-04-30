@@ -1,7 +1,8 @@
-import React, { KeyboardEvent, useEffect } from 'react';
+import React, { KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks.ts';
 import { updateDestination } from '../../reducers/tripReducer.ts';
+import pageRoutes from '../../constants/routes.ts';
 
 const DestinationPage = () => {
   // page 1
@@ -9,9 +10,9 @@ const DestinationPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const nextPage = '/form/dates-select';
-
   const { destination } = useAppSelector(state => state.trip);
+
+  const { DATES: nextPage } = pageRoutes;
 
   const updateSelectedDestination = () => {
     const selectedDestination = (document.getElementById('destination') as HTMLInputElement).value;

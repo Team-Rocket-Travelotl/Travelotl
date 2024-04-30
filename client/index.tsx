@@ -47,7 +47,7 @@ root.render(
               />
               <Route path="/form/budget-select" element={<BudgetPage />} />
               <Route
-                path="/form/number-traveler-select"
+                path="/form/number-travelers-select"
                 element={<TravelerNumberPage />}
               />
               <Route

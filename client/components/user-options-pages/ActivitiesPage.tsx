@@ -1,7 +1,9 @@
-import React, { KeyboardEvent, useEffect, useState } from 'react';
+import React, { KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { updateActivities } from '../../reducers/tripReducer.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks.ts';
+import pageRoutes from '../../constants/routes.ts';
+import navigationDirections from '../../constants/navigationDirections.ts';
 
 const ActivitiesPage = () => {
   // page 3
@@ -9,30 +11,29 @@ const ActivitiesPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const prevPage = '/form/dates-select';
-  const nextPage = '/form/budget-select';
-
   const { activities } = useAppSelector(state => state.trip);
+  const { DATES: prevPage, BUDGET: nextPage } = pageRoutes;
+  const { NEXT, BACK } = navigationDirections;
 
   const updateSelectedActivities = (navDirection: string) => {
     const inputFields = new Array(...document.getElementsByTagName('input'));
     const newSelectedActivities = inputFields.filter(box => box.checked).map(field => field.value);
-    if (!newSelectedActivities.length && navDirection !== 'back') {
+    if (!newSelectedActivities.length && navDirection !== BACK) {
       alert('Must select at least one activity');
       throw new Error;
     }
     dispatch(updateActivities(newSelectedActivities));
   }
 
-  const saveAndContinue = (navDirection) => {
+  const saveAndContinue = (navDirection: string) => {
     updateSelectedActivities(navDirection);
-    navigate(navDirection === 'back' ? prevPage : nextPage);
+    navigate(navDirection === BACK ? prevPage : nextPage);
   };
 
   const handleEnterKey = (event: KeyboardEvent) => {
     if (event.key !== 'Enter') return;
     event.preventDefault();
-    saveAndContinue('next');
+    saveAndContinue(NEXT);
   }
 
   const activitiesList = ['Hiking', 'Local Events', 'Restaurants', 'Danger', 'Safety', 'Museums'];
@@ -56,8 +57,8 @@ const ActivitiesPage = () => {
         {listItems}
       </ul>
       <div>
-        <button className='m-4 underline text-blue-600' type='button' value='back' onClick={ () => saveAndContinue('back') }>Back</button>
-        <button className='m-4 underline text-blue-600' type='button' value='next' onClick={ () => saveAndContinue('next') }>Next</button>
+        <button className='m-4 underline text-blue-600' type='button' value='back' onClick={ () => saveAndContinue(BACK) }>Back</button>
+        <button className='m-4 underline text-blue-600' type='button' value='next' onClick={ () => saveAndContinue(NEXT) }>Next</button>
       </div>
     </div>
   );

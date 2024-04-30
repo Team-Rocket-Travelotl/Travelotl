@@ -1,10 +1,12 @@
-import React, { useState, KeyboardEvent, useEffect } from 'react'
+import React, { useState, KeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setCurrentItineraryDetails } from '../../reducers/itineraryReducer';
 import { updateGroupDescription } from '../../reducers/tripReducer';
 import Loader from '../loader';
 import CompleteItinerary from '../../models/CompleteItinerary';
+import pageRoutes from '../../constants/routes';
+import navigationDirections from '../../constants/navigationDirections';
 
 const TravelerTypeSubmitPage = () => {
   // page 6
@@ -12,7 +14,8 @@ const TravelerTypeSubmitPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const prevPage = '/form/number-traveler-select';
+  const { NUMBER_TRAVELERS: prevPage } = pageRoutes;
+  const { NEXT, BACK } = navigationDirections;
  
   const { groupDescription } = useAppSelector(state => state.trip);
   const userOptions = useAppSelector(state => state.trip);
@@ -50,15 +53,15 @@ const TravelerTypeSubmitPage = () => {
     }
   };
 
-  const saveAndContinue = (navDirection) => {
+  const saveAndContinue = (navDirection: string) => {
     updateSelectedTravelerType();
-    navDirection === 'back' ? navigate(prevPage) : submit();
+    navDirection === BACK ? navigate(prevPage) : submit();
   };
 
   const handleEnterKey = (event: KeyboardEvent) => {
     if (event.key !== 'Enter') return;
     event.preventDefault();
-    saveAndContinue('next');
+    saveAndContinue(NEXT);
   }
 
   const travelerTypes = ['Solo traveler', 'Family with young kids', 'Family of all ages', 'Family of adults', 'Friends'];
@@ -89,8 +92,8 @@ const TravelerTypeSubmitPage = () => {
             {travelerTypeItems}
           </ul>
           <div>
-            <button className='m-4 underline text-blue-600' type='button' value='back' onClick={ () => saveAndContinue('back') }>Back</button>
-            <button className='m-4 underline text-blue-600' type='submit' value='submit' onClick={ () => saveAndContinue('next') }>Submit</button>
+            <button className='m-4 underline text-blue-600' type='button' value='back' onClick={ () => saveAndContinue(BACK) }>Back</button>
+            <button className='m-4 underline text-blue-600' type='submit' value='submit' onClick={ () => saveAndContinue(NEXT) }>Submit</button>
           </div>
         </>  
       }</div>
