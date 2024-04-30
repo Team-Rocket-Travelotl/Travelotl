@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { KeyboardEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { updateBudget } from '../../reducers/tripReducer.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks.ts';
@@ -14,6 +14,8 @@ const BudgetPage = () => {
 
   const { budget } = useAppSelector(state => state.trip);
 
+  const [navDirection, setNavDirection] = useState<string>('');
+
   const updateSelectedBudget = (navDirection: string) => {
     const budgetInput = (document.getElementById('budget-input') as HTMLInputElement).value;
     if (Number(budgetInput) <= 0 && navDirection === 'next') {
@@ -23,12 +25,16 @@ const BudgetPage = () => {
     dispatch(updateBudget(Number(budgetInput)));
   }
 
-  const saveAndContinue = (event) => {
-    if (event.type == 'keydown' && event.key !== 'Enter') return;
-    else if (event) event.preventDefault();
-    updateSelectedBudget(event.target.value);
-    navigate(event.target.value === 'back' ? prevPage : nextPage);
+  const saveAndContinue = (event?: MouseEvent) => {
+    updateSelectedBudget(navDirection);
+    navigate(navDirection === 'back' ? prevPage : nextPage);
   };
+
+  const handleEnterKey = (event: KeyboardEvent) => {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    setNavDirection('next');
+  }
 
   return (
     <div className="bg-gray-300 rounded border-4 border-black">
@@ -40,11 +46,11 @@ const BudgetPage = () => {
         type='number'
         placeholder='Enter desired budget'
         defaultValue={budget}
-        onKeyDown={saveAndContinue}
+        onKeyDown={handleEnterKey}
       />
       <div>
-        <button className='m-4 underline text-blue-600' type='button' value='back' onClick={saveAndContinue}>Back</button>
-        <button className='m-4 underline text-blue-600' type='button' value='next' onClick={saveAndContinue}>Next</button>
+        <button className='m-4 underline text-blue-600' type='button' value='back' onClick={() => { setNavDirection('back'); saveAndContinue; }}>Back</button>
+        <button className='m-4 underline text-blue-600' type='button' value='next' onClick={() => { setNavDirection('next'); saveAndContinue; }}>Next</button>
       </div>
     </div>
   );

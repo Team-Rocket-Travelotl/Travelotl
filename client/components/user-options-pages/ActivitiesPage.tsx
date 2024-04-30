@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from 'react';
+import React, { KeyboardEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { updateActivities } from '../../reducers/tripReducer.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks.ts';
@@ -14,6 +14,8 @@ const ActivitiesPage = () => {
 
   const { activities } = useAppSelector(state => state.trip);
 
+  const [navDirection, setNavDirection] = useState<string>('');
+
   const updateSelectedActivities = (navDirection: string) => {
     const inputFields = new Array(...document.getElementsByTagName('input'));
     const newSelectedActivities = inputFields.filter(box => box.checked).map(field => field.value);
@@ -24,12 +26,16 @@ const ActivitiesPage = () => {
     dispatch(updateActivities(newSelectedActivities));
   }
 
-  function saveAndContinue(event: any) {
-    if (event.type == 'keydown' && event.key !== 'Enter') return;
-    else if (event) event.preventDefault();
-    updateSelectedActivities(event.target.value);
-    navigate(event.target.value === 'back' ? prevPage : nextPage);
+  function saveAndContinue() {
+    updateSelectedActivities(navDirection);
+    navigate(navDirection === 'back' ? prevPage : nextPage);
   };
+
+  const handleEnterKey = (event: KeyboardEvent) => {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    setNavDirection('next');
+  }
 
   const activitiesList = ['Hiking', 'Local Events', 'Restaurants', 'Danger', 'Safety', 'Museums'];
   const listItems = activitiesList.map(act => {
@@ -46,14 +52,14 @@ const ActivitiesPage = () => {
   });
 
   return (
-    <div className="bg-gray-300 rounded border-4 border-black" onKeyDown={saveAndContinue}>
+    <div className="bg-gray-300 rounded border-4 border-black" onKeyDown={handleEnterKey}>
       <p className='text-2xl text-center'>Select activities you are interested in...</p>
       <ul className="activities">
         {listItems}
       </ul>
       <div>
-        <button className='m-4 underline text-blue-600' type='button' value='back' onClick={saveAndContinue}>Back</button>
-        <button className='m-4 underline text-blue-600' type='button' value='next' onClick={saveAndContinue}>Next</button>
+        <button className='m-4 underline text-blue-600' type='button' value='back' onClick={() => { setNavDirection('back'); saveAndContinue; }}>Back</button>
+        <button className='m-4 underline text-blue-600' type='button' value='next' onClick={() => { setNavDirection('next'); saveAndContinue; }}>Next</button>
       </div>
     </div>
   );
