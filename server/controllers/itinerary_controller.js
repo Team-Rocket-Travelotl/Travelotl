@@ -55,7 +55,7 @@ const tripController = {
     // }
     // Thank you.`;
 
-    // console.log(prompt);
+    console.log("promp", prompt);
     try {
       const completion = await openai.chat.completions.create({
         messages: [
@@ -72,7 +72,7 @@ const tripController = {
         response_format: { type: "json_object" },
       });
 
-      console.log(completion.choices[0]);
+      console.log("completion", completion.choices[0]);
       res.locals.itinerary = JSON.parse(
         completion.choices[0].message.content
       ).itinerary;

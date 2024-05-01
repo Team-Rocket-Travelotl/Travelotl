@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Map from "../map/Map";
 
 const SingleDayItinerary = ({
   setEditedItinerary,
@@ -7,6 +8,7 @@ const SingleDayItinerary = ({
   date,
 }) => {
   const timeSlots = Object.keys(dateObj);
+  const addresses = timeSlots.map((timeOfDay) => dateObj[timeOfDay].address);
   const timeSlotComponents = timeSlots.map((timeOfDay) => {
     const { activity, description, address } = dateObj[timeOfDay];
     //=======> HANDLE CHANGE <============
@@ -27,7 +29,7 @@ const SingleDayItinerary = ({
       <div className="activity-details" key={timeOfDay}>
         <h3 className="time-of-day">{timeOfDay}</h3>
 
-        <label for=""> Activity:</label>
+        <label htmlFor=""> Activity:</label>
         <input
           type="text"
           defaultValue={activity}
@@ -36,7 +38,7 @@ const SingleDayItinerary = ({
           }
           id="activity"
         ></input>
-        <label for=""> Description:</label>
+        <label htmlFor=""> Description:</label>
         <input
           type="text"
           defaultValue={description}
@@ -45,7 +47,7 @@ const SingleDayItinerary = ({
           }
           id="Description"
         ></input>
-        <label for="Address"> Address:</label>
+        <label htmlFor="Address"> Address:</label>
         <input
           type="text"
           defaultValue={address}
@@ -58,7 +60,12 @@ const SingleDayItinerary = ({
     );
   });
 
-  return <div>{timeSlotComponents}</div>;
+  return (
+    <div>
+      <Map activities={addresses} />
+      <div>{timeSlotComponents}</div>
+    </div>
+  );
 };
 
 export default SingleDayItinerary;

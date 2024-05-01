@@ -88,6 +88,7 @@ const Manager = () => {
 
   const seeDetails = async (e) => {
     const tripId = e.target.parentNode.parentNode.id;
+    
 
     try {
       let itineraryList = await fetch("api/trip/retrieve", {

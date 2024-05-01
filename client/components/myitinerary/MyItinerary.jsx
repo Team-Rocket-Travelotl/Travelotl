@@ -69,6 +69,7 @@ const MyItinerary = () => {
 
   const deleteItinerary = async (e) => {
     const tripId = e.target.parentNode.parentNode.id;
+
     try {
       let remainingTrips = await fetch("api/trip/delete", {
         method: "DELETE",
@@ -89,9 +90,10 @@ const MyItinerary = () => {
 
   const seeDetails = async (e) => {
     const tripId = e.target.parentNode.parentNode.id;
+    console.log("new tripId", tripId);
 
     try {
-      let itineraryList = await fetch("api/trip/retrieveById", {
+      let itineraryList = await fetch("api/trip/retrieve", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
