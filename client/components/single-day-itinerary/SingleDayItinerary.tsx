@@ -11,6 +11,7 @@ const SingleDayItinerary = ({
     const { activity, description, address } = dateObj[timeOfDay];
     //=======> HANDLE CHANGE <============
     const handleChange = (date, timeOfDay, field, e) => {
+      console.log('HANDLE CHANGE -->', date, timeOfDay, field, e);
       const ItineraryCopy = JSON.parse(JSON.stringify(editedItinerary));
 
       console.log(

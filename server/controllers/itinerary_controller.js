@@ -166,6 +166,21 @@ const tripController = {
         console.error('retrieveById ERROR =>', err);
       });
   },
+
+  // saveTrip - To save the contents of the generated itinerary into the database
+  async updateTrip(req, res, next) {
+    try {
+      const { _id, itinerary } = req.body;
+      console.log('UPDATE Trip controller --->', _id, itinerary);
+
+      const updateItinerary = await Itinerary.findByIdAndUpdate(_id, {
+        $set: { trip: itinerary },
+      });
+      next();
+    } catch (error) {
+      console.log('Error in UPDATE Trip:', error);
+    }
+  },
 };
 
 /*
