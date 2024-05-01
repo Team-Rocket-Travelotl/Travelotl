@@ -23,6 +23,7 @@ const itinerarySlice = createSlice({
     updateItinerary(state, action) {
       console.log('PayLoad Update itinerary --->', action);
       state.itinerary = action.payload;
+      // console.log('Inside IT reducer - UPDATE -->', state.itinerary);
     },
     updateActivities(state, action) {
       console.log('inside update activities---->', initialState);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const SingleDayItinerary = ({
   setEditedItinerary,
@@ -7,6 +7,7 @@ const SingleDayItinerary = ({
   date,
 }) => {
   const timeSlots = Object.keys(dateObj);
+  console.log('DATE OBJ --->', dateObj);
   const timeSlotComponents = timeSlots.map((timeOfDay) => {
     const { activity, description, address } = dateObj[timeOfDay];
     //=======> HANDLE CHANGE <============
@@ -14,12 +15,12 @@ const SingleDayItinerary = ({
       const ItineraryCopy = JSON.parse(JSON.stringify(editedItinerary));
 
       console.log(
-        "time of day",
+        'time of day',
         ItineraryCopy.itinerary[date][timeOfDay][field]
       );
       ItineraryCopy.itinerary[date][timeOfDay][field] = e;
       setEditedItinerary(ItineraryCopy);
-      console.log("edit IT--->", editedItinerary);
+      console.log('edit IT--->', editedItinerary);
       return editedItinerary;
     };
     //=======> COMPONENT <============
@@ -31,7 +32,7 @@ const SingleDayItinerary = ({
           type="text"
           defaultValue={activity}
           onChange={(e) =>
-            handleChange(date, timeOfDay, "activity", e.target.value)
+            handleChange(date, timeOfDay, 'activity', e.target.value)
           }
           id="activity"
         ></input>
@@ -40,7 +41,7 @@ const SingleDayItinerary = ({
           type="text"
           defaultValue={description}
           onChange={(e) =>
-            handleChange(date, timeOfDay, "description", e.target.value)
+            handleChange(date, timeOfDay, 'description', e.target.value)
           }
           id="Description"
         ></input>
@@ -49,7 +50,7 @@ const SingleDayItinerary = ({
           type="text"
           defaultValue={address}
           onChange={(e) =>
-            handleChange(date, timeOfDay, "address", e.target.value)
+            handleChange(date, timeOfDay, 'address', e.target.value)
           }
           id="Address"
         ></input>

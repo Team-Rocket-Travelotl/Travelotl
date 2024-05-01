@@ -64,7 +64,7 @@ const Manager = () => {
 
       itineraryList = await itineraryList.json();
 
-      // console.log(itineraryList);
+      console.log('IT LIST --->', itineraryList);
       const foundTrip = itineraryList.find((trip) => trip._id === tripId);
 
       // let foundTrip;
@@ -75,7 +75,7 @@ const Manager = () => {
       //   if (trip._id === tripId) {
       //     // foundTrip = JSON.parse(trip);
       //     foundTrip = trip;
-      //     console.log('TRIP LOGS --->', foundTrip, trip.trip);
+      // console.log('TRIP LOGS --->', foundTrip, trip.trip);
       //     foundTrip.trip = JSON.parse(trip.trip);
       //     // const {_id, user, trip} = JSON.parse(trip);
       //     break;
@@ -84,10 +84,9 @@ const Manager = () => {
       console.log('See Details of:', foundTrip);
       if (foundTrip) {
         const { trip, _id, user } = foundTrip;
+        console.log('FOUND TRIP --->', user, _id, foundTrip);
         // dispatch(updateItinerary({ trip, _id, user }));
-        dispatch(
-          updateItinerary({ user, _id, itinerary: foundTrip.trip.itinerary })
-        );
+        dispatch(updateItinerary({ user, _id, itinerary: foundTrip }));
         navigate('/itinerary');
       }
     } catch (error) {

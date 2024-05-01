@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Header from '../header';
-import SingleDayItinerary from '../single-day-itinerary';
+import SingleDayItinerary from '../single-day-itinerary/SingleDayItinerary';
 
 const CompleteItinerary = () => {
   // const {itinerary} = useSelector((state) => state.itinerary.itinerary)
   const { itinerary, user, _id } = useSelector(
     (state) => state.itinerary.itinerary
   );
-  console.log('state in Tommy time -->', user, _id, itinerary);
+  console.log('state in Complete Itinerary -->', user, _id, itinerary);
   const [editedItinerary, setEditedItinerary] = useState({ itinerary });
+  console.log('working w ADAM !--->', itinerary.trip);
 
   //=======> HANDLE CLICK <============
   const handleClick = async () => {
@@ -57,6 +58,8 @@ const CompleteItinerary = () => {
     });
   }
 
+  console.log('DATE COMP --->', dateComponents);
+
   const itineraryItems = itinerary ? (
     <div id="itinerary-details">
       <h2>Your Itinerary</h2>
@@ -68,7 +71,7 @@ const CompleteItinerary = () => {
     <div>
       <Header />
       {itineraryItems}
-      <button onClick={handleClick}>save</button>
+      <button onClick={handleClick}>save this test</button>
     </div>
   );
 };
