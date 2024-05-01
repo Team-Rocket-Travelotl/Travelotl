@@ -135,10 +135,9 @@ const tripController = {
       email: req.body.email,
     })
       .then((result) => {
-        // console.log(result);
+        //console.log(result);
         res.locals.allTrips = result;
         console.log('All trips retrieved - retrieveAllTrips middleware');
-        console.log('AllTrips --->', res.locals.allTrips);
         return next();
       })
       .catch((err) => {
@@ -149,21 +148,26 @@ const tripController = {
       });
   },
 
-  // saveTrip - To save the contents of the generated itinerary into the database
-  async updateTrip(req, res, next) {
-    try {
-      const { _id, itinerary } = req.body;
-      console.log('UPDATE Trip controller --->', _id, itinerary);
-
-      const updateItinerary = await Itinerary.findByIdAndUpdate(_id, {
-        $set: { trip: itinerary },
+  retrieveById(req, res, next) {
+    console.log('in the backend');
+    const userId = req.params.userId;
+    console.log('userId', userId);
+    Itinerary.find({
+      user: userId,
+    })
+      .then((result) => {
+        console.log(`result in retrieveById backend`, result);
+        res.locals.TripsById = result;
+        console.log('My trips retrieved - retrieveById middleware');
+        return next();
+      })
+      .catch((err) => {
+        console.log('could not retrieve my trips - retrieveById middleware');
+        console.error('retrieveById ERROR =>', err);
       });
-      next()
-    } catch (error) {
-      console.log('Error in UPDATE Trip:', error);
-    }
   },
 };
+
 /*
 req. body = info
 finduser and update
