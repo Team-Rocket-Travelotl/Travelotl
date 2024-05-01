@@ -166,9 +166,9 @@ const tripController = {
         console.error('retrieveById ERROR =>', err);
       });
   },
-
   // saveTrip - To save the contents of the generated itinerary into the database
   async updateTrip(req, res, next) {
+    console.log(req.body);
     try {
       const { _id, itinerary } = req.body;
       console.log('UPDATE Trip controller --->', _id, itinerary);
@@ -182,14 +182,5 @@ const tripController = {
     }
   },
 };
-
-/*
-req. body = info
-finduser and update
-trip
-trip at the date
-at the time
-value to be info
-*/
 
 module.exports = tripController;

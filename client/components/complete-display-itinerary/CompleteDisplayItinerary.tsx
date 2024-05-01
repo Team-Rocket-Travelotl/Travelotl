@@ -14,6 +14,13 @@ const CompleteDisplayItinerary = () => {
   console.log('complete itinerary:', itinerary);
   console.log('id: ', id);
 
+  // const { itinerary, user, _id } = useSelector(
+  //   (state) => state.itinerary.itinerary
+  // );
+  // console.log("state in Complete Itinerary -->", user, _id, itinerary);
+  // const [editedItinerary, setEditedItinerary] = useState({ itinerary });
+  // console.log("working w ADAM !--->", itinerary.trip);
+
   //=======> HANDLE CLICK <============
   const handleClick = async () => {
     console.log('state to send to back end', editedItinerary);
@@ -24,7 +31,7 @@ const CompleteDisplayItinerary = () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('userToken')}`,
         },
-        body: JSON.stringify(editedItinerary),
+        body: JSON.stringify({ itinerary: { ...editedItinerary }, _id: id }),
       });
       if (response.ok) {
         console.log('successful patch');
