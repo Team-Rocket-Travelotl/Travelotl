@@ -86,9 +86,6 @@ const MyItinerary = () => {
 
   const seeDetails = async (e) => {
     const tripId: string = e.target.parentNode.parentNode.id;
-    
-    const userEmail = userEmails[matchingTrip.user];
-     
 
     try {
       const response = await fetch("api/trip/retrieveById", {
@@ -103,6 +100,7 @@ const MyItinerary = () => {
       console.log(itineraryList);
 
       const matchingTrip = itineraryList.filter(trip => trip._id === tripId)[0];
+      const userEmail = userEmails[matchingTrip.user];
       let foundTrip: CompleteItinerary;
 
 

@@ -20,6 +20,7 @@
     "autoprefixer": "^10.4.19",
     "bcryptjs": "^2.4.3",
     "express": "^4.12.3",
+    "googleapis": "^135.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.1",
     "openai": "^4.33.1",
@@ -28,7 +29,8 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.22.3",
     "redux": "^4.0.5",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "url": "^0.11.3"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
