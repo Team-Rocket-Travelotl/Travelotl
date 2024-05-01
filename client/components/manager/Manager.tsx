@@ -29,7 +29,7 @@ const Manager = () => {
         const userIds: string[] = itineraryList.map(
           (itinerary) => itinerary.user
         );
-        const userEmailMap: Map<string, string> = new Map();
+        const userEmailMap = new Map<string, string>();
         for (const userId of userIds) {
           if (!userEmailMap[userId]) {
             const email = await getEmailById(userId);
@@ -83,7 +83,7 @@ const Manager = () => {
   const seeDetails = async (e) => {
     const tripId: string = e.target.parentNode.parentNode.id;
     const matchingTrip = itineraries.filter((trip) => trip._id === tripId)[0];
-    const userEmail = userEmails[matchingTrip.user];
+    const userEmail: string = userEmails[matchingTrip.user];
     let foundTrip: CompleteItinerary;
 
     // rn we have data coming back in different formats so this grabs the right info depending on which format we get
