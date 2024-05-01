@@ -65,12 +65,9 @@ const MyItinerary = () => {
   };
 
   const deleteItinerary = async (e) => {
-<<<<<<< HEAD:client/components/myitinerary/MyItinerary.jsx
-    const tripId = e.target.parentNode.parentNode.id;
 
-=======
     const tripId: string = e.target.parentNode.parentNode.id;
->>>>>>> main:client/components/my-itinerary/MyItinerary.tsx
+
     try {
       const response = await fetch("api/trip/delete", {
         method: "DELETE",
@@ -91,11 +88,11 @@ const MyItinerary = () => {
 
   const seeDetails = async (e) => {
 <<<<<<< HEAD:client/components/myitinerary/MyItinerary.jsx
-    const tripId = e.target.parentNode.parentNode.id;
-    console.log("new tripId", tripId);
+    // const tripId = e.target.parentNode.parentNode.id;
+    // console.log("new tripId", tripId);
 
-    try {
-      let itineraryList = await fetch("api/trip/retrieve", {
+    // try {
+    //   let itineraryList = await fetch("api/trip/retrieve", {
 =======
     const tripId: string = e.target.parentNode.parentNode.id;
     
@@ -103,7 +100,7 @@ const MyItinerary = () => {
      
 
     try {
-      const response = await fetch("api/trip/retrieveById", {
+      const response = await fetch("api/trip/retrieve", {
 >>>>>>> main:client/components/my-itinerary/MyItinerary.tsx
         method: "GET",
         headers: {
