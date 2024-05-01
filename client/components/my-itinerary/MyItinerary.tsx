@@ -16,8 +16,8 @@ const MyItinerary = () => {
   useEffect(() => {
     try {
       (async function () {
-        const userId = localStorage.getItem('userId');
-        console.log('get my iti before and userId', userId);
+        const userId = localStorage.getItem("userId");
+        console.log("get my iti before and userId", userId);
         const response = await fetch(`api/trip/retrieveById/${userId}`, {
           method: 'GET',
           headers: {
@@ -106,13 +106,13 @@ const MyItinerary = () => {
       const userEmail = userEmails[matchingTrip.user];
 
       // rn we have data coming back in different formats so this grabs the right info depending on which format we get
-      if (typeof matchingTrip.trip === 'string') {
-        foundTrip = JSON.parse(matchingTrip.trip).hasOwnProperty('itinerary')
+      if (typeof matchingTrip.trip === "string") {
+        foundTrip = JSON.parse(matchingTrip.trip).hasOwnProperty("itinerary")
           ? JSON.parse(matchingTrip.trip).itinerary
           : JSON.parse(matchingTrip.trip);
       } else foundTrip = matchingTrip.trip;
 
-      console.log('See Details of:', foundTrip);
+      console.log("See Details of:", foundTrip);
 
       if (foundTrip) {
         dispatch(
@@ -122,7 +122,7 @@ const MyItinerary = () => {
             userEmail: userEmail,
           })
         );
-        navigate('/itinerary');
+        navigate("/itinerary");
       } else throw new Error("Sorry, we couldn't find that trip.");
     } catch (error) {
       console.error('Error with request:', error);
