@@ -1,10 +1,10 @@
-const express = require('express');
-const path = require('path');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const express = require("express");
+const path = require("path");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
 //use environmental variables
-dotenv.config({ path: './.env' });
+dotenv.config({ path: "./config.env" });
 
 // connect to MongoDB cluster
 const connectDB = async () => {
@@ -26,14 +26,14 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'client')));
+app.use(express.static(path.join(__dirname, "client")));
 app.use(express.urlencoded({ extended: true })); //parse urlencoded bodies
 
-app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/trip', require('./routes/itineraryRoutes'));
+app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/trip", require("./routes/itineraryRoutes"));
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '../index.html'));
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "../index.html"));
 });
 
 app.listen(port, () => console.log(`Server is running on ${port}`));
