@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import TripDetails from "../../models/TripDetails";
-import CompleteItinerary from "../../models/CompleteItinerary";
-import Header from "../header";
-import { setCurrentItineraryDetails } from "../../reducers/itineraryReducer";
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import TripDetails from '../../models/TripDetails';
+import CompleteItinerary from '../../models/CompleteItinerary';
+import Header from '../header';
+import { setCurrentItineraryDetails } from '../../reducers/itineraryReducer';
 
 const Manager = () => {
   const [itineraries, setItineraries] = useState<TripDetails[]>([]);
@@ -16,17 +16,19 @@ const Manager = () => {
   // useEffect is to prevent infinite re-renders when state is updated
   useEffect(() => {
     try {
-      (async function() {
-        const response = await fetch("api/trip/retrieve", {
-          method: "GET",
+      (async function () {
+        const response = await fetch('api/trip/retrieve', {
+          method: 'GET',
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+            Authorization: `Bearer ${localStorage.getItem('userToken')}`,
           },
         });
         const itineraryList: TripDetails[] = await response.json();
         setItineraries(itineraryList);
         console.log(itineraryList);
-        const userIds: string[] = itineraryList.map(itinerary => itinerary.user);
+        const userIds: string[] = itineraryList.map(
+          (itinerary) => itinerary.user
+        );
         const userEmailMap: Map<string, string> = new Map();
         for (const userId of userIds) {
           if (!userEmailMap[userId]) {
@@ -37,20 +39,20 @@ const Manager = () => {
         setUserEmails(userEmailMap);
       })();
     } catch (error) {
-      console.error("Error with request: ", error);
+      console.error('Error with request: ', error);
     }
   }, []);
 
   const getEmailById = async (_id) => {
     try {
       const response = await fetch(`/api/users/${_id}/email`, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
         },
       });
       if (!response.ok) {
-        throw new Error("Failed to fetch user email");
+        throw new Error('Failed to fetch user email');
       }
       const { email } = await response.json();
       return email;
@@ -63,47 +65,53 @@ const Manager = () => {
   const deleteItinerary = async (e) => {
     const tripId: string = e.target.parentNode.parentNode.id;
     try {
-      const response = await fetch("api/trip/delete", {
-        method: "DELETE",
+      const response = await fetch('api/trip/delete', {
+        method: 'DELETE',
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
         },
         body: JSON.stringify({ tripId: tripId }),
       });
       const remainingTrips: TripDetails[] = await response.json();
       setItineraries(remainingTrips);
     } catch (err) {
-      console.error("Error with request: ", err);
+      console.error('Error with request: ', err);
     }
   };
 
   const seeDetails = async (e) => {
     const tripId: string = e.target.parentNode.parentNode.id;
-    const matchingTrip = itineraries.filter(trip => trip._id === tripId)[0];
+    const matchingTrip = itineraries.filter((trip) => trip._id === tripId)[0];
     const userEmail = userEmails[matchingTrip.user];
-    let foundTrip: CompleteItinerary; 
-    
+    let foundTrip: CompleteItinerary;
+
     // rn we have data coming back in different formats so this grabs the right info depending on which format we get
     if (typeof matchingTrip.trip === 'string') {
-      foundTrip = JSON.parse(matchingTrip.trip).hasOwnProperty('itinerary') 
+      foundTrip = JSON.parse(matchingTrip.trip).hasOwnProperty('itinerary')
         ? JSON.parse(matchingTrip.trip).itinerary
         : JSON.parse(matchingTrip.trip);
     } else foundTrip = matchingTrip.trip;
 
-    console.log("See Details of:", foundTrip);
+    console.log('See Details of:', foundTrip);
 
     if (foundTrip) {
-      dispatch(setCurrentItineraryDetails({ itinerary: foundTrip, id: tripId, userEmail: userEmail }));
-      navigate("/itinerary");
-    } else throw new Error('Sorry, we couldn\'t find that trip.');
+      dispatch(
+        setCurrentItineraryDetails({
+          itinerary: foundTrip,
+          id: tripId,
+          userEmail: userEmail,
+        })
+      );
+      navigate('/itinerary');
+    } else throw new Error("Sorry, we couldn't find that trip.");
   };
 
-  const renderList = itineraries.map(itinerary => {
+  const renderList = itineraries.map((itinerary) => {
     const { _id, destination, startDate, endDate, createdAt, user } = itinerary;
     return (
       <div className="trip-tile" key={_id} id={_id}>
-          <p>
+        <p>
           User: <b>{userEmails[user]}</b>
         </p>
         <h3>
