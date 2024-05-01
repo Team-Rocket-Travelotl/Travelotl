@@ -114,6 +114,22 @@ body {
     text-decoration: underline;
   }
 }
+.button-style {
+  background-color: rgba(59, 130, 246, 0.5);
+  color: #fff;
+  font-weight: 700;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 0.25rem;
+  outline: none;
+  transition: background-color 0.3s ease; /* Add transition for smooth color change */
+}
+
+.button-style:hover {
+  background-color: rgba(244, 114, 182, 0.5); /* Pink color on hover */
+}
 
 #loader {
   display: flex;

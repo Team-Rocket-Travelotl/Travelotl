@@ -16,11 +16,7 @@ const Main = () => {
             let us plan the trip of your dreams...
           </h3>
           <div className="inline-block">
-            <Link
-              className="bg-blue-500/50 hover:bg-pink-300/50 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              to="/form"
-              id="start"
-            >
+            <Link className="button-style" to="/form">
               Click here to get started...{" "}
             </Link>
           </div>
