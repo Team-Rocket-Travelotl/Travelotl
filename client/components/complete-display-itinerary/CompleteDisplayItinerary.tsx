@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import Header from '../header';
-import SingleDayItinerary from '../single-day-itinerary';
+import React, { ReactElement, useState } from 'react';
+import Header from '../header/index.ts';
+import SingleDayItinerary from '../single-day-itinerary/index.ts';
+import { useAppSelector } from '../../hooks.ts';
+import CompleteItinerary from '../../models/CompleteItinerary.ts';
 
-const CompleteItinerary = () => {
-  const itinerary = useSelector((state) => state.itinerary.itinerary);
-  const [editedItinerary, setEditedItinerary] = useState({ itinerary });
+const CompleteDisplayItinerary = () => {
+  const { itinerary, id /* userEmail */ } = useAppSelector(
+    (state) => state.itinerary
+  );
+  const [editedItinerary, setEditedItinerary] =
+    useState<CompleteItinerary>(itinerary);
+
+  console.log('complete itinerary:', itinerary);
+  console.log('id: ', id);
+
+  // const { itinerary, user, _id } = useSelector(
+  //   (state) => state.itinerary.itinerary
+  // );
+  // console.log("state in Complete Itinerary -->", user, _id, itinerary);
+  // const [editedItinerary, setEditedItinerary] = useState({ itinerary });
+  // console.log("working w ADAM !--->", itinerary.trip);
 
   //=======> HANDLE CLICK <============
   const handleClick = async () => {
@@ -17,7 +31,7 @@ const CompleteItinerary = () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('userToken')}`,
         },
-        body: JSON.stringify(editedItinerary),
+        body: JSON.stringify({ itinerary: { ...editedItinerary }, _id: id }),
       });
       if (response.ok) {
         console.log('successful patch');
@@ -29,8 +43,8 @@ const CompleteItinerary = () => {
     }
   };
 
-  let dates;
-  let dateComponents;
+  let dates: string[];
+  let dateComponents: ReactElement[] = [];
 
   if (itinerary) {
     dates = Object.keys(itinerary);
@@ -52,20 +66,26 @@ const CompleteItinerary = () => {
     });
   }
 
-  const itineraryItems = itinerary ? (
-    <div id="itinerary-details">
-      <h2>Your Itinerary</h2>
-      {dateComponents}
-    </div>
-  ) : null;
+  const itineraryItems =
+    itinerary !== undefined ? (
+      <div id="itinerary-details">
+        {/* <div>
+        <h3>User Email: {localStorage.getItem('userEmail')}</h3>
+      </div> */}
+        <h2>Your Itinerary</h2>
+        {dateComponents}
+        <button onClick={handleClick}>Save Changes</button>
+      </div>
+    ) : (
+      <h2>No itinerary currently selected</h2>
+    );
 
   return (
     <div>
       <Header />
       {itineraryItems}
-      <button onClick={handleClick}>save</button>
     </div>
   );
 };
 
-export default CompleteItinerary;
+export default CompleteDisplayItinerary;
