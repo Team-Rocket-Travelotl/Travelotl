@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, MouseEvent } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import TripDetails from "../../models/TripDetails";
@@ -81,7 +81,7 @@ const Manager = () => {
   const seeDetails = async (e) => {
     const tripId: string = e.target.parentNode.parentNode.id;
     const matchingTrip = itineraries.filter(trip => trip._id === tripId)[0];
-    const userEmail = userEmails[matchingTrip.user];
+    const userEmail: string = userEmails[matchingTrip.user];
     let foundTrip: CompleteItinerary; 
     
     // rn we have data coming back in different formats so this grabs the right info depending on which format we get

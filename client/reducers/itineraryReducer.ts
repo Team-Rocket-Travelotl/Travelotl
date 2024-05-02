@@ -9,10 +9,6 @@ const itinerarySlice = createSlice({
   reducers: {
     setCurrentItineraryDetails(state, action: PayloadAction<{itinerary: CompleteItinerary, id: string, userEmail: string}>) {
       state = Object.assign(state, action.payload);
-      // const { itinerary, id, userEmail } = action.payload;
-      // state.itinerary = itinerary;
-      // state.id = id;
-      // state.userEmail = userEmail;
     },
   },
 });

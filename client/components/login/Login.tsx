@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from "../header";
+import { RegisteredUser } from '../../models/RegisteredUser';
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const loginWithGoogle = async () => {
-    console.log('trying to log in w google on front end')
-    // const res = await fetch('/google-login/auth');
-    window.location.href = `${window.origin}/google-login/auth`
-  }
+  const loginWithGoogle: () => void = () => window.location.href = `${window.origin}/google-login/auth`;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const res = await fetch("/api/users/login", {
@@ -23,12 +20,10 @@ const Login = () => {
     });
 
     if (res.ok) {
-      const user = await res.json();
+      const user: RegisteredUser = await res.json();
       localStorage.setItem("userToken", user.token);
       localStorage.setItem("userEmail", user.email);
       localStorage.setItem("userId", user._id);
-      //console.log("userToken", userToken);
-      console.log(`user in log in`, user._id);
       navigate("/");
     }
   };

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from "../header";
+import { RegisteredUser } from '../../models/RegisteredUser';
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');
@@ -9,19 +10,14 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const res = await fetch ('/api/users/', {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({firstName, lastName, email, password}),
     })
-
-    if(res.ok){
-        const user = await res.json();
-        console.log(user)
-        navigate('/login');
-    }
+    if (res.ok) navigate('/login');
   };
 
   return (

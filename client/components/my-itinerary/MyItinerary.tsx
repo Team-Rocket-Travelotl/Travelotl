@@ -45,7 +45,7 @@ const MyItinerary = () => {
     }
   }, []);
 
-  const getEmailById = async (_id) => {
+  const getEmailById = async (_id: string) => {
     try {
       const response = await fetch(`/api/users/${_id}/email`, {
         method: 'GET',
@@ -95,15 +95,15 @@ const MyItinerary = () => {
         },
       });
 
-      const itineraryList = await response.json();
+      const itineraryList: TripDetails[] = await response.json();
 
       console.log(itineraryList);
 
-      const matchingTrip: TripDetails = itineraryList.filter(
-        (trip: TripDetails) => trip._id === tripId
+      const matchingTrip = itineraryList.filter(
+        trip => trip._id === tripId
       )[0];
       let foundTrip: CompleteItinerary;
-      const userEmail = userEmails[matchingTrip.user];
+      const userEmail: string = userEmails[matchingTrip.user];
 
       // rn we have data coming back in different formats so this grabs the right info depending on which format we get
       if (typeof matchingTrip.trip === 'string') {
