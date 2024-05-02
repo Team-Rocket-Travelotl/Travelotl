@@ -64,8 +64,8 @@ const MyItinerary = () => {
     }
   };
 
-  const deleteItinerary = async (e) => {
-    const tripId: string = e.target.parentNode.parentNode.id;
+  const deleteItinerary = async (tripId) => {
+    // const tripId: string = e.target.parentNode.parentNode.id;
     try {
       const response = await fetch('api/trip/delete', {
         method: 'DELETE',
@@ -84,9 +84,8 @@ const MyItinerary = () => {
     }
   };
 
-  const seeDetails = async (e) => {
-    const tripId: string = e.target.parentNode.parentNode.id;
-
+  const seeDetails = async (tripId) => {
+    // const tripId: string = e.target.parentNode.parentNode.id;
     try {
       const response = await fetch('api/trip/retrieveById', {
         method: 'GET',
@@ -150,8 +149,8 @@ const MyItinerary = () => {
         </p>
 
         <div className="tile-buttons">
-          <button onClick={seeDetails}>See Details</button>
-          <button onClick={deleteItinerary}>Delete</button>
+          <button onClick={ () => seeDetails(_id) }>See Details</button>
+          <button onClick={ () => deleteItinerary(_id) }>Delete</button>
         </div>
       </div>
     );
