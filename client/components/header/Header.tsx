@@ -13,8 +13,30 @@ const Header = () => {
           Travelotl
         </Link>
       </div>
-      <div className="grid grid-cols-2 gap-1 place-content-around">
-        <>
+      <div className="grid grid-cols-1 pr-4 gap-1 place-content-around">
+        {userEmail ? (
+          <>
+            <p>Welcome, {userEmail}</p>
+            <Link to="/logout">Log out</Link>
+          </>
+        ) : (
+          <>
+            <Link to="/register">Register</Link>
+            <Link to="/login">Login</Link>
+          </>
+        )}
+        <div>
+          <Link className="heading-link" to="/manager">
+            Manager
+          </Link>
+          <Link className="pr-2 pl-2" to="/about">
+            About
+          </Link>
+          <Link className="pr-2 pl-2" to="/myitinerary">
+            My Itinerary
+          </Link>
+        </div>
+        {/* <>
           <Link to="/manager">Manager</Link>
           <Link to="/myitinerary">My Itinerary</Link>
           <Link to="/about">About</Link>
@@ -30,7 +52,7 @@ const Header = () => {
             <Link to="/register">Register</Link>
             <Link to="/login">Login</Link>
           </>
-        )}
+        )} */}
       </div>
     </div>
   );

@@ -32,7 +32,15 @@ body {
 }
 .backgroundImage {
   background-image: url(/Users/macbookair/codesmith/projects/Travelotl/client/assets/planTrip.png);
-  width: screen;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+.heading-link {
+  padding-left: 2vh;
+  padding-bottom: 2vh;
+  padding-top: 2vh;
+  padding-right: 2vh;
 }
 
 .activities {
