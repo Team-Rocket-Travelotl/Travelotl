@@ -6,8 +6,6 @@ const dotenv = require("dotenv");
 //use environmental variables
 dotenv.config({ path: "./config.env" });
 
-const { googleLogin, handleOAuthResponse } = require('./controllers/auth_controller');
-
 // connect to MongoDB cluster
 const connectDB = async () => {
   try {
@@ -21,9 +19,6 @@ const connectDB = async () => {
 
 connectDB();
 
-// TEST CODE - CAN DELETE WHEN FINISHED
-// const tripController = require('./controllers/itinerary_controller');
-
 const app = express();
 const port = 3000;
 
@@ -33,12 +28,8 @@ app.use(express.urlencoded({ extended: true })); //parse urlencoded bodies
 
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/trip", require("./routes/itineraryRoutes"));
+app.use('/google-login', require('./routes/googleAuthRoutes'));
 
-app.use('/google-login', googleLogin);
-
-app.use('/google-login/callback', handleOAuthResponse, (req, res) => {
-  res.sendStatus(200);
-});
 
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "../index.html"));

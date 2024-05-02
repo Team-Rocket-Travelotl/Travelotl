@@ -7,6 +7,12 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const loginWithGoogle = async () => {
+    console.log('trying to log in w google on front end')
+    // const res = await fetch('/google-login/auth');
+    window.location.href = `${window.origin}/google-login/auth`
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -52,6 +58,7 @@ const Login = () => {
         <br />
         <button type="submit">Login</button>
       </form>
+      <button onClick={loginWithGoogle}>Login With Google</button>
     </div>
   );
 };

@@ -7,6 +7,9 @@ export default defineConfig ({
     proxy: {
       '/api': {
         target: 'http://localhost:3000',
+      },
+      '/google-login': {
+        target: 'http://localhost:3000',
       }
     }
   },

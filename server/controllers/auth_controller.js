@@ -3,15 +3,16 @@ const User = require('../models/User');
 const { google } = require('googleapis');
 const url = require('url');
 
+const { CLIENT_ID, CLIENT_SECRET } = process.env;
+
+const callbackURL = 'http://localhost:5173/google-login/callback';
+const GOOGLE_OAUTH_URL = "https://www.googleapis.com/oauth2/v2/userinfo";
+
 const oauth2Client = new google.auth.OAuth2(
   CLIENT_ID,
   CLIENT_SECRET,
   callbackURL
 );
-
-const callbackURL = 'http://localhost:5173/google-login/callback';
-const GOOGLE_OAUTH_URL = "https://www.googleapis.com/oauth2/v2/userinfo";
-
 
 const protect = async (req, res, next) => {
   let token
@@ -42,6 +43,7 @@ const protect = async (req, res, next) => {
 }
 
 const googleLogin = (req, res) => {
+
   const scopes = [
     "https://www.googleapis.com/auth/userinfo.email",
     "https://www.googleapis.com/auth/userinfo.profile"
@@ -55,12 +57,14 @@ const googleLogin = (req, res) => {
     scope: scopes,
     // Enable incremental authorization. Recommended as a best practice.
     include_granted_scopes: true,
+    prompt: 'select_account',
   });
 
-  return res.redirect(301, authorizationUrl);
+  return res.redirect(authorizationUrl);
 };
 
-const handleOAuthResponse = async (req, res) => {
+const handleOAuthResponse = async (req, res, next) => {
+  console.log('handling oauth response');
   const { query } = url.parse(req.url, true);
   const { tokens } = await oauth2Client.getToken(query.code);
   await oauth2Client.setCredentials(tokens);
@@ -72,6 +76,8 @@ const handleOAuthResponse = async (req, res) => {
   });
   const data = await oAuthResponse.json();
   console.log(data);
+  const { email, given_name, family_name } = data;
+  res.locals = { email, given_name, family_name };
   return next();
 }
 

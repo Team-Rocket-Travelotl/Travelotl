@@ -56,7 +56,7 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email })
     if (!user) {
       return res.status(400).json({ error: "User not found" });
     }
@@ -78,6 +78,19 @@ const loginUser = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+const loginUserWithOAuth = async (req, res) => {
+  const { email, given_name: firstName, family_name: lastName } = res.locals;
+
+  const existingUser = await User.findOne({ email });
+  const user = existingUser 
+    ? existingUser
+    : await User.create({ firstName, lastName, email });
+
+  const token = jwt.sign({ id: user._id, email }, process.env.JWT_SECRET, { expiresIn: "30d" });
+  res.cookie('authorization', token);
+  res.redirect('/oauth-success');
+}
 
 const logoutUser = (req, res) => {
   console.log(`in backend logout user`);
@@ -122,6 +135,7 @@ const generateToken = (id) => {
 module.exports = {
   registerUser,
   loginUser,
+  loginUserWithOAuth,
   getUser,
   getUserEmailById,
   logoutUser,
