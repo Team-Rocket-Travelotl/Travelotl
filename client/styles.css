@@ -30,6 +30,10 @@ body {
     rgba(167, 166, 166, 1) 100%
   );
 }
+.backgroundImage {
+  background-image: url(/Users/macbookair/codesmith/projects/Travelotl/client/assets/planTrip.png);
+  width: screen;
+}
 
 .activities {
   column-count: 3;
