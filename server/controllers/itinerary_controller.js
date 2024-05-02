@@ -98,6 +98,7 @@ const tripController = {
       .then((result) => {
         console.log("result after adding to db", result);
         console.log("itinerary successfully saved in database");
+        res.locals.tripDetails = result;
         return next();
       })
       .catch((err) => {
@@ -135,9 +136,9 @@ const tripController = {
       email: req.body.email,
     })
       .then((result) => {
-        // console.log(result);
+        //console.log(result);
         res.locals.allTrips = result;
-        console.log("All trips retrieved - retrieveAllTrips middleware");
+        //console.log("All trips retrieved - retrieveAllTrips middleware");
         return next();
       })
       .catch((err) => {
@@ -145,6 +146,25 @@ const tripController = {
           "could not retrieve all trips - retrieveAllTrips middleware"
         );
         console.error("retrieveAllTrips ERROR =>", err);
+      });
+  },
+
+  retrieveById(req, res, next) {
+    console.log("in the backend");
+    const userId = req.params.userId;
+    console.log("userId", userId);
+    Itinerary.find({
+      user: userId,
+    })
+      .then((result) => {
+        console.log(`result in retrieveById backend`, result);
+        res.locals.TripsById = result;
+        console.log("My trips retrieved - retrieveById middleware");
+        return next();
+      })
+      .catch((err) => {
+        console.log("could not retrieve my trips - retrieveById middleware");
+        console.error("retrieveById ERROR =>", err);
       });
   },
 };

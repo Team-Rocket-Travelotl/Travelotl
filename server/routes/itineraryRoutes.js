@@ -14,7 +14,7 @@ router.post(
   tripController.saveTrip,
   (req, res) => {
     console.log("nick is ok", res.locals.itinerary);
-    res.status(200).json(res.locals.itinerary);
+    res.status(200).json(res.locals.tripDetails);
   }
 );
 
@@ -23,8 +23,17 @@ router.get(
   authController.protect,
   tripController.retrieveAll,
   (req, res) => {
-    // console.log(res.locals.allTrips[0]._id);
     res.status(200).json(res.locals.allTrips);
+  }
+);
+
+router.get(
+  "/retrieveById/:userId",
+  authController.protect,
+  tripController.retrieveById,
+  (req, res) => {
+    console.log('in the retrieveById')
+    res.status(200).json(res.locals.TripsById);
   }
 );
 
