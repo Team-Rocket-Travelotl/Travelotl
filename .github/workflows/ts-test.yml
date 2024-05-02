@@ -18,3 +18,5 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Typecheck
         uses: andoshin11/typescript-error-reporter-action@v1.0.2
+        with:
+          working-directory: './client'
