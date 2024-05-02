@@ -1,25 +1,27 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const tripController = require("../controllers/itinerary_controller");
-const authController = require("../controllers/auth_controller");
+const tripController = require('../controllers/itinerary_controller');
+const authController = require('../controllers/auth_controller');
 
 router.post(
-  "/build",
+  '/build',
   (req, res, next) => {
-    console.log("build route invoked");
+    console.log('build route invoked');
     return next();
   },
   authController.protect,
   tripController.buildTrip,
   tripController.saveTrip,
   (req, res) => {
-    console.log("nick is ok", res.locals.itinerary);
+    console.log('nick is ok', res.locals.itinerary);
+    res.status(200).json(res.locals.itinerary);
+    console.log('nick is ok', res.locals.itinerary);
     res.status(200).json(res.locals.tripDetails);
   }
 );
 
 router.get(
-  "/retrieve",
+  '/retrieve',
   authController.protect,
   tripController.retrieveAll,
   (req, res) => {
@@ -28,17 +30,17 @@ router.get(
 );
 
 router.get(
-  "/retrieveById/:userId",
+  '/retrieveById/:userId',
   authController.protect,
   tripController.retrieveById,
   (req, res) => {
-    console.log('in the retrieveById')
+    console.log('in the retrieveById');
     res.status(200).json(res.locals.TripsById);
   }
 );
 
 router.delete(
-  "/delete",
+  '/delete',
   authController.protect,
   tripController.deleteTrip,
   tripController.retrieveAll,
@@ -47,8 +49,8 @@ router.delete(
   }
 );
 
-router.patch("/update", (req, res) => {
-  console.log("lets edit some stuff!", req.body);
+router.patch('/update', tripController.updateTrip, (req, res) => {
+  console.log('lets edit some stuff!', req.body.itinerary);
   res.sendStatus(200);
 });
 
