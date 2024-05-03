@@ -161,7 +161,10 @@ const MyItinerary = () => {
   return (
     <div>
       <Header />
-      <h2>My Itinerary</h2>
+      <h2 className="text-2xl text-center font-bold lobster-regular">
+        {" "}
+        My Itinerary
+      </h2>
       <div id="itinerary-grid">{renderList}</div>
     </div>
   );
