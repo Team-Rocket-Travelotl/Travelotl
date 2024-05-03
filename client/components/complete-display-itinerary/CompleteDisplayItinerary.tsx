@@ -6,7 +6,7 @@ import CompleteItinerary from "../../models/CompleteItinerary.ts";
 
 const CompleteDisplayItinerary = () => {
   const { itinerary, id /* userEmail */ } = useAppSelector(
-    state => state.itinerary
+    (state) => state.itinerary
   );
   const [editedItinerary, setEditedItinerary] =
     useState<CompleteItinerary>(itinerary);
@@ -18,7 +18,7 @@ const CompleteDisplayItinerary = () => {
   //=======> HANDLE CLICK <============
   const handleClick = async () => {
     if (!changesMade) return;
-    console.log('state to send to back end', editedItinerary);
+    console.log("state to send to back end", editedItinerary);
     try {
       const response = await fetch("/api/trip/update", {
         method: "PATCH",
@@ -29,7 +29,7 @@ const CompleteDisplayItinerary = () => {
         body: JSON.stringify({ itinerary: { ...editedItinerary }, _id: id }),
       });
       if (response.ok) {
-        console.log('successful patch');
+        console.log("successful patch");
         setChangesMade(false);
       } else {
         throw new Error("failed to retrieve data");
@@ -73,7 +73,9 @@ const CompleteDisplayItinerary = () => {
           Your Itinerary
         </h2>
         {dateComponents}
-        <button onClick={handleClick}>Save Changes</button>
+        <button className="button-style" onClick={handleClick}>
+          Save Changes
+        </button>
       </div>
     ) : (
       <h2 className="text-2xl text-center font-bold lobster-regular">
