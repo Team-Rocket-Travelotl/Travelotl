@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
 //use environmental variables
-dotenv.config({ path: "./config.env" });
+dotenv.config({ path: './.env' });
 
 // connect to MongoDB cluster
 const connectDB = async () => {
@@ -25,7 +25,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "client")));
+app.use(express.static(path.join(__dirname, 'client')));
 app.use(express.urlencoded({ extended: true })); //parse urlencoded bodies
 
 app.use("/api/users", require("./routes/userRoutes.ts"));

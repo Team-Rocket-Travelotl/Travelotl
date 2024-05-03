@@ -10,13 +10,15 @@ const CompleteDisplayItinerary = () => {
   );
   const [editedItinerary, setEditedItinerary] =
     useState<CompleteItinerary>(itinerary);
+  const [changesMade, setChangesMade] = useState<boolean>(false);
 
   console.log("complete itinerary:", itinerary);
   console.log("id: ", id);
 
   //=======> HANDLE CLICK <============
   const handleClick = async () => {
-    console.log("state to send to back end", editedItinerary);
+    if (!changesMade) return;
+    console.log('state to send to back end', editedItinerary);
     try {
       const response = await fetch("/api/trip/update", {
         method: "PATCH",
@@ -27,7 +29,8 @@ const CompleteDisplayItinerary = () => {
         body: JSON.stringify({ itinerary: { ...editedItinerary }, _id: id }),
       });
       if (response.ok) {
-        console.log("successful patch");
+        console.log('successful patch');
+        setChangesMade(false);
       } else {
         throw new Error("failed to retrieve data");
       }
@@ -52,6 +55,7 @@ const CompleteDisplayItinerary = () => {
               dateObj={itinerary[date]}
               date={date}
               setEditedItinerary={setEditedItinerary}
+              setChangesMade={setChangesMade}
             />
           </div>
         </div>
