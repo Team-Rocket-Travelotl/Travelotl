@@ -1,4 +1,5 @@
 import React, { ReactElement, useState } from "react";
+import Map from "../map/Map";
 import Header from "../header/index.ts";
 import SingleDayItinerary from "../single-day-itinerary/index.ts";
 import { useAppSelector } from "../../hooks.ts";

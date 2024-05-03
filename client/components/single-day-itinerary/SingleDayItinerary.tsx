@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
 import SingleDayItineraryProps from "../../models/SingleDayItineraryProps";
 import CompleteItinerary from "../../models/CompleteItinerary";
 import Map from "../map/Map";
+
 const SingleDayItinerary = (props: SingleDayItineraryProps) => {
   const { editedItinerary, setEditedItinerary, dateObj, date } = props;
   const timeSlots = Object.keys(dateObj);
-  const [addresses, setAddresses] = useState<string[]>([]);
+  const defaultCenter = { lat: 0, lng: 0 };
+
   //=======> HANDLE CHANGE <============
   const handleChange = (
     date: string,
@@ -17,12 +19,6 @@ const SingleDayItinerary = (props: SingleDayItineraryProps) => {
     const ItineraryCopy: CompleteItinerary = JSON.parse(
       JSON.stringify(editedItinerary)
     );
-
-    if (field === "address") {
-      const newAddresses = [...addresses];
-      newAddresses[timeSlots.indexOf(timeOfDay)] = newText;
-      setAddresses(newAddresses);
-    }
 
     console.log("time of day", ItineraryCopy[date][timeOfDay][field]);
     ItineraryCopy[date][timeOfDay][field] = newText;
@@ -36,7 +32,6 @@ const SingleDayItinerary = (props: SingleDayItineraryProps) => {
     //=======> COMPONENT <============
     return (
       <div className="activity-details" key={timeOfDay}>
-        <Map addresses={addresses} />
         <h3 className="time-of-day">{timeOfDay}</h3>
         <label htmlFor="Activity"> Activity:</label>
         <input
@@ -70,7 +65,11 @@ const SingleDayItinerary = (props: SingleDayItineraryProps) => {
     );
   });
 
-  return <div>{timeSlotComponents}</div>;
+  return (
+    <div>
+      <div>{timeSlotComponents}</div>
+    </div>
+  );
 };
 
 export default SingleDayItinerary;
