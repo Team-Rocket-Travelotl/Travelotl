@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../header";
 
 const Login = () => {
@@ -21,38 +21,53 @@ const Login = () => {
       localStorage.setItem("userToken", user.token);
       localStorage.setItem("userEmail", user.email);
       localStorage.setItem("userId", user._id);
-      //console.log("userToken", userToken);
-      console.log(`user in log in`, user._id);
       navigate("/");
     }
   };
 
+  const handleClick = () => {
+    navigate("/register");
+  };
+
   return (
-    <div>
+    <>
       <Header />
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <br />
-        <button type="submit">Login</button>
-      </form>
-    </div>
+      <div className="login-container">
+        <h1 className="login-heading">Login</h1>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div className="input-container">
+            <label>Email:</label>
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="typed-input"
+            />
+          </div>
+          <div className="input-container">
+            <label>Password:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="typed-input"
+            />
+          </div>
+          <button type="submit" className="button-style ">
+            Login
+          </button>
+          <button
+            type="button"
+            className="button-style "
+            value="nav"
+            onClick={handleClick}
+          >
+            {" "}
+            sign up
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 

@@ -49,30 +49,25 @@ const ActivitiesPage = () => {
   const listItems = activitiesList.map((act) => {
     return (
       <li className="activity-card" key={act}>
-        <label>
-          <input
-            type="checkbox"
-            defaultChecked={activities.includes(act)}
-            value={act}
-          />
-          {act}
-        </label>
+        <label>{act}</label>
+        <input
+          type="checkbox"
+          defaultChecked={activities.includes(act)}
+          value={act}
+        />
       </li>
     );
   });
 
   return (
-    <div
-      className="bg-gray-300 rounded border-4 border-black"
-      onKeyDown={handleEnterKey}
-    >
+    <div className="trip-input-box" onKeyDown={handleEnterKey}>
       <p className="text-2xl text-center">
         Select activities you are interested in...
       </p>
       <ul className="activities">{listItems}</ul>
-      <div>
+      <div className="button-container">
         <button
-          className="m-4 underline text-blue-600"
+          className="button-style"
           type="button"
           value="back"
           onClick={() => saveAndContinue(BACK)}
@@ -80,7 +75,7 @@ const ActivitiesPage = () => {
           Back
         </button>
         <button
-          className="m-4 underline text-blue-600"
+          className="button-style"
           type="button"
           value="next"
           onClick={() => saveAndContinue(NEXT)}
