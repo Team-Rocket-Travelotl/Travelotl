@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SingleDayItineraryProps from '../../models/SingleDayItineraryProps';
-import CompleteItinerary from '../../models/CompleteItinerary';
 
 const SingleDayItinerary = (props: SingleDayItineraryProps) => {
   const { editedItinerary, setEditedItinerary, dateObj, date } = props;

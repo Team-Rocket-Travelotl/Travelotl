@@ -26,13 +26,13 @@ const MyItinerary = () => {
           },
         });
 
-        const itineraryList = await response.json();
+        const itineraryList: TripDetails[] = await response.json();
         console.log('get my iti later');
         console.log('front end result', itineraryList);
         setItineraries(itineraryList);
 
         const userIds = itineraryList.map((itinerary) => itinerary.user);
-        const userEmailMap = new Map();
+        const userEmailMap = new Map<string, string>();
         for (const id of userIds) {
           if (!userEmailMap[id]) {
             const email = await getEmailById(id);
@@ -100,22 +100,18 @@ const MyItinerary = () => {
 
       console.log(itineraryList);
 
-      const matchingTrip = itineraryList.filter(
-        (trip) => trip._id === tripId
+      const matchingTrip: TripDetails = itineraryList.filter(
+        (trip: TripDetails) => trip._id === tripId
       )[0];
       let foundTrip: CompleteItinerary;
       const userEmail = userEmails[matchingTrip.user];
 
       // rn we have data coming back in different formats so this grabs the right info depending on which format we get
       if (typeof matchingTrip.trip === 'string') {
-        foundTrip = JSON.parse(matchingTrip.trip).hasOwnProperty('itinerary');
-        if (typeof matchingTrip.trip === 'string') {
-          foundTrip = JSON.parse(matchingTrip.trip).hasOwnProperty('itinerary')
-            ? JSON.parse(matchingTrip.trip).itinerary
-            : JSON.parse(matchingTrip.trip);
-        } else foundTrip = matchingTrip.trip;
-
-        console.log('See Details of:', foundTrip);
+        foundTrip = JSON.parse(matchingTrip.trip).hasOwnProperty('itinerary')
+          ? JSON.parse(matchingTrip.trip).itinerary
+          : JSON.parse(matchingTrip.trip);
+      } else foundTrip = matchingTrip.trip;
 
         console.log('See Details of:', foundTrip);
 
@@ -129,15 +125,6 @@ const MyItinerary = () => {
           );
           navigate('/itinerary');
         } else throw new Error("Sorry, we couldn't find that trip.");
-        dispatch(
-          setCurrentItineraryDetails({
-            itinerary: foundTrip,
-            id: tripId,
-            userEmail: userEmail,
-          })
-        );
-        navigate('/itinerary');
-      } else throw new Error("Sorry, we couldn't find that trip.");
     } catch (error) {
       console.error('Error with request:', error);
     }
