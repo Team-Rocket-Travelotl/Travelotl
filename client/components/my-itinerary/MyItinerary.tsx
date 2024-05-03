@@ -66,7 +66,6 @@ const MyItinerary = () => {
   };
 
   const deleteItinerary = async (tripId: string) => {
-    // const tripId: string = e.target.parentNode.parentNode.id;
     try {
       const response = await fetch('api/trip/delete', {
         method: 'DELETE',
@@ -86,7 +85,6 @@ const MyItinerary = () => {
   };
 
   const seeDetails = async (tripId: string) => {
-    // const tripId: string = e.target.parentNode.parentNode.id;
     try {
       const response = await fetch('api/trip/retrieve', {
         method: 'GET',
