@@ -41,7 +41,6 @@ const TravelerTypeSubmitPage = () => {
         body: JSON.stringify(userOptions),
       });
       const parsedData: TripDetails = await response.json();
-      console.log(parsedData);
 
       setLoading(false);
 

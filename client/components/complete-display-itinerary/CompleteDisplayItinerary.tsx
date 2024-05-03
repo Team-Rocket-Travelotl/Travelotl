@@ -18,7 +18,7 @@ const CompleteDisplayItinerary = () => {
   //=======> HANDLE CLICK <============
   const handleClick = async () => {
     if (!changesMade) return;
-    console.log("state to send to back end", editedItinerary);
+    // console.log("state to send to back end", editedItinerary);
     try {
       const response = await fetch("/api/trip/update", {
         method: "PATCH",
