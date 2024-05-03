@@ -1,36 +1,44 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Menu from "../menu";
 
 const Header = () => {
   const userEmail = localStorage.getItem("userEmail");
+  const handleClick = () => {
+    const menuNav = document.querySelector(".menu-nav");
+    if (menuNav) menuNav.classList.toggle("is-active");
+  };
   return (
     <div className="header-container">
       <div>
-        <Link
-          to="/"
-          className="font-family: lobster-regular pl-4 pt-2 text-blue-600 text-6xl font-bold font-serif text-center"
-        >
+        <Link to="/" className="main-heading">
           Travelotl
         </Link>
       </div>
-      <div className="grid grid-cols-2 gap-1 place-content-around">
-        <>
-          <Link to="/manager">Manager</Link>
-          <Link to="/myitinerary">My Itinerary</Link>
-          <Link to="/about">About</Link>
-        </>
+
+      {/* ============ NAV MENU ============ */}
+      <div className="welcome">
         {userEmail ? (
-          <>
-            <Link to="/logout">Log out</Link>
-            <p>Welcome,</p>
-            <p>{userEmail}</p>
-          </>
+          <div>
+            <p>Welcome, {userEmail}</p>
+            <nav className="menu-nav">
+              <Link to="/about">About </Link>
+              <Link to="/myitinerary">My Itinerary </Link>
+              <Link to="/logout">Logout</Link>
+            </nav>
+          </div>
         ) : (
-          <>
+          <nav className="menu-nav">
             <Link to="/register">Register</Link>
             <Link to="/login">Login</Link>
-          </>
+            <Link to="/about">About </Link>
+            <Link to="/myitinerary">My Itinerary </Link>
+            <Link to="/manager">Manager </Link>
+          </nav>
         )}
+        <button className="hamburger" onClick={handleClick}>
+          <div className="bar"></div>
+        </button>
       </div>
     </div>
   );

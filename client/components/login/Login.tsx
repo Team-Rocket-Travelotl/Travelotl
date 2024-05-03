@@ -28,33 +28,49 @@ const Login = () => {
     }
   };
 
+  const handleClick = () => {
+    navigate("/register");
+  };
+
   return (
-    <div>
+    <>
       <Header />
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <br />
-        <button type="submit">Login</button>
-      </form>
-      <button onClick={loginWithGoogle}>Login With Google</button>
-    </div>
+      <div className="login-container">
+        <h1 className="login-heading">Login</h1>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div className="input-container">
+            <label>Email:</label>
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="typed-input"
+            />
+          </div>
+          <div className="input-container">
+            <label>Password:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="typed-input"
+            />
+          </div>
+          <button type="submit" className="button-style ">
+            Login
+          </button>
+          <button
+            type="button"
+            className="button-style "
+            value="nav"
+            onClick={handleClick}
+          >
+            {" "}
+            sign up
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 
