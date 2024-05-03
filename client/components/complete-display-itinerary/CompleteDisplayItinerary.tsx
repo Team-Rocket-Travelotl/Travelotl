@@ -10,6 +10,11 @@ const CompleteDisplayItinerary = () => {
   );
   const [editedItinerary, setEditedItinerary] =
     useState<CompleteItinerary>(itinerary);
+  const { itinerary, id /* userEmail */ } = useAppSelector(
+    (state) => state.itinerary
+  );
+  const [editedItinerary, setEditedItinerary] =
+    useState<CompleteItinerary>(itinerary);
 
   console.log("complete itinerary:", itinerary);
   console.log("id: ", id);
@@ -24,7 +29,7 @@ const CompleteDisplayItinerary = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
-        body: JSON.stringify(editedItinerary),
+        body: JSON.stringify({ itinerary: { ...editedItinerary }, _id: id }),
       });
       if (response.ok) {
         console.log("successful patch");
@@ -59,6 +64,10 @@ const CompleteDisplayItinerary = () => {
     });
   }
 
+  const itineraryItems =
+    itinerary !== undefined ? (
+      <div id="itinerary-details">
+        {/* <div>
   const itineraryItems =
     itinerary !== undefined ? (
       <div id="itinerary-details">
