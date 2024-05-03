@@ -1,7 +1,6 @@
 import React, { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from "../header";
-import { RegisteredUser } from '../../models/RegisteredUser';
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');

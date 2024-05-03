@@ -3,6 +3,11 @@ const User = require('../models/User');
 const { google } = require('googleapis');
 const url = require('url');
 
+import { Request, Response, NextFunction } from 'express';
+import ServerErrorResponse from '../interfaces/ServerErrorResponse';
+import AuthController from '../interfaces/AuthController';
+import GoogleUser from '../interfaces/GoogleUser';
+
 const { CLIENT_ID, CLIENT_SECRET } = process.env;
 
 const callbackURL = 'http://localhost:5173/google-login/callback';
@@ -14,8 +19,8 @@ const oauth2Client = new google.auth.OAuth2(
   callbackURL
 );
 
-const protect = async (req, res, next) => {
-  let token
+const protect = async (req: Request, res: Response<ServerErrorResponse, Record<string, any>>, next: NextFunction) => {
+  let token: string;
   console.log(req.headers.authorization);
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     try {
@@ -25,12 +30,10 @@ const protect = async (req, res, next) => {
       // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
-
       // Get user from the token, not including the hashed password
-      req.user = await User.findById(decoded.id).select('-password')
-      console.log(req.user);
+      res.locals.user = await User.findById(decoded.id).select('-password')
 
-      next()
+      return next();
     } catch (error) {
       console.log(error)
       res.status(401).json({ error: 'Not authorized'})
@@ -42,7 +45,7 @@ const protect = async (req, res, next) => {
   }
 }
 
-const googleLogin = (req, res) => {
+const googleLogin = (req: Request, res: Response) => {
 
   const scopes = [
     "https://www.googleapis.com/auth/userinfo.email",
@@ -63,7 +66,7 @@ const googleLogin = (req, res) => {
   return res.redirect(authorizationUrl);
 };
 
-const handleOAuthResponse = async (req, res, next) => {
+const handleOAuthResponse = async (req: Request, res: Response, next: NextFunction) => {
   console.log('handling oauth response');
   const { query } = url.parse(req.url, true);
   const { tokens } = await oauth2Client.getToken(query.code);
@@ -74,12 +77,12 @@ const handleOAuthResponse = async (req, res, next) => {
       Authorization: `Bearer ${tokens.access_token}`
     }
   });
-  const data = await oAuthResponse.json();
-  console.log(data);
+  const data: GoogleUser | any = await oAuthResponse.json();
   const { email, given_name, family_name } = data;
   res.locals = { email, given_name, family_name };
   return next();
 }
 
 
-module.exports = { protect, googleLogin, handleOAuthResponse }
+const authController: AuthController = { protect, googleLogin, handleOAuthResponse }
+module.exports = authController;

@@ -46,7 +46,8 @@ const TravelerTypeSubmitPage = () => {
 
       if (response.ok) {
         // get user email from backend to display in Itinerary?
-        dispatch(setCurrentItineraryDetails({ itinerary: parsedData.trip, id: parsedData._id, userEmail: 'placeholder' }));
+        await dispatch(setCurrentItineraryDetails({ itinerary: parsedData.trip, id: parsedData._id, userEmail: 'placeholder' }));
+        console.log('dispatched');
         navigate('/itinerary');
       } else throw new Error('failed to retrieve data');
     } catch (error) {

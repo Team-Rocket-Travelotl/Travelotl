@@ -65,7 +65,7 @@ const MyItinerary = () => {
     }
   };
 
-  const deleteItinerary = async (tripId) => {
+  const deleteItinerary = async (tripId: string) => {
     // const tripId: string = e.target.parentNode.parentNode.id;
     try {
       const response = await fetch('api/trip/delete', {
@@ -85,10 +85,10 @@ const MyItinerary = () => {
     }
   };
 
-  const seeDetails = async (tripId) => {
+  const seeDetails = async (tripId: string) => {
     // const tripId: string = e.target.parentNode.parentNode.id;
     try {
-      const response = await fetch('api/trip/retrieveById', {
+      const response = await fetch('api/trip/retrieve', {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('userToken')}`,

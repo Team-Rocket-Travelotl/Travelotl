@@ -6,7 +6,7 @@ import CompleteItinerary from '../../models/CompleteItinerary.ts';
 
 const CompleteDisplayItinerary = () => {
   const { itinerary, id /* userEmail */ } = useAppSelector(
-    (state) => state.itinerary
+    state => state.itinerary
   );
   const [editedItinerary, setEditedItinerary] =
     useState<CompleteItinerary>(itinerary);
