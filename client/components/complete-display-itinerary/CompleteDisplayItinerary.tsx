@@ -10,11 +10,6 @@ const CompleteDisplayItinerary = () => {
   );
   const [editedItinerary, setEditedItinerary] =
     useState<CompleteItinerary>(itinerary);
-  const { itinerary, id /* userEmail */ } = useAppSelector(
-    (state) => state.itinerary
-  );
-  const [editedItinerary, setEditedItinerary] =
-    useState<CompleteItinerary>(itinerary);
 
   console.log("complete itinerary:", itinerary);
   console.log("id: ", id);
@@ -64,10 +59,6 @@ const CompleteDisplayItinerary = () => {
     });
   }
 
-  const itineraryItems =
-    itinerary !== undefined ? (
-      <div id="itinerary-details">
-        {/* <div>
   const itineraryItems =
     itinerary !== undefined ? (
       <div id="itinerary-details">
