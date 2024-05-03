@@ -45,6 +45,11 @@ const ActivitiesPage = () => {
     "Danger",
     "Safety",
     "Museums",
+    "Wine Tasting",
+    "Night Life",
+    "Coffee",
+    "Books",
+    "Foodie",
   ];
   const listItems = activitiesList.map((act) => {
     return (

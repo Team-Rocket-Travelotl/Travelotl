@@ -24,7 +24,6 @@ body {
   position: relative;
   display: flex;
   justify-content: space-between;
-  background: rgb(145, 206, 224);
   background: radial-gradient(
     circle,
     rgba(145, 206, 224, 1) 0%,
@@ -42,12 +41,17 @@ body {
 
 .heading {
   font-family: "Lobster", sans-serif;
-  padding: 2px 2px 2px 2px;
+  /* padding: 2px 2px 2px 2px; */
+  margin-bottom: 10px;
   font-size: 3vh;
 }
 .main-text-container {
   padding: 5px 5px 5px 5px;
-  /* flex flex-col justify-center */
+  /* display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-around; */
+  /* flex flex-col justify-center; */
 }
 .backgroundImage {
   background-image: url("../assets/planTrip.png");
@@ -75,26 +79,21 @@ body {
   content: "";
   display: block;
   height: 3px;
-  background-color: #e9447b;
+  background-color: rgb(233, 68, 123);
   margin: 6px 0px;
   transition: 0.4s;
   z-index: 99;
 }
 
-.menu-nav {
+User .menu-nav {
   position: fixed;
-  min-height: 100vh;
   width: 20%;
   right: 100%;
   display: block;
   padding-top: 80px;
   z-index: 98;
-  background-color: rgb(145, 206, 224);
-  background: radial-gradient(
-    circle,
-    rgba(145, 206, 224, 1) 0%,
-    rgba(167, 166, 166, 1) 100%
-  );
+  background-color: rgba(176, 223, 237, 0.2);
+  border-radius: 0.25rem;
   transition: 0.4s;
   z-index: 99;
 }
@@ -102,6 +101,23 @@ body {
 .menu-nav.is-active {
   right: 0;
   z-index: 99;
+}
+
+.menu-nav {
+  position: fixed;
+  width: 20%;
+  top: -50%; /* Change this from 'right: 100%;' */
+  right: 0;
+  display: block;
+  padding-top: 10px;
+  z-index: 98;
+  background-color: rgba(176, 223, 237, 0.5);
+  border-radius: 0.25rem;
+  transition: 0.4s;
+}
+
+.menu-nav.is-active {
+  top: 55px;
 }
 
 .menu-nav a {
@@ -313,4 +329,10 @@ h1 {
 .welcome {
   display: flex;
   align-items: center;
+}
+
+#itinerary-details .button-style {
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }

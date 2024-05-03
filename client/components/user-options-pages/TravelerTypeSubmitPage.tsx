@@ -76,8 +76,8 @@ const TravelerTypeSubmitPage = () => {
     "Solo traveler",
     "Family with young kids",
     "Family of all ages",
-    "Family of adults",
     "Friends",
+    "Couple",
   ];
 
   const travelerTypeItems = travelerTypes.map((type) => {

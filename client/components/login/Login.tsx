@@ -1,14 +1,15 @@
-import React, { FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../header";
-import RegisteredUser from '../../models/RegisteredUser';
+import RegisteredUser from "../../models/RegisteredUser";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const loginWithGoogle: () => void = () => window.location.href = `${window.origin}/google-login/auth`;
+  const loginWithGoogle: () => void = () =>
+    (window.location.href = `${window.origin}/google-login/auth`);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -36,41 +37,51 @@ const Login = () => {
     <>
       <Header />
       <div className="login-container">
-        <h1 className="login-heading">Login</h1>
+        <button
+          onClick={loginWithGoogle}
+          type="submit"
+          className="button-style "
+          style={{
+            fontFamily: "Lobster, sans-serif",
+            fontSize: "50px",
+            background: "rgb(233, 68, 123) ",
+          }}
+        >
+          Login with Google
+        </button>
+        <p>or log in with email:</p>
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="input-container">
             <label>Email:</label>
             <input
+              style={{ background: "rgb(195, 219, 226, 0.5)" }}
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="typed-input"
             />
           </div>
           <div className="input-container">
             <label>Password:</label>
             <input
+              style={{ background: "rgb(195, 219, 226, 0.5)" }}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="typed-input"
             />
           </div>
-          <button type="submit" className="button-style ">
-            Login
-          </button>
-          <button onClick={loginWithGoogle} type="submit" className="button-style ">
-            Login with Google
-          </button>
-          <button
-            type="button"
-            className="button-style "
-            value="nav"
-            onClick={handleClick}
-          >
-            {" "}
-            sign up
-          </button>
+          <div>
+            <button
+              type="submit"
+              className="button-style "
+              style={{ fontSize: "10px" }}
+            >
+              Login
+            </button>
+            <button type="button" value="nav" onClick={handleClick}>
+              {" "}
+              sign up
+            </button>
+          </div>
         </form>
       </div>
     </>

@@ -25,6 +25,7 @@ const Header = () => {
               <Link to="/myitinerary">My Itinerary </Link>
               <Link to="/manager">Manager </Link>
               <Link to="/logout">Logout</Link>
+              <Link to="/form">Plan new trip </Link>
             </nav>
           </div>
         ) : (
@@ -33,6 +34,7 @@ const Header = () => {
             <Link to="/login">Login</Link>
             <Link to="/myitinerary">My Itinerary </Link>
             <Link to="/manager">Manager </Link>
+            <Link to="/form">Plan new trip </Link>
           </nav>
         )}
         <button className="hamburger" onClick={handleClick}>

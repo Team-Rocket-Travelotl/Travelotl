@@ -73,7 +73,11 @@ const CompleteDisplayItinerary = () => {
           Your Itinerary
         </h2>
         {dateComponents}
-        <button className="button-style" onClick={handleClick}>
+        <button
+          className="button-style"
+          style={{ background: "rgb(233, 68, 123) " }}
+          onClick={handleClick}
+        >
           Save Changes
         </button>
       </div>
