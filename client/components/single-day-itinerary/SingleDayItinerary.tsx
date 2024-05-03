@@ -1,8 +1,13 @@
 import React from 'react';
+import { useState } from 'react';
 import SingleDayItineraryProps from '../../models/SingleDayItineraryProps';
+import { set } from 'mongoose';
 
 const SingleDayItinerary = (props: SingleDayItineraryProps) => {
-  const { editedItinerary, setEditedItinerary, dateObj, date } = props;
+  const { editedItinerary, setEditedItinerary, dateObj, date, setChangesMade } =
+    props;
+  // const [changesMade, setChangesMade] = useState(false);
+
   const timeSlots = Object.keys(dateObj);
   const timeSlotComponents = timeSlots.map((timeOfDay) => {
     const { activity, description, address } = dateObj[timeOfDay];
@@ -17,6 +22,7 @@ const SingleDayItinerary = (props: SingleDayItineraryProps) => {
       console.log('Itinerary Copy', ItineraryCopy);
       ItineraryCopy[date][timeOfDay][field] = newText;
       setEditedItinerary(ItineraryCopy);
+      setChangesMade(true);
       console.log('edit IT--->', editedItinerary);
       return editedItinerary;
     };

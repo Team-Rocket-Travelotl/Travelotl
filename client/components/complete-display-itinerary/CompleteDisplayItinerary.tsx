@@ -3,6 +3,7 @@ import Header from '../header/index.ts';
 import SingleDayItinerary from '../single-day-itinerary/index.ts';
 import { useAppSelector } from '../../hooks.ts';
 import CompleteItinerary from '../../models/CompleteItinerary.ts';
+import SingleDayItineraryProps from '../../models/SingleDayItineraryProps.ts';
 
 const CompleteDisplayItinerary = () => {
   const { itinerary, id /* userEmail */ } = useAppSelector(
@@ -10,6 +11,7 @@ const CompleteDisplayItinerary = () => {
   );
   const [editedItinerary, setEditedItinerary] =
     useState<CompleteItinerary>(itinerary);
+  const [changesMade, setChangesMade] = useState<boolean>(false);
 
   console.log('complete itinerary:', itinerary);
   console.log('id: ', id);
@@ -23,6 +25,7 @@ const CompleteDisplayItinerary = () => {
 
   //=======> HANDLE CLICK <============
   const handleClick = async () => {
+    if (!changesMade) return;
     console.log('state to send to back end', editedItinerary);
     try {
       const response = await fetch('/api/trip/update', {
@@ -35,6 +38,7 @@ const CompleteDisplayItinerary = () => {
       });
       if (response.ok) {
         console.log('successful patch');
+        setChangesMade(false);
       } else {
         throw new Error('failed to retrieve data');
       }
@@ -59,6 +63,7 @@ const CompleteDisplayItinerary = () => {
               dateObj={itinerary[date]}
               date={date}
               setEditedItinerary={setEditedItinerary}
+              setChangesMade={setChangesMade}
             />
           </div>
         </div>
