@@ -19,4 +19,6 @@ const ItinerarySchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('itinerary', ItinerarySchema);
+const Itinerary = mongoose.model('itinerary', ItinerarySchema);
+
+module.exports = Itinerary;

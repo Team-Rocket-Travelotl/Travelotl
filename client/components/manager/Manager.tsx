@@ -43,7 +43,7 @@ const Manager = () => {
     }
   }, []);
 
-  const getEmailById = async (_id) => {
+  const getEmailById = async (_id: string) => {
     try {
       const response = await fetch(`/api/users/${_id}/email`, {
         method: 'GET',
@@ -62,8 +62,8 @@ const Manager = () => {
     }
   };
 
-  const deleteItinerary = async (e) => {
-    const tripId: string = e.target.parentNode.parentNode.id;
+  const deleteItinerary = async (tripId: string) => {
+    // const tripId: string = e.target.parentNode.parentNode.id;
     try {
       const response = await fetch('api/trip/delete', {
         method: 'DELETE',
@@ -71,7 +71,7 @@ const Manager = () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('userToken')}`,
         },
-        body: JSON.stringify({ tripId: tripId }),
+        body: JSON.stringify({ tripId }),
       });
       const remainingTrips: TripDetails[] = await response.json();
       setItineraries(remainingTrips);
@@ -80,12 +80,12 @@ const Manager = () => {
     }
   };
 
-  const seeDetails = async (e) => {
-    const tripId: string = e.target.parentNode.parentNode.id;
-    const matchingTrip = itineraries.filter((trip) => trip._id === tripId)[0];
+  const seeDetails = async (tripId: string) => {
+    // const tripId: string = e.target.parentNode.parentNode.id;
+    const matchingTrip = itineraries.filter(trip => trip._id === tripId)[0];
     const userEmail: string = userEmails[matchingTrip.user];
-    let foundTrip: CompleteItinerary;
-
+    let foundTrip: CompleteItinerary; 
+    
     // rn we have data coming back in different formats so this grabs the right info depending on which format we get
     if (typeof matchingTrip.trip === 'string') {
       foundTrip = JSON.parse(matchingTrip.trip).hasOwnProperty('itinerary')
@@ -127,8 +127,8 @@ const Manager = () => {
           Created on: <b>{new Date(createdAt).toLocaleString()}</b>
         </p>
         <div className="tile-buttons">
-          <button onClick={seeDetails}>See Details</button>
-          <button onClick={deleteItinerary}>Delete</button>
+          <button onClick={ () => seeDetails(_id) }>See Details</button>
+          <button onClick={ () => deleteItinerary(_id) }>Delete</button>
         </div>
       </div>
     );

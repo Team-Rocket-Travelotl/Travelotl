@@ -1,12 +1,9 @@
-import React from 'react';
-import { useState } from 'react';
-import SingleDayItineraryProps from '../../models/SingleDayItineraryProps';
-import { set } from 'mongoose';
+import React from "react";
+import SingleDayItineraryProps from "../../models/SingleDayItineraryProps";
 
 const SingleDayItinerary = (props: SingleDayItineraryProps) => {
   const { editedItinerary, setEditedItinerary, dateObj, date, setChangesMade } =
     props;
-  // const [changesMade, setChangesMade] = useState(false);
 
   const timeSlots = Object.keys(dateObj);
   const timeSlotComponents = timeSlots.map((timeOfDay) => {
@@ -19,7 +16,7 @@ const SingleDayItinerary = (props: SingleDayItineraryProps) => {
       newText: string
     ) => {
       const ItineraryCopy = JSON.parse(JSON.stringify(editedItinerary));
-      console.log('Itinerary Copy', ItineraryCopy);
+      console.log("Itinerary Copy", ItineraryCopy);
       ItineraryCopy[date][timeOfDay][field] = newText;
       setEditedItinerary(ItineraryCopy);
       setChangesMade(true);
@@ -36,7 +33,7 @@ const SingleDayItinerary = (props: SingleDayItineraryProps) => {
           type="text"
           defaultValue={activity}
           onChange={(e) =>
-            handleChange(date, timeOfDay, 'activity', e.target.value)
+            handleChange(date, timeOfDay, "activity", e.target.value)
           }
           id="activity"
         ></input>
@@ -45,7 +42,7 @@ const SingleDayItinerary = (props: SingleDayItineraryProps) => {
           type="text"
           defaultValue={description}
           onChange={(e) =>
-            handleChange(date, timeOfDay, 'description', e.target.value)
+            handleChange(date, timeOfDay, "description", e.target.value)
           }
           id="Description"
         ></input>
@@ -54,7 +51,7 @@ const SingleDayItinerary = (props: SingleDayItineraryProps) => {
           type="text"
           defaultValue={address}
           onChange={(e) =>
-            handleChange(date, timeOfDay, 'address', e.target.value)
+            handleChange(date, timeOfDay, "address", e.target.value)
           }
           id="Address"
         ></input>

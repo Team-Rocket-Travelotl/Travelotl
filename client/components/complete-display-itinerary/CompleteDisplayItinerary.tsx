@@ -1,38 +1,30 @@
-import React, { ReactElement, useState } from 'react';
-import Header from '../header/index.ts';
-import SingleDayItinerary from '../single-day-itinerary/index.ts';
-import { useAppSelector } from '../../hooks.ts';
-import CompleteItinerary from '../../models/CompleteItinerary.ts';
-import SingleDayItineraryProps from '../../models/SingleDayItineraryProps.ts';
+import React, { ReactElement, useState } from "react";
+import Header from "../header/index.ts";
+import SingleDayItinerary from "../single-day-itinerary/index.ts";
+import { useAppSelector } from "../../hooks.ts";
+import CompleteItinerary from "../../models/CompleteItinerary.ts";
 
 const CompleteDisplayItinerary = () => {
   const { itinerary, id /* userEmail */ } = useAppSelector(
-    (state) => state.itinerary
+    state => state.itinerary
   );
   const [editedItinerary, setEditedItinerary] =
     useState<CompleteItinerary>(itinerary);
   const [changesMade, setChangesMade] = useState<boolean>(false);
 
-  console.log('complete itinerary:', itinerary);
-  console.log('id: ', id);
-
-  // const { itinerary, user, _id } = useSelector(
-  //   (state) => state.itinerary.itinerary
-  // );
-  // console.log("state in Complete Itinerary -->", user, _id, itinerary);
-  // const [editedItinerary, setEditedItinerary] = useState({ itinerary });
-  // console.log("working w ADAM !--->", itinerary.trip);
+  console.log("complete itinerary:", itinerary);
+  console.log("id: ", id);
 
   //=======> HANDLE CLICK <============
   const handleClick = async () => {
     if (!changesMade) return;
     console.log('state to send to back end', editedItinerary);
     try {
-      const response = await fetch('/api/trip/update', {
-        method: 'PATCH',
+      const response = await fetch("/api/trip/update", {
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
         body: JSON.stringify({ itinerary: { ...editedItinerary }, _id: id }),
       });
@@ -40,10 +32,10 @@ const CompleteDisplayItinerary = () => {
         console.log('successful patch');
         setChangesMade(false);
       } else {
-        throw new Error('failed to retrieve data');
+        throw new Error("failed to retrieve data");
       }
     } catch (error) {
-      console.error('Error with patch request:', error);
+      console.error("Error with patch request:", error);
     }
   };
 
@@ -77,12 +69,16 @@ const CompleteDisplayItinerary = () => {
         {/* <div>
         <h3>User Email: {localStorage.getItem('userEmail')}</h3>
       </div> */}
-        <h2>Your Itinerary</h2>
+        <h2 className="text-2xl text-center font-bold lobster-regular">
+          Your Itinerary
+        </h2>
         {dateComponents}
         <button onClick={handleClick}>Save Changes</button>
       </div>
     ) : (
-      <h2>No itinerary currently selected</h2>
+      <h2 className="text-2xl text-center font-bold lobster-regular">
+        No itinerary currently selected
+      </h2>
     );
 
   return (
