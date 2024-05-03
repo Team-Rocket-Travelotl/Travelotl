@@ -1,4 +1,8 @@
 //Controller to call the Open AI API for information on destinations for the itinerary
+
+import { Model, MongooseError } from "mongoose";
+import TripController from "../interfaces/TripController";
+
 // import { Configuration, OpenAI } from "openai";
 const OpenAI = require('openai');
 const express = require('express');
@@ -24,7 +28,7 @@ const openai = new OpenAI({ apiKey: process.env.OPEN_AI_API_KEY });
 // }
 // ========= end of TEST DATA ============
 
-const tripController = {
+const tripController: TripController = {
   // buildTrip - To fetch itinerary from API request to Open AI
   async buildTrip(req, res, next) {
     console.log('buildTrip invoked');
@@ -88,19 +92,20 @@ const tripController = {
     // const { email } = req.body;
     Itinerary.create({
       // email: req.body.email,
-      user: req.user._id,
+      user: res.locals.user._id,
       tripName: res.locals.tripName,
       destination: req.body.destination,
       startDate: req.body.startDate,
       endDate: req.body.endDate,
       trip: res.locals.itinerary,
     })
-      .then((result) => {
+      .then((result: {}) => {
         console.log('result after adding to db', result);
         console.log('itinerary successfully saved in database');
+        res.locals.tripDetails = result;
         return next();
       })
-      .catch((err) => {
+      .catch((err: MongooseError) => {
         console.log(
           'could not add itinerary to database - saveTrip middleware'
         );
@@ -113,7 +118,7 @@ const tripController = {
     console.log(req.body);
     console.log('deleteTrip Middleware - tripId:', req.body.tripId);
     Itinerary.findOneAndDelete({ _id: `${req.body.tripId}` })
-      .then((result) => {
+      .then((result: {}) => {
         if (result) {
           console.log('Itinerary deleted from the database - deleteTrip');
         } else {
@@ -121,7 +126,7 @@ const tripController = {
         }
         return next();
       })
-      .catch((err) => {
+      .catch((err: MongooseError) => {
         console.log(
           'could not locate itinerary based on id passed in - deleteTrip middleware'
         );
@@ -134,13 +139,13 @@ const tripController = {
     Itinerary.find({
       email: req.body.email,
     })
-      .then((result) => {
+      .then((result: {}) => {
         //console.log(result);
         res.locals.allTrips = result;
         console.log('All trips retrieved - retrieveAllTrips middleware');
         return next();
       })
-      .catch((err) => {
+      .catch((err: MongooseError) => {
         console.log(
           'could not retrieve all trips - retrieveAllTrips middleware'
         );
@@ -155,13 +160,13 @@ const tripController = {
     Itinerary.find({
       user: userId,
     })
-      .then((result) => {
+      .then((result: {}) => {
         console.log(`result in retrieveById backend`, result);
         res.locals.TripsById = result;
         console.log('My trips retrieved - retrieveById middleware');
         return next();
       })
-      .catch((err) => {
+      .catch((err: MongooseError) => {
         console.log('could not retrieve my trips - retrieveById middleware');
         console.error('retrieveById ERROR =>', err);
       });

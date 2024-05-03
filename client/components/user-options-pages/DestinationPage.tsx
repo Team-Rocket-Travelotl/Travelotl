@@ -1,8 +1,8 @@
-import React, { KeyboardEvent } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks.ts";
-import { updateDestination } from "../../reducers/tripReducer.ts";
-import pageRoutes from "../../constants/routes.ts";
+import React, { KeyboardEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks.ts';
+import { updateDestination } from '../../reducers/tripReducer.ts';
+import pageRoutes from '../../constants/routes';
 
 const DestinationPage = () => {
   // page 1

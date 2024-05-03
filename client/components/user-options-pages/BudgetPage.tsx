@@ -1,9 +1,9 @@
-import React, { KeyboardEvent } from "react";
-import { useNavigate } from "react-router-dom";
-import { updateBudget } from "../../reducers/tripReducer.ts";
-import { useAppDispatch, useAppSelector } from "../../hooks.ts";
-import pageRoutes from "../../constants/routes.ts";
-import navigationDirections from "../../constants/navigationDirections.ts";
+import React, { KeyboardEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { updateBudget } from '../../reducers/tripReducer.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks.ts';
+import pageRoutes from '../../constants/routes';
+import navigationDirections from '../../constants/navigationDirections';
 
 const BudgetPage = () => {
   // page 4
