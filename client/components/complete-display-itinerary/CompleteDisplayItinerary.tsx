@@ -8,11 +8,7 @@ const CompleteDisplayItinerary = () => {
   const { itinerary, id /* userEmail */ } = useAppSelector(
     (state) => state.itinerary
   );
-  const [editedItinerary, setEditedItinerary] =
-    useState<CompleteItinerary>(itinerary);
-  const { itinerary, id /* userEmail */ } = useAppSelector(
-    (state) => state.itinerary
-  );
+
   const [editedItinerary, setEditedItinerary] =
     useState<CompleteItinerary>(itinerary);
 
@@ -74,16 +70,12 @@ const CompleteDisplayItinerary = () => {
         {/* <div>
         <h3>User Email: {localStorage.getItem('userEmail')}</h3>
       </div> */}
-        <h2 className="text-2xl text-center font-bold lobster-regular">
-          Your Itinerary
-        </h2>
+        <h2>Your Itinerary</h2>
         {dateComponents}
         <button onClick={handleClick}>Save Changes</button>
       </div>
     ) : (
-      <h2 className="text-2xl text-center font-bold lobster-regular">
-        No itinerary currently selected
-      </h2>
+      <h2>No itinerary currently selected</h2>
     );
 
   return (
