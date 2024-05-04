@@ -1,12 +1,14 @@
 import React, { ReactElement, useState } from "react";
 import Header from "../header/index.ts";
 import SingleDayItinerary from "../single-day-itinerary/index.ts";
-import { useAppSelector } from "../../hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../hooks.ts";
 import CompleteItinerary from "../../models/CompleteItinerary.ts";
+import { setCurrentItineraryDetails } from "../../reducers/itineraryReducer.ts";
 
 const CompleteDisplayItinerary = () => {
-  const { itinerary, id /* userEmail */ } = useAppSelector(
-    (state) => state.itinerary
+  const dispatch = useAppDispatch();
+  const { itinerary, id, userEmail } = useAppSelector(
+    state => state.itinerary
   );
   const [editedItinerary, setEditedItinerary] =
     useState<CompleteItinerary>(itinerary);
@@ -28,9 +30,12 @@ const CompleteDisplayItinerary = () => {
         },
         body: JSON.stringify({ itinerary: { ...editedItinerary }, _id: id }),
       });
+      const data = await response.json();
+      console.log(data);
       if (response.ok) {
-        console.log("successful patch");
+        console.log('successful patch');
         setChangesMade(false);
+        dispatch(setCurrentItineraryDetails({ itinerary: data.trip, id: data._id, userEmail }))
       } else {
         throw new Error("failed to retrieve data");
       }

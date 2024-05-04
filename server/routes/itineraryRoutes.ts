@@ -51,7 +51,7 @@ router.delete(
 
 router.patch('/update', tripController.updateTrip, (req: Request, res: Response) => {
   console.log('lets edit some stuff!', req.body.itinerary);
-  res.sendStatus(200);
+  res.status(200).json(res.locals.updatedItinerary);
 });
 
 module.exports = router;
