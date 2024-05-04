@@ -92,7 +92,7 @@ const Manager = () => {
         : JSON.parse(matchingTrip.trip);
     } else foundTrip = matchingTrip.trip;
 
-    // console.log("See Details of:", foundTrip);
+    console.log("See Details of:", foundTrip);
 
     if (foundTrip) {
       dispatch(

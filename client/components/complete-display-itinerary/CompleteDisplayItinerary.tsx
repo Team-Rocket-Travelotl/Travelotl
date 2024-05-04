@@ -74,18 +74,18 @@ const CompleteDisplayItinerary = () => {
         {/* <div>
         <h3>User Email: {localStorage.getItem('userEmail')}</h3>
       </div> */}
-        <h2 className="text-2xl text-center font-bold lobster-regular">
-          Your Itinerary
-        </h2>
+        <h2>Your Itinerary</h2>
         {dateComponents}
-        <button className="button-style" onClick={handleClick}>
+        <button
+          className="button-style"
+          style={{ background: "rgb(233, 68, 123) " }}
+          onClick={handleClick}
+        >
           Save Changes
         </button>
       </div>
     ) : (
-      <h2 className="text-2xl text-center font-bold lobster-regular">
-        No itinerary currently selected
-      </h2>
+      <h2>No itinerary currently selected</h2>
     );
 
   return (

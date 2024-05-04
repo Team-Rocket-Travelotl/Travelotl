@@ -27,7 +27,7 @@ const Form = () => {
   return (
     <>
       <Header />
-      <div className="form-container">
+      <div>
         <div>
           <h2 className="text-2xl text-center font-bold lobster-regular">
             Enter your travel details...

@@ -1,9 +1,9 @@
-import React, { KeyboardEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks.ts';
-import { updateStartDate, updateEndDate } from '../../reducers/tripReducer.ts';
-import pageRoutes from '../../constants/routes';
-import navigationDirections from '../../constants/navigationDirections';
+import React, { KeyboardEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks.ts";
+import { updateStartDate, updateEndDate } from "../../reducers/tripReducer.ts";
+import pageRoutes from "../../constants/routes";
+import navigationDirections from "../../constants/navigationDirections";
 
 const DatesPage = () => {
   // page 2
@@ -50,7 +50,7 @@ const DatesPage = () => {
         />
       </div>
       <div>
-        <label className="text-2xl" htmlFor="endDate">
+        <label className="text-1xl" htmlFor="endDate">
           End Date:
         </label>
         <input

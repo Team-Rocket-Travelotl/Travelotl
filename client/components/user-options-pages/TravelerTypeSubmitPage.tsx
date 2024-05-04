@@ -75,8 +75,8 @@ const TravelerTypeSubmitPage = () => {
     "Solo traveler",
     "Family with young kids",
     "Family of all ages",
-    "Family of adults",
     "Friends",
+    "Couple",
   ];
 
   const travelerTypeItems = travelerTypes.map((type) => {
@@ -111,7 +111,7 @@ const TravelerTypeSubmitPage = () => {
           </div>
         ) : (
           <>
-            <p>What best describes your travel group...</p>
+            <p className="text-1xl">What best describes your travel group...</p>
             <ul className="groups">{travelerTypeItems}</ul>
             <div className="button-container">
               <button
