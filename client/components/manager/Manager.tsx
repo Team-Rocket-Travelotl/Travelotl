@@ -25,7 +25,6 @@ const Manager = () => {
         });
         const itineraryList: TripDetails[] = await response.json();
         setItineraries(itineraryList);
-        console.log(itineraryList);
         const userIds: string[] = itineraryList.map(
           (itinerary) => itinerary.user
         );

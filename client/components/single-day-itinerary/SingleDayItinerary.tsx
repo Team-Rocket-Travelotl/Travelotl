@@ -16,11 +16,11 @@ const SingleDayItinerary = (props: SingleDayItineraryProps) => {
       newText: string
     ) => {
       const ItineraryCopy = JSON.parse(JSON.stringify(editedItinerary));
-      console.log("Itinerary Copy", ItineraryCopy);
+      // console.log("Itinerary Copy", ItineraryCopy);
       ItineraryCopy[date][timeOfDay][field] = newText;
       setEditedItinerary(ItineraryCopy);
       setChangesMade(true);
-      console.log('edit IT--->', editedItinerary);
+      // console.log('edit IT--->', editedItinerary);
       return editedItinerary;
     };
 
