@@ -22,8 +22,8 @@ const Header = () => {
           <div>
             <p>Welcome, {userEmail}</p>
             <nav className="menu-nav">
-              <Link to="/about">About </Link>
               <Link to="/myitinerary">My Itinerary </Link>
+              <Link to="/manager">Manager </Link>
               <Link to="/logout">Logout</Link>
             </nav>
           </div>
@@ -31,7 +31,6 @@ const Header = () => {
           <nav className="menu-nav">
             <Link to="/register">Register</Link>
             <Link to="/login">Login</Link>
-            <Link to="/about">About </Link>
             <Link to="/myitinerary">My Itinerary </Link>
             <Link to="/manager">Manager </Link>
           </nav>

@@ -19,6 +19,7 @@ const CompleteDisplayItinerary = () => {
 
   //=======> HANDLE CLICK <============
   const handleClick = async () => {
+    if (!changesMade) return;
     console.log("state to send to back end", editedItinerary);
     try {
       const response = await fetch("/api/trip/update", {
@@ -59,6 +60,7 @@ const CompleteDisplayItinerary = () => {
               dateObj={itinerary[date]}
               date={date}
               setEditedItinerary={setEditedItinerary}
+              setChangesMade={setChangesMade}
             />
           </div>
         </div>
@@ -76,7 +78,9 @@ const CompleteDisplayItinerary = () => {
           Your Itinerary
         </h2>
         {dateComponents}
-        <button onClick={handleClick}>Save Changes</button>
+        <button className="button-style" onClick={handleClick}>
+          Save Changes
+        </button>
       </div>
     ) : (
       <h2 className="text-2xl text-center font-bold lobster-regular">

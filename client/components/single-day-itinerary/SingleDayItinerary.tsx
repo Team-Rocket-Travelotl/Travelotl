@@ -2,7 +2,9 @@ import React from "react";
 import SingleDayItineraryProps from "../../models/SingleDayItineraryProps";
 
 const SingleDayItinerary = (props: SingleDayItineraryProps) => {
-  const { editedItinerary, setEditedItinerary, dateObj, date } = props;
+  const { editedItinerary, setEditedItinerary, dateObj, date, setChangesMade } =
+    props;
+
   const timeSlots = Object.keys(dateObj);
   const timeSlotComponents = timeSlots.map((timeOfDay) => {
     const { activity, description, address } = dateObj[timeOfDay];
@@ -17,7 +19,8 @@ const SingleDayItinerary = (props: SingleDayItineraryProps) => {
       console.log("Itinerary Copy", ItineraryCopy);
       ItineraryCopy[date][timeOfDay][field] = newText;
       setEditedItinerary(ItineraryCopy);
-      console.log("edit IT--->", editedItinerary);
+      setChangesMade(true);
+      console.log('edit IT--->', editedItinerary);
       return editedItinerary;
     };
 
