@@ -41,7 +41,7 @@ const TravelerNumberPage = () => {
 
   return (
     <div className="trip-input-box" onKeyDown={handleEnterKey}>
-      <label className="text-2xl" htmlFor="travelers">
+      <label className="text-1xl" htmlFor="travelers">
         No. of Travelers:
       </label>
       <input

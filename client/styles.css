@@ -111,7 +111,7 @@ User .menu-nav {
   display: block;
   padding-top: 10px;
   z-index: 98;
-  background-color: rgba(176, 223, 237, 0.5);
+  background-color: rgb(183, 203, 209, 0.5);
   border-radius: 0.25rem;
   transition: 0.4s;
 }
@@ -121,7 +121,7 @@ User .menu-nav {
 }
 
 .menu-nav a {
-  background-color: rgba(59, 130, 246, 0.5);
+  background-color: rgb(22, 130, 163, 0.5);
   color: #fff;
   font-weight: 700;
   border-radius: 0.25rem;
@@ -158,8 +158,7 @@ User .menu-nav {
   box-shadow: 10px 5px 5px rgba(11, 49, 60, 0.5);
   color: white;
   padding: 24px;
-  width: 200px;
-  height: 85px;
+  width: 180px;
   font-weight: bold;
   font-size: 150%;
   margin: 5px;
@@ -313,8 +312,10 @@ input {
   text-wrap: wrap;
 }
 .trip-input-box {
-  background-color: rgb(183, 203, 209);
+  background-color: rgb(183, 203, 209, 0.5);
   border-radius: 0.25rem;
+  width: 98vh;
+  box-shadow: 10px 5px 5px rgba(11, 49, 60, 0.5);
 }
 h1 {
   font-family: lobster-regular;

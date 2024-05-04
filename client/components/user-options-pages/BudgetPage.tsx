@@ -1,9 +1,9 @@
-import React, { KeyboardEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { updateBudget } from '../../reducers/tripReducer.ts';
-import { useAppDispatch, useAppSelector } from '../../hooks.ts';
-import pageRoutes from '../../constants/routes';
-import navigationDirections from '../../constants/navigationDirections';
+import React, { KeyboardEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { updateBudget } from "../../reducers/tripReducer.ts";
+import { useAppDispatch, useAppSelector } from "../../hooks.ts";
+import pageRoutes from "../../constants/routes";
+import navigationDirections from "../../constants/navigationDirections";
 
 const BudgetPage = () => {
   // page 4
@@ -39,7 +39,7 @@ const BudgetPage = () => {
 
   return (
     <div className="trip-input-box">
-      <label className="text-2xl" htmlFor="budget">
+      <label className="text-1xl" htmlFor="budget">
         Budget:
       </label>
       <input

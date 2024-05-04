@@ -66,9 +66,7 @@ const ActivitiesPage = () => {
 
   return (
     <div className="trip-input-box" onKeyDown={handleEnterKey}>
-      <p className="text-2xl text-center">
-        Select activities you are interested in...
-      </p>
+      <p className="text-1xl">Select activities you are interested in...</p>
       <ul className="activities">{listItems}</ul>
       <div className="button-container">
         <button

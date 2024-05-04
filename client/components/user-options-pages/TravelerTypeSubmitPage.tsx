@@ -112,7 +112,7 @@ const TravelerTypeSubmitPage = () => {
           </div>
         ) : (
           <>
-            <p>What best describes your travel group...</p>
+            <p className="text-1xl">What best describes your travel group...</p>
             <ul className="groups">{travelerTypeItems}</ul>
             <div className="button-container">
               <button
