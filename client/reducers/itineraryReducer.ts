@@ -1,13 +1,25 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import CompleteItinerary from '../models/CompleteItinerary';
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-const initialState = {itinerary: {} as CompleteItinerary, id: '', userEmail: ''};
+import CompleteItinerary from "../models/CompleteItinerary";
+
+const initialState = {
+  itinerary: {} as CompleteItinerary,
+  id: "",
+  userEmail: "",
+};
 
 const itinerarySlice = createSlice({
-  name: 'itinerary',
+  name: "itinerary",
   initialState,
   reducers: {
-    setCurrentItineraryDetails(state, action: PayloadAction<{itinerary: CompleteItinerary, id: string, userEmail: string}>) {
+    setCurrentItineraryDetails(
+      state,
+      action: PayloadAction<{
+        itinerary: CompleteItinerary;
+        id: string;
+        userEmail: string;
+      }>
+    ) {
       const { itinerary, id, userEmail } = action.payload;
       state.itinerary = itinerary;
       state.id = id;

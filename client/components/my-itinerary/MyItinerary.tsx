@@ -1,11 +1,11 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { setCurrentItineraryDetails } from '../../reducers/itineraryReducer';
-import Header from '../header';
-import TripDetails from '../../models/TripDetails';
-import CompleteItinerary from '../../models/CompleteItinerary';
+import React from "react";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setCurrentItineraryDetails } from "../../reducers/itineraryReducer";
+import Header from "../header";
+import TripDetails from "../../models/TripDetails";
+import CompleteItinerary from "../../models/CompleteItinerary";
 
 const MyItinerary = () => {
   const [itineraries, setItineraries] = useState<TripDetails[]>([]);
@@ -16,19 +16,19 @@ const MyItinerary = () => {
   useEffect(() => {
     try {
       (async function () {
-        const userId = localStorage.getItem('userId');
-        console.log('get my iti before and userId', userId);
+        const userId = localStorage.getItem("userId");
+        // console.log('get my iti before and userId', userId);
 
         const response = await fetch(`api/trip/retrieveById/${userId}`, {
-          method: 'GET',
+          method: "GET",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+            Authorization: `Bearer ${localStorage.getItem("userToken")}`,
           },
         });
 
         const itineraryList: TripDetails[] = await response.json();
-        console.log('get my iti later');
-        console.log('front end result', itineraryList);
+        // console.log('get my iti later');
+        // console.log('front end result', itineraryList);
         setItineraries(itineraryList);
 
         const userIds = itineraryList.map((itinerary) => itinerary.user);
@@ -42,20 +42,20 @@ const MyItinerary = () => {
         setUserEmails(userEmailMap);
       })();
     } catch (error) {
-      console.error('Error with request:', error);
+      console.error("Error with request:", error);
     }
   }, []);
 
   const getEmailById = async (_id: string) => {
     try {
       const response = await fetch(`/api/users/${_id}/email`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
       });
       if (!response.ok) {
-        throw new Error('Failed to fetch user email');
+        throw new Error("Failed to fetch user email");
       }
       const { email } = await response.json();
       return email;
@@ -67,11 +67,11 @@ const MyItinerary = () => {
 
   const deleteItinerary = async (tripId: string) => {
     try {
-      const response = await fetch('api/trip/delete', {
-        method: 'DELETE',
+      const response = await fetch("api/trip/delete", {
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
         body: JSON.stringify({ tripId: tripId }),
       });
@@ -80,37 +80,35 @@ const MyItinerary = () => {
 
       setItineraries(remainingTrips.filter(trip => trip.user === localStorage.getItem('userId')));
     } catch (err) {
-      console.error('Error with request:', err);
+      console.error("Error with request:", err);
     }
   };
 
   const seeDetails = async (tripId: string) => {
     try {
-      const response = await fetch('api/trip/retrieve', {
-        method: 'GET',
+      const response = await fetch("api/trip/retrieve", {
+        method: "GET",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
       });
 
       const itineraryList: TripDetails[] = await response.json();
 
-      console.log(itineraryList);
-
       const matchingTrip = itineraryList.filter(
-        trip => trip._id === tripId
+        (trip) => trip._id === tripId
       )[0];
       let foundTrip: CompleteItinerary;
       const userEmail: string = userEmails[matchingTrip.user];
 
       // rn we have data coming back in different formats so this grabs the right info depending on which format we get
-      if (typeof matchingTrip.trip === 'string') {
-        foundTrip = JSON.parse(matchingTrip.trip).hasOwnProperty('itinerary')
+      if (typeof matchingTrip.trip === "string") {
+        foundTrip = JSON.parse(matchingTrip.trip).hasOwnProperty("itinerary")
           ? JSON.parse(matchingTrip.trip).itinerary
           : JSON.parse(matchingTrip.trip);
       } else foundTrip = matchingTrip.trip;
 
-      // console.log('See Details of:', foundTrip);
+      console.log("See Details of:", foundTrip);
 
       if (foundTrip) {
         dispatch(
@@ -120,10 +118,10 @@ const MyItinerary = () => {
             userEmail: userEmail,
           })
         );
-        navigate('/itinerary');
+        navigate("/itinerary");
       } else throw new Error("Sorry, we couldn't find that trip.");
     } catch (error) {
-      console.error('Error with request:', error);
+      console.error("Error with request:", error);
     }
   };
 
@@ -148,8 +146,8 @@ const MyItinerary = () => {
         </p>
 
         <div className="tile-buttons">
-          <button onClick={ () => seeDetails(_id) }>See Details</button>
-          <button onClick={ () => deleteItinerary(_id) }>Delete</button>
+          <button onClick={() => seeDetails(_id)}>See Details</button>
+          <button onClick={() => deleteItinerary(_id)}>Delete</button>
         </div>
       </div>
     );
