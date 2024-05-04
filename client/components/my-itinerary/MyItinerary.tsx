@@ -78,7 +78,7 @@ const MyItinerary = () => {
 
       const remainingTrips: TripDetails[] = await response.json();
 
-      setItineraries(remainingTrips);
+      setItineraries(remainingTrips.filter(trip => trip.user === localStorage.getItem('userId')));
     } catch (err) {
       console.error('Error with request:', err);
     }

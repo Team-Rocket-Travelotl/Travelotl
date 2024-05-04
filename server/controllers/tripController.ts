@@ -178,10 +178,12 @@ const tripController: TripController = {
       const { _id, itinerary } = req.body;
       console.log('UPDATE Trip controller --->', _id, itinerary);
 
-      const updateItinerary = await Itinerary.findByIdAndUpdate(_id, {
+      await Itinerary.findByIdAndUpdate(_id, {
         $set: { trip: itinerary },
       });
-      next();
+      const updatedItinerary = await Itinerary.findById(_id);
+      res.locals.updatedItinerary = updatedItinerary;
+      return next();
     } catch (error) {
       console.log('Error in UPDATE Trip:', error);
     }
