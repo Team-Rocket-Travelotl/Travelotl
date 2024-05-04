@@ -1,11 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const { googleLogin, handleOAuthResponse } = require('../controllers/authController');
-const { loginUserWithOAuth } = require('../controllers/userController');
+import express from 'express';
+import authController from '../controllers/authController';
+import userController from '../controllers/userController';
 
-const authController = require('../controllers/authController');
+const router = express.Router();
+
+const { googleLogin, handleOAuthResponse } = authController;
+const { loginUserWithOAuth } = userController;
 
 router.get('/auth', googleLogin);
 router.get('/callback', handleOAuthResponse, loginUserWithOAuth);
 
-module.exports = router;
+export default router;

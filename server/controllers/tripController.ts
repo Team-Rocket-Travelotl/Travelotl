@@ -4,12 +4,11 @@ import { Model, MongooseError } from "mongoose";
 import TripController from "../interfaces/TripController";
 
 // import { Configuration, OpenAI } from "openai";
-const OpenAI = require('openai');
-const express = require('express');
+import OpenAI from 'openai';
+import express from 'express';
 const app = express();
-const Itinerary = require('../models/Itinerary');
-const { recompileSchema } = require('../models/User');
-const dotenv = require('dotenv');
+import Itinerary from '../models/Itinerary';
+import dotenv from 'dotenv';
 
 dotenv.config({ path: './config.env' });
 const openai = new OpenAI({ apiKey: process.env.OPEN_AI_API_KEY });
@@ -43,7 +42,7 @@ const tripController: TripController = {
     } = req.body;
     res.locals.tripName = `${destination} from ${startDate} to ${endDate}`;
     // Update prompt below to reflect req.body information - DONE (J.H.)
-    const prompt = `Make an itinerary for a trip for ${travelers} to ${destination} from ${startDate} until ${endDate}. I have a budget of ${budget}. Include the following types of attractions: ${activities.join(
+    const prompt = `Make an itinerary for a trip for ${travelers} to ${destination} from ${startDate} until ${endDate}. Please include all days within this range. I have a budget of ${budget}. Include the following types of attractions: ${activities.join(
       ', '
     )} for a ${groupDescription}. Organize the itinerary by the following times of day: morning, afternoon, and evening. Recommend specific places of interest with their address. Limit cross-city commutes by grouping places of interest by geography for each day. Output the response in json format following this schema:
     // {
@@ -77,9 +76,10 @@ const tripController: TripController = {
       });
 
       console.log(completion.choices[0]);
+
       res.locals.itinerary = JSON.parse(
-        completion.choices[0].message.content
-      ).itinerary;
+        completion.choices[0].message.content!
+        ).itinerary;
       return next();
     } catch (err) {
       console.log(err);
@@ -118,7 +118,7 @@ const tripController: TripController = {
     console.log(req.body);
     console.log('deleteTrip Middleware - tripId:', req.body.tripId);
     Itinerary.findOneAndDelete({ _id: `${req.body.tripId}` })
-      .then((result: {}) => {
+      .then((result) => {
         if (result) {
           console.log('Itinerary deleted from the database - deleteTrip');
         } else {
@@ -190,4 +190,4 @@ const tripController: TripController = {
   },
 };
 
-module.exports = tripController;
+export default tripController;

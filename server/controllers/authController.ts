@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
-const { google } = require('googleapis');
-const url = require('url');
+import jwt, { JwtPayload, Secret } from 'jsonwebtoken';
+import User from '../models/User';
+import { google } from 'googleapis';
+import url from 'url';
 
 import { Request, Response, NextFunction } from 'express';
 import ServerErrorResponse from '../interfaces/ServerErrorResponse';
@@ -28,7 +28,7 @@ const protect = async (req: Request, res: Response<ServerErrorResponse, Record<s
       token = req.headers.authorization.split(' ')[1];
 
       // Verify token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET)
+      const decoded = jwt.verify(token, process.env.JWT_SECRET as Secret) as JwtPayload;
 
       // Get user from the token, not including the hashed password
       res.locals.user = await User.findById(decoded.id).select('-password')
@@ -69,7 +69,7 @@ const googleLogin = (req: Request, res: Response) => {
 const handleOAuthResponse = async (req: Request, res: Response, next: NextFunction) => {
   console.log('handling oauth response');
   const { query } = url.parse(req.url, true);
-  const { tokens } = await oauth2Client.getToken(query.code);
+  const { tokens } = await oauth2Client.getToken(query.code as string);
   await oauth2Client.setCredentials(tokens);
 
   const oAuthResponse = await fetch(GOOGLE_OAUTH_URL, {
@@ -84,5 +84,5 @@ const handleOAuthResponse = async (req: Request, res: Response, next: NextFuncti
 }
 
 
-const authController: AuthController = { protect, googleLogin, handleOAuthResponse }
-module.exports = authController;
+const authController: AuthController = { protect, googleLogin, handleOAuthResponse };
+export default authController;

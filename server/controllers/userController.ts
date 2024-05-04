@@ -1,8 +1,8 @@
 import UserController from "../interfaces/UserController";
 
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const User = require("../models/User");
+import jwt, { Secret } from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import User from "../models/User";
 
 const userController: UserController = {
   registerUser: async (req, res, next) => {
@@ -43,7 +43,7 @@ const userController: UserController = {
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
-          token: generateToken(user._id),
+          token: generateToken(String(user._id)),
         });
       } else {
         res.status(400).json({ error: "Invalid user data" });
@@ -64,7 +64,7 @@ const userController: UserController = {
         return res.status(400).json({ error: "User not found" });
       }
 
-      const isValid = await bcrypt.compare(password, user.password);
+      const isValid = await bcrypt.compare(password, user.password as string);
       if (!isValid) {
         return res.status(400).json({ error: "Invalid credentials" });
       }
@@ -74,7 +74,7 @@ const userController: UserController = {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        token: generateToken(user._id),
+        token: generateToken(String(user._id)),
       });
     } catch (error) {
       console.error(error);
@@ -90,7 +90,7 @@ const userController: UserController = {
       ? existingUser
       : await User.create({ firstName, lastName, email });
 
-    const token = jwt.sign({ id: user._id, email }, process.env.JWT_SECRET, { expiresIn: "30d" });
+    const token = jwt.sign({ id: user._id, email }, process.env.JWT_SECRET as Secret, { expiresIn: "30d" });
     res.cookie('authorization', token);
     res.redirect('/oauth-success');
   },
@@ -102,12 +102,13 @@ const userController: UserController = {
   getUser: async (req, res, next) => {
     const user = await User.findById(res.locals.user.id);
     try {
-      res.status(200).json({
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-      });
+      const resData = {
+        id: user?.id,
+        firstName: user?.firstName,
+        lastName: user?.lastName,
+        email: user?.email,
+      };
+      res.status(200).json(resData);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Internal server error" });
@@ -133,7 +134,7 @@ const userController: UserController = {
 
 // generate json web token
 const generateToken = (id: string) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
+  return jwt.sign({ id }, process.env.JWT_SECRET as Secret, { expiresIn: "30d" });
 };
 
-module.exports = userController;
+export default userController;
