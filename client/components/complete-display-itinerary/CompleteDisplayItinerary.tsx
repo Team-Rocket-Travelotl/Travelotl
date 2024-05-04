@@ -6,15 +6,20 @@ import { useAppSelector } from "../../hooks.ts";
 import CompleteItinerary from "../../models/CompleteItinerary.ts";
 
 const CompleteDisplayItinerary = () => {
-  const { itinerary, id, /* userEmail */ } = useAppSelector(state => state.itinerary);
-  const [editedItinerary, setEditedItinerary] = useState<CompleteItinerary>(itinerary);
+  const { itinerary, id /* userEmail */ } = useAppSelector(
+    state => state.itinerary
+  );
+  const [editedItinerary, setEditedItinerary] =
+    useState<CompleteItinerary>(itinerary);
+  const [changesMade, setChangesMade] = useState<boolean>(false);
 
-  console.log('complete itinerary:', itinerary)
-  console.log('id: ', id)
+  console.log("complete itinerary:", itinerary);
+  console.log("id: ", id);
 
   //=======> HANDLE CLICK <============
   const handleClick = async () => {
-    console.log("state to send to back end", editedItinerary);
+    if (!changesMade) return;
+    console.log('state to send to back end', editedItinerary);
     try {
       const response = await fetch("/api/trip/update", {
         method: "PATCH",
@@ -22,10 +27,11 @@ const CompleteDisplayItinerary = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
-        body: JSON.stringify(editedItinerary),
+        body: JSON.stringify({ itinerary: { ...editedItinerary }, _id: id }),
       });
       if (response.ok) {
-        console.log("successful patch");
+        console.log('successful patch');
+        setChangesMade(false);
       } else {
         throw new Error("failed to retrieve data");
       }
@@ -50,6 +56,7 @@ const CompleteDisplayItinerary = () => {
               dateObj={itinerary[date]}
               date={date}
               setEditedItinerary={setEditedItinerary}
+              setChangesMade={setChangesMade}
             />
           </div>
         </div>
@@ -57,16 +64,23 @@ const CompleteDisplayItinerary = () => {
     });
   }
 
-  const itineraryItems = itinerary !== undefined ? (
-    <div id="itinerary-details">
-      {/* <div>
+  const itineraryItems =
+    itinerary !== undefined ? (
+      <div id="itinerary-details">
+        {/* <div>
         <h3>User Email: {localStorage.getItem('userEmail')}</h3>
       </div> */}
-      <h2>Your Itinerary</h2>
-      {dateComponents}
-      <button onClick={handleClick}>Save Changes</button>
-    </div>
-  ) : <h2>No itinerary currently selected</h2>;
+        <h2 className="text-2xl text-center font-bold lobster-regular">
+          Your Itinerary
+        </h2>
+        {dateComponents}
+        <button onClick={handleClick}>Save Changes</button>
+      </div>
+    ) : (
+      <h2 className="text-2xl text-center font-bold lobster-regular">
+        No itinerary currently selected
+      </h2>
+    );
 
   return (
     <div>

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setCurrentItineraryDetails } from "../../reducers/itineraryReducer";
-import Header from "../header/Header";
+import Header from "../header";
 import TripDetails from "../../models/TripDetails";
 import CompleteItinerary from "../../models/CompleteItinerary";
 
@@ -18,6 +18,7 @@ const MyItinerary = () => {
       (async function () {
         const userId = localStorage.getItem("userId");
         console.log("get my iti before and userId", userId);
+
         const response = await fetch(`api/trip/retrieveById/${userId}`, {
           method: "GET",
           headers: {
@@ -31,7 +32,7 @@ const MyItinerary = () => {
         setItineraries(itineraryList);
 
         const userIds = itineraryList.map((itinerary) => itinerary.user);
-        const userEmailMap: Map<string, string> = new Map();
+        const userEmailMap = new Map<string, string>();
         for (const id of userIds) {
           if (!userEmailMap[id]) {
             const email = await getEmailById(id);
@@ -45,7 +46,7 @@ const MyItinerary = () => {
     }
   }, []);
 
-  const getEmailById = async (_id) => {
+  const getEmailById = async (_id: string) => {
     try {
       const response = await fetch(`/api/users/${_id}/email`, {
         method: "GET",
@@ -64,9 +65,7 @@ const MyItinerary = () => {
     }
   };
 
-  const deleteItinerary = async (e) => {
-    const tripId: string = e.target.parentNode.parentNode.id;
-
+  const deleteItinerary = async (tripId: string) => {
     try {
       const response = await fetch("api/trip/delete", {
         method: "DELETE",
@@ -85,9 +84,7 @@ const MyItinerary = () => {
     }
   };
 
-  const seeDetails = async (e) => {
-    const tripId: string = e.target.parentNode.parentNode.id;
-
+  const seeDetails = async (tripId: string) => {
     try {
       const response = await fetch("api/trip/retrieve", {
         method: "GET",
@@ -96,15 +93,15 @@ const MyItinerary = () => {
         },
       });
 
-      const itineraryList = await response.json();
+      const itineraryList: TripDetails[] = await response.json();
 
       console.log(itineraryList);
 
       const matchingTrip = itineraryList.filter(
         (trip) => trip._id === tripId
       )[0];
-      const userEmail = userEmails[matchingTrip.user];
       let foundTrip: CompleteItinerary;
+      const userEmail: string = userEmails[matchingTrip.user];
 
       // rn we have data coming back in different formats so this grabs the right info depending on which format we get
       if (typeof matchingTrip.trip === "string") {
@@ -113,7 +110,7 @@ const MyItinerary = () => {
           : JSON.parse(matchingTrip.trip);
       } else foundTrip = matchingTrip.trip;
 
-      console.log("See Details of:", foundTrip);
+      // console.log('See Details of:', foundTrip);
 
       if (foundTrip) {
         dispatch(
@@ -151,8 +148,8 @@ const MyItinerary = () => {
         </p>
 
         <div className="tile-buttons">
-          <button onClick={seeDetails}>See Details</button>
-          <button onClick={deleteItinerary}>Delete</button>
+          <button onClick={() => seeDetails(_id)}>See Details</button>
+          <button onClick={() => deleteItinerary(_id)}>Delete</button>
         </div>
       </div>
     );
@@ -161,7 +158,10 @@ const MyItinerary = () => {
   return (
     <div>
       <Header />
-      <h2>My Itinerary</h2>
+      <h2 className="text-2xl text-center font-bold lobster-regular">
+        {" "}
+        My Itinerary
+      </h2>
       <div id="itinerary-grid">{renderList}</div>
     </div>
   );

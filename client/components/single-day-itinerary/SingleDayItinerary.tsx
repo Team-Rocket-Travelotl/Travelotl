@@ -1,49 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
+import React from "react";
 import SingleDayItineraryProps from "../../models/SingleDayItineraryProps";
-import CompleteItinerary from "../../models/CompleteItinerary";
-import Map from "../map/Map";
 
 const SingleDayItinerary = (props: SingleDayItineraryProps) => {
-  const { editedItinerary, setEditedItinerary, dateObj, date } = props;
+  const { editedItinerary, setEditedItinerary, dateObj, date, setChangesMade } =
+    props;
+
   const timeSlots = Object.keys(dateObj);
-  const defaultCenter = { lat: 0, lng: 0 };
-
-  //=======> HANDLE CHANGE <============
-  const handleChange = (
-    date: string,
-    timeOfDay: string,
-    field: string,
-    newText: string
-  ) => {
-    const ItineraryCopy: CompleteItinerary = JSON.parse(
-      JSON.stringify(editedItinerary)
-    );
-
-    console.log("time of day", ItineraryCopy[date][timeOfDay][field]);
-    ItineraryCopy[date][timeOfDay][field] = newText;
-    setEditedItinerary(ItineraryCopy);
-    console.log("edit IT--->", editedItinerary);
-  };
-
   const timeSlotComponents = timeSlots.map((timeOfDay) => {
     const { activity, description, address } = dateObj[timeOfDay];
+    //=======> HANDLE CHANGE <============
+    const handleChange = (
+      date: string,
+      timeOfDay: string,
+      field: string,
+      newText: string
+    ) => {
+      const ItineraryCopy = JSON.parse(JSON.stringify(editedItinerary));
+      console.log("Itinerary Copy", ItineraryCopy);
+      ItineraryCopy[date][timeOfDay][field] = newText;
+      setEditedItinerary(ItineraryCopy);
+      setChangesMade(true);
+      console.log('edit IT--->', editedItinerary);
+      return editedItinerary;
+    };
 
     //=======> COMPONENT <============
     return (
       <div className="activity-details" key={timeOfDay}>
         <h3 className="time-of-day">{timeOfDay}</h3>
-        <label htmlFor="Activity"> Activity:</label>
+        <label htmlFor=""> Activity:</label>
         <input
           type="text"
-          name="activity"
           defaultValue={activity}
           onChange={(e) =>
             handleChange(date, timeOfDay, "activity", e.target.value)
           }
           id="activity"
         ></input>
-        <label htmlFor="Description"> Description:</label>
+        <label htmlFor=""> Description:</label>
         <input
           type="text"
           defaultValue={description}
@@ -65,11 +59,7 @@ const SingleDayItinerary = (props: SingleDayItineraryProps) => {
     );
   });
 
-  return (
-    <div>
-      <div>{timeSlotComponents}</div>
-    </div>
-  );
+  return <div>{timeSlotComponents}</div>;
 };
 
 export default SingleDayItinerary;

@@ -22,6 +22,7 @@ import MyItinerary from './components/my-itinerary';
 import Register from './components/register';
 import { store } from './store';
 import './styles.css';
+import OAuthSuccess from './components/oauth-success/OAuthSuccess';
 
 const root = createRoot(document.getElementById("root"));
 
@@ -32,6 +33,7 @@ root.render(
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<Main />} />
+            <Route path="/oauth-success" element={<OAuthSuccess />} />
             <Route path="/manager" element={<Manager />} />
             <Route path="/myitinerary" element={<MyItinerary />} />
             <Route path="/about" element={<About />} />

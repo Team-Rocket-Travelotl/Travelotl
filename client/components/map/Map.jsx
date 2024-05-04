@@ -21,7 +21,7 @@ const Map = ({ addresses }) => {
         {/* {addresses.map((address, index) => {
           <Marker key={index} position={address}></Marker>;
         })} */}
-        {/* <Marker position={addresses}></Marker> */}
+        <Marker position={addresses}></Marker>
       </GoogleMap>
     </APIProvider>
   );
