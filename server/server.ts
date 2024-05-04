@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 
-const express = require("express");
-const path = require("path");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+import express from "express";
+import path from "path";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 //use environmental variables
 dotenv.config({ path: './config.env' });

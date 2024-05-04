@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 
-const express = require('express');
+import express from 'express';
+import tripController from '../controllers/tripController';
+import authController from '../controllers/authController';
+
 const router = express.Router();
-const tripController = require('../controllers/tripController');
-const authController = require('../controllers/authController');
 
 router.post(
   '/build',
@@ -54,4 +55,4 @@ router.patch('/update', tripController.updateTrip, (req: Request, res: Response)
   res.status(200).json(res.locals.updatedItinerary);
 });
 
-module.exports = router;
+export default router;
