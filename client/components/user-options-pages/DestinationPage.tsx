@@ -2,7 +2,7 @@ import React, { KeyboardEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks.ts";
 import { updateDestination } from "../../reducers/tripReducer.ts";
-import pageRoutes from "../../constants/routes.ts";
+import pageRoutes from "../../constants/routes";
 
 const DestinationPage = () => {
   // page 1
@@ -38,7 +38,7 @@ const DestinationPage = () => {
 
   return (
     <div className="trip-input-box" onKeyDown={handleEnterKey}>
-      <label className="text-2xl " htmlFor="destination">
+      <label className="text-1xl " htmlFor="destination">
         Destination:
       </label>
       <input

@@ -1,5 +1,4 @@
 const express = require("express");
-
 const router = express.Router();
 const {
   getUserEmailById,
@@ -8,7 +7,7 @@ const {
   getUser,
   logoutUser,
 } = require("../controllers/userController");
-const { protect } = require("../controllers/auth_controller");
+const { protect } = require("../controllers/authController");
 
 router.post("/", registerUser);
 router.post("/login", loginUser);

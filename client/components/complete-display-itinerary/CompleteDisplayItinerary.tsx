@@ -8,15 +8,16 @@ const CompleteDisplayItinerary = () => {
   const { itinerary, id /* userEmail */ } = useAppSelector(
     (state) => state.itinerary
   );
-
   const [editedItinerary, setEditedItinerary] =
     useState<CompleteItinerary>(itinerary);
+  const [changesMade, setChangesMade] = useState<boolean>(false);
 
   console.log("complete itinerary:", itinerary);
   console.log("id: ", id);
 
   //=======> HANDLE CLICK <============
   const handleClick = async () => {
+    if (!changesMade) return;
     console.log("state to send to back end", editedItinerary);
     try {
       const response = await fetch("/api/trip/update", {
@@ -29,6 +30,7 @@ const CompleteDisplayItinerary = () => {
       });
       if (response.ok) {
         console.log("successful patch");
+        setChangesMade(false);
       } else {
         throw new Error("failed to retrieve data");
       }
@@ -53,6 +55,7 @@ const CompleteDisplayItinerary = () => {
               dateObj={itinerary[date]}
               date={date}
               setEditedItinerary={setEditedItinerary}
+              setChangesMade={setChangesMade}
             />
           </div>
         </div>
@@ -64,15 +67,17 @@ const CompleteDisplayItinerary = () => {
     itinerary !== undefined ? (
       <div id="itinerary-details">
         {/* <div>
-  const itineraryItems =
-    itinerary !== undefined ? (
-      <div id="itinerary-details">
-        {/* <div>
         <h3>User Email: {localStorage.getItem('userEmail')}</h3>
       </div> */}
         <h2>Your Itinerary</h2>
         {dateComponents}
-        <button onClick={handleClick}>Save Changes</button>
+        <button
+          className="button-style"
+          style={{ background: "rgb(233, 68, 123) " }}
+          onClick={handleClick}
+        >
+          Save Changes
+        </button>
       </div>
     ) : (
       <h2>No itinerary currently selected</h2>

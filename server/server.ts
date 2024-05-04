@@ -1,10 +1,12 @@
+import { Request, Response } from "express";
+
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
 //use environmental variables
-dotenv.config({ path: "./config.env" });
+dotenv.config({ path: './config.env' });
 
 // connect to MongoDB cluster
 const connectDB = async () => {
@@ -19,20 +21,19 @@ const connectDB = async () => {
 
 connectDB();
 
-// TEST CODE - CAN DELETE WHEN FINISHED
-// const tripController = require('./controllers/itinerary_controller');
-
 const app = express();
 const port = 3000;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "client")));
+app.use(express.static(path.join(__dirname, 'client')));
 app.use(express.urlencoded({ extended: true })); //parse urlencoded bodies
 
-app.use("/api/users", require("./routes/userRoutes"));
-app.use("/api/trip", require("./routes/itineraryRoutes"));
+app.use("/api/users", require("./routes/userRoutes.ts"));
+app.use("/api/trip", require("./routes/itineraryRoutes.ts"));
+app.use('/google-login', require('./routes/googleAuthRoutes.ts'));
 
-app.get("/", function (req, res) {
+
+app.get("/", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "../index.html"));
 });
 
